@@ -1,0 +1,41 @@
+name: 從雲端硬碟匯入駒澤屋素材
+
+on:
+  push:
+    branches: [main]
+    paths: ["komazawa/pro/ids.txt"]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  import:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - name: 下載並縮圖（長邊 1600px）
+        run: |
+          set -u
+          cd komazawa/pro
+          : > import_log.txt
+          while read -r id name; do
+            [ -z "$id" ] && continue
+            [ -f "$name" ] && continue
+            curl -sSL -o "tmp_$name" "https://drive.usercontent.google.com/download?id=$id&export=download&confirm=t"
+            kind=$(file -b --mime-type "tmp_$name")
+            echo "$name $kind $(stat -c%s "tmp_$name")" >> import_log.txt
+            case "$kind" in
+              image/*) convert "tmp_$name" -auto-orient -resize '1600x1600>' -strip -quality 85 "$name"; rm "tmp_$name" ;;
+              video/*) mv "tmp_$name" "$name" ;;
+              *) rm "tmp_$name" ;;
+            esac
+          done < ids.txt
+          cat import_log.txt
+      - name: 存檔
+        run: |
+          git config user.name "eason-autopost-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add -A komazawa
+          git diff --cached --quiet || (git commit -m "匯入駒澤屋攝影素材" && git pull --rebase -q && git push -q)
