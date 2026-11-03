@@ -34,6 +34,8 @@ def list_folder(folder_id, depth=0):
     """用公開的 embeddedfolderview 頁面列出檔案（含子資料夾，最多 2 層）。"""
     page = get(f"https://drive.google.com/embeddedfolderview?id={folder_id}").decode("utf-8", "replace")
     out = []
+    if depth == 0:
+        print(f"  頁面 {len(page)} 字，flip-entry {page.count('flip-entry')} 個，file/d {page.count('/file/d/')} 個")
     for m in re.finditer(r'<a href="([^"]+)"[^>]*>.*?<div class="flip-entry-title">(.*?)</div>', page, re.S):
         href, title = html.unescape(m.group(1)), html.unescape(m.group(2)).strip()
         fid = re.search(r"/(?:file/d|folders)/([A-Za-z0-9_-]+)", href)
