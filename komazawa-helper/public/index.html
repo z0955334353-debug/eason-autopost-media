@@ -85,7 +85,7 @@ function card(p) {
   const el = document.createElement("div");
   el.className = "card";
   el.innerHTML = `
-    <div class="meta">@${esc(p.username)}・${ago(p.timestamp)}・<a href="${esc(p.permalink)}" target="_blank" rel="noopener">在脆上打開</a></div>
+    <div class="meta">@${esc(p.username)}${p.own ? "（自己的貼文）" : ""}・${ago(p.timestamp)}・<a href="${esc(p.permalink)}" target="_blank" rel="noopener">在脆上打開</a></div>
     <div class="post">${esc(p.text)}</div>
     <textarea placeholder="寫下你的留言（不要放連結、不要寫「私訊」）"></textarea>
     <div class="row" style="margin-top:8px"><button>送出留言</button></div>

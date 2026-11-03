@@ -13,7 +13,7 @@ export async function onRequestGet({ request, env }) {
       search_type: type,
       fields: "id,text,permalink,timestamp,username,has_replies,media_type",
     }, s.t);
-    const items = (d.data || []).filter((p) => p.username !== s.u);
+    const items = (d.data || []).map((p) => ({ ...p, own: p.username === s.u }));
     return json({ items });
   } catch (e) {
     return json({ error: e.message }, 502);
