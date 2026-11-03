@@ -24,7 +24,7 @@ jobs:
       - name: 安裝 ffmpeg 與中文字型
         run: sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg fonts-noto-cjk >/dev/null
       - name: 抓「駒澤屋_每日素材」的新影片、照片，做縮圖表
-        run: python3 komazawa/reels/tools/import_drive.py 1wUc_kgh63D_vhDkB4P9MiFHE4voF1YEq 1nIzJGvWgOkv9VcvBkgROWeQiOLaPiKoF
+        run: python3 komazawa/reels/tools/import_drive.py 1wUc_kgh63D_vhDkB4P9MiFHE4voF1YEq
       - name: 依剪輯單剪出還沒剪過的 Reels
         run: |
           for f in komazawa/reels/edl/*.json; do
