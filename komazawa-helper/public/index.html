@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>駒澤屋 海巡小幫手</title>
+<link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="logo">駒澤</div>
+    <div>
+      <h1>駒澤屋 海巡小幫手</h1>
+      <p class="sub">找到正在問「台中吃什麼」的脆文，由店裡的人親自留言回覆</p>
+    </div>
+  </header>
+
+  <div id="loggedOut" class="card" hidden>
+    <p>用駒澤屋的 Threads 帳號登入後，就能搜尋關鍵字、在貼文底下留言。每一則留言都要你親自按「送出」才會發出。</p>
+    <a class="btn" href="/login">用 Threads 登入</a>
+  </div>
+
+  <div id="app" hidden>
+    <div class="row" style="justify-content:space-between">
+      <span class="meta">已登入：@<b id="who"></b></span>
+      <a class="meta" href="/logout">登出</a>
+    </div>
+
+    <div class="card">
+      <form id="searchForm" class="row">
+        <input id="q" placeholder="輸入關鍵字，例如：台中宵夜" style="flex:1;min-width:180px">
+        <button>搜尋</button>
+      </form>
+      <div class="chips" id="chips"></div>
+      <label class="meta"><input type="checkbox" id="top" style="width:auto"> 依熱門排序（預設依最新）</label>
+    </div>
+
+    <div id="status" class="meta"></div>
+    <div id="results"></div>
+  </div>
+
+  <footer>
+    瓏駒股份有限公司・駒澤屋壽喜燒｜<a href="/privacy.html">隱私權政策</a>｜<a href="/terms.html">服務條款</a>｜<a href="/data-deletion.html">資料刪除</a>
+  </footer>
+</div>
+
+<script>
+const KEYWORDS = ["台中宵夜", "台中美食", "台中晚餐", "壽喜燒", "台中約會", "台中慶生", "北區美食"];
+const $ = (id) => document.getElementById(id);
+
+function esc(s) { return String(s || "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c])); }
+function ago(ts) {
+  const m = Math.round((Date.now() - new Date(ts).getTime()) / 60000);
+  if (m < 60) return `${m} 分鐘前`;
+  if (m < 1440) return `${Math.round(m / 60)} 小時前`;
+  return `${Math.round(m / 1440)} 天前`;
+}
+
+async function init() {
+  const me = await fetch("/api/me").then((r) => r.json()).catch(() => ({}));
+  if (!me.loggedIn) { $("loggedOut").hidden = false; return; }
+  $("who").textContent = me.username;
+  $("app").hidden = false;
+  for (const k of KEYWORDS) {
+    const b = document.createElement("button");
+    b.type = "button"; b.className = "chip"; b.textContent = k;
+    b.onclick = () => { $("q").value = k; search(); };
+    $("chips").appendChild(b);
+  }
+}
+
+async function search() {
+  const q = $("q").value.trim();
+  if (!q) return;
+  $("status").textContent = "搜尋中…";
+  $("results").innerHTML = "";
+  const r = await fetch(`/api/search?q=${encodeURIComponent(q)}&type=${$("top").checked ? "TOP" : "RECENT"}`).then((r) => r.json());
+  if (r.error) { $("status").textContent = "搜尋失敗：" + r.error; return; }
+  $("status").textContent = r.items.length ? `找到 ${r.items.length} 篇` : "沒有找到貼文，換個關鍵字試試";
+  for (const p of r.items) $("results").appendChild(card(p));
+}
+
+function card(p) {
+  const el = document.createElement("div");
+  el.className = "card";
+  el.innerHTML = `
+    <div class="meta">@${esc(p.username)}・${ago(p.timestamp)}・<a href="${esc(p.permalink)}" target="_blank" rel="noopener">在脆上打開</a></div>
+    <div class="post">${esc(p.text)}</div>
+    <textarea placeholder="寫下你的留言（不要放連結、不要寫「私訊」）"></textarea>
+    <div class="row" style="margin-top:8px"><button>送出留言</button></div>
+    <div class="msg"></div>`;
+  const ta = el.querySelector("textarea"), btn = el.querySelector("button"), msg = el.querySelector(".msg");
+  btn.onclick = async () => {
+    const text = ta.value.trim();
+    if (!text) return;
+    if (!confirm(`確定要用 @${$("who").textContent} 在 @${p.username} 的貼文底下留言嗎？\n\n${text}`)) return;
+    btn.disabled = true; msg.className = "msg"; msg.textContent = "送出中…";
+    const r = await fetch("/api/reply", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ postId: p.id, text }) }).then((r) => r.json());
+    if (r.ok) { msg.className = "msg ok"; msg.innerHTML = `已留言 ✓ ${r.permalink ? `<a href="${esc(r.permalink)}" target="_blank" rel="noopener">查看</a>` : ""}`; ta.disabled = true; }
+    else { msg.className = "msg err"; msg.textContent = "失敗：" + r.error; btn.disabled = false; }
+  };
+  return el;
+}
+
+$("searchForm").onsubmit = (e) => { e.preventDefault(); search(); };
+init();
+</script>
+</body>
+</html>

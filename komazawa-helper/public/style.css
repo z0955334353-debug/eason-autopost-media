@@ -1,0 +1,26 @@
+:root{--bg:#f7f2ea;--card:#fffdf9;--ink:#2a1d18;--muted:#7a6a60;--line:#e6dccd;--brand:#7a1f2b;--brand-ink:#fff;--ok:#2f6b3a;--err:#a1262f}
+@media (prefers-color-scheme:dark){:root{--bg:#1c1513;--card:#261d1a;--ink:#f3e9d8;--muted:#b8a898;--line:#3a2e29;--brand:#b3404f;--ok:#7fc28b;--err:#f08a91}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.7 -apple-system,"PingFang TC","Noto Sans TC","Microsoft JhengHei",sans-serif}
+.wrap{max-width:760px;margin:0 auto;padding:24px 16px 64px}
+header{display:flex;align-items:center;gap:12px;margin-bottom:20px}
+.logo{width:44px;height:44px;border-radius:50%;background:var(--brand);color:var(--brand-ink);display:grid;place-items:center;font-weight:700;font-size:13px;letter-spacing:1px}
+h1{font-size:20px;margin:0}
+h2{font-size:17px;margin:28px 0 8px}
+.sub{color:var(--muted);font-size:14px;margin:0}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px;margin:12px 0}
+button,.btn{appearance:none;border:0;border-radius:10px;background:var(--brand);color:var(--brand-ink);padding:10px 16px;font:inherit;font-weight:600;cursor:pointer;text-decoration:none;display:inline-block}
+button.ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
+button:disabled{opacity:.5;cursor:default}
+input,textarea{width:100%;font:inherit;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:10px 12px}
+textarea{min-height:84px;resize:vertical}
+.row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0}
+.chip{background:transparent;color:var(--ink);border:1px solid var(--line);padding:6px 12px;font-weight:500;border-radius:999px}
+.meta{color:var(--muted);font-size:13px}
+.post{white-space:pre-wrap;margin:6px 0 10px}
+.msg{font-size:14px;margin-top:8px}
+.msg.ok{color:var(--ok)}.msg.err{color:var(--err)}
+a{color:var(--brand)}
+footer{margin-top:40px;color:var(--muted);font-size:13px}
+.legal p,.legal li{font-size:15px}
