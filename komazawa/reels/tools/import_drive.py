@@ -84,7 +84,9 @@ def main(folder_ids):
     tmp.mkdir(exist_ok=True)
     new = []
     for folder in folder_ids:
-        for f in list_folder(folder):
+        files = list_folder(folder)
+        print(f"資料夾 {folder}：看到 {len(files)} 個檔案")
+        for f in files:
             if f["id"] in manifest:
                 continue
             name = f["name"]
@@ -120,6 +122,7 @@ def main(folder_ids):
             finally:
                 src.unlink(missing_ok=True)
     MANIFEST.write_text(json.dumps(manifest, ensure_ascii=False, indent=1), encoding="utf-8")
+    (ROOT / "inbox").mkdir(exist_ok=True)
     summary = {"date": day, "new": new}
     (ROOT / "inbox" / "latest.json").write_text(json.dumps(summary, ensure_ascii=False, indent=1), encoding="utf-8")
     print(f"新素材 {len(new)} 個：影片 {sum(r['type']=='video' for r in new)}、照片 {sum(r['type']=='photo' for r in new)}")
