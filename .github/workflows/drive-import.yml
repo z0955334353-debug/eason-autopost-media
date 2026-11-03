@@ -3,7 +3,7 @@ name: 從雲端硬碟匯入駒澤屋素材
 on:
   push:
     branches: [main]
-    paths: ["komazawa/pro/ids.txt"]
+    paths: ["komazawa/pro/ids.txt", ".github/workflows/drive-import.yml"]
   workflow_dispatch:
 
 permissions:
@@ -15,6 +15,7 @@ jobs:
     timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
+      - run: pip install -q pillow
       - name: 下載並縮圖（長邊 1600px）
         run: |
           set -u
@@ -27,7 +28,7 @@ jobs:
             kind=$(file -b --mime-type "tmp_$name")
             echo "$name $kind $(stat -c%s "tmp_$name")" >> import_log.txt
             case "$kind" in
-              image/*) convert "tmp_$name" -auto-orient -resize '1600x1600>' -strip -quality 85 "$name"; rm "tmp_$name" ;;
+              image/*) python3 -c "import sys;from PIL import Image,ImageOps;im=ImageOps.exif_transpose(Image.open(sys.argv[1])).convert('RGB');im.thumbnail((1600,1600));im.save(sys.argv[2],quality=85)" "tmp_$name" "$name"; rm "tmp_$name" ;;
               video/*) mv "tmp_$name" "$name" ;;
               *) rm "tmp_$name" ;;
             esac
