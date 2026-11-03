@@ -1,0 +1,41 @@
+name: 駒澤屋 Reels（抓素材／剪片）
+
+on:
+  schedule:
+    - cron: "37 5 * * *"   # 每天 13:37（台灣時間）抓員工新上傳的素材
+  push:
+    branches: [main]
+    paths: ["komazawa/reels/requests/**", "komazawa/reels/edl/**"]
+  workflow_dispatch:
+
+concurrency:
+  group: komazawa-reels
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  reels:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - name: 安裝 ffmpeg 與中文字型
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg fonts-noto-cjk >/dev/null
+      - name: 抓「駒澤屋_每日素材」的新影片、照片，做縮圖表
+        run: python3 komazawa/reels/tools/import_drive.py 1wUc_kgh63D_vhDkB4P9MiFHE4voF1YEq
+      - name: 依剪輯單剪出還沒剪過的 Reels
+        run: |
+          for f in komazawa/reels/edl/*.json; do
+            [ -e "$f" ] || continue
+            slug=$(basename "$f" .json)
+            [ -f "komazawa/reels/out/$slug.mp4" ] && continue
+            python3 komazawa/reels/tools/render.py "$f"
+          done
+      - name: 存檔
+        run: |
+          git config user.name "eason-autopost-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add -A komazawa/reels
+          git diff --cached --quiet || (git commit -m "駒澤屋 Reels $(TZ=Asia/Taipei date '+%m/%d %H:%M')" && git pull --rebase -q && git push -q)

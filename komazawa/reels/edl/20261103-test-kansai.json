@@ -1,0 +1,21 @@
+{
+  "slug": "20261103-test-kansai",
+  "title": "關西風壽喜燒的第一步",
+  "clips": [
+    {"photo": "komazawa/pro/2V1A6927.jpg", "dur": 0.7},
+    {"photo": "komazawa/pro/2V1A6971.jpg", "dur": 0.7},
+    {"photo": "komazawa/pro/2V1A6975.jpg", "dur": 0.6},
+    {"photo": "komazawa/pro/2V1A6976.jpg", "dur": 0.6},
+    {"photo": "komazawa/pro/2V1A6978.jpg", "dur": 0.6},
+    {"photo": "komazawa/pro/2V1A6980.jpg", "dur": 0.6},
+    {"photo": "komazawa/pro/2V1A6984.jpg", "dur": 0.8},
+    {"photo": "komazawa/pro/2V1A6987.jpg", "dur": 0.7},
+    {"photo": "komazawa/pro/2V1A6993.jpg", "dur": 0.7},
+    {"photo": "komazawa/pro/2V1A7006.jpg", "dur": 0.8},
+    {"photo": "komazawa/pro/2V1A7050.jpg", "dur": 0.8},
+    {"photo": "komazawa/pro/2V1A7053.jpg", "dur": 1.6},
+    {"photo": "komazawa/pro/2V1A7058.jpg", "dur": 1.8}
+  ],
+  "keep_audio": true,
+  "logo": true
+}
