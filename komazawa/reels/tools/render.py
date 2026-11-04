@@ -4,7 +4,7 @@
 {
   "slug": "20261104-kansai",                       # 檔名
   "hook": {"title": "黃色大標", "sub": "白色副標"},   # 開頭 2.5 秒的標題（無底色、白字黑邊），選填
-  "captions": [{"start": 9.5, "end": 12.0, "text": "糖先下鍋"}],   # 畫面中的字（約 7 成高度），選填
+  "captions": [{"start": 9.5, "end": 12.0, "text": "糖先下鍋", "y": 0.24}],   # 畫面中的字；y 可個別指定高度（畫面比例），字不可蓋住肉、鍋、手的動作
   "end_text": ["最後入座 00:30", "今晚要不要來一鍋？"],             # 疊在最後 2.4 秒，選填
   "pin": [{"text": "台中北區", "color": "white"}, {"text": "開到半夜的壽喜燒", "color": "0xF5C518"}],  # 抖音版：整支置頂大字，選填
   "caption_y": 0.62, "caption_size": 72,             # 字幕高度（畫面比例）與字級，選填
@@ -117,7 +117,7 @@ def main(edl_path):
         draws.append(text(ln["text"], int(ln.get("size", 92)), ln.get("color", "white"), 250 + j * 118, 0, total + 1, 9))
     cy, cs = float(e.get("caption_y", 0.70)), int(e.get("caption_size", 62))
     for cap in e.get("captions", []):
-        draws.append(text(cap["text"], cs, cap.get("color", "white"), int(H * cy), float(cap["start"]), float(cap["end"]), 7))
+        draws.append(text(cap["text"], cs, cap.get("color", "white"), int(H * float(cap.get("y", cy))), float(cap["start"]), float(cap["end"]), 7))
     end_lines = e.get("end_text") or []
     end_secs = float(e.get("end_secs", 2.4))
     for j, line in enumerate(end_lines):

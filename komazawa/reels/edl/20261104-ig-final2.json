@@ -1,0 +1,149 @@
+{
+ "slug": "20261104-ig-final2",
+ "hook": {
+  "title": "北區的深夜壽喜燒",
+  "sub": "從備料到上桌"
+ },
+ "captions": [
+  {
+   "start": 2.6,
+   "text": "開門前，先把肉排好",
+   "end": 6.65
+  },
+  {
+   "start": 13.2,
+   "text": "關西風：糖先下鍋",
+   "end": 18.05
+  },
+  {
+   "start": 18.2,
+   "text": "肉貼著糖煎",
+   "end": 24.05
+  },
+  {
+   "start": 24.2,
+   "text": "店員桌邊幫你煎好",
+   "end": 28.5
+  }
+ ],
+ "end_text": [
+  "駒澤屋壽喜燒",
+  "台中北區健行路837號",
+  "每天 18:00 開門｜最後入座 00:30"
+ ],
+ "clips": [
+  {
+   "id": "1HuI8EB2MIstTZ6RhTOczIFSNVEiK1XH9",
+   "start": 20.5,
+   "end": 23.0,
+   "punch": true
+  },
+  {
+   "id": "1xeo3jQEg8cvXk-67mF45OM_3xjGClSM5",
+   "start": 2.0,
+   "end": 4.0
+  },
+  {
+   "id": "1xeo3jQEg8cvXk-67mF45OM_3xjGClSM5",
+   "start": 5.0,
+   "end": 7.2
+  },
+  {
+   "id": "12mOWgNqyDbNnqH8myp7EF8bREb25lRqX",
+   "start": 0.0,
+   "end": 2.2
+  },
+  {
+   "id": "12mOWgNqyDbNnqH8myp7EF8bREb25lRqX",
+   "start": 8.8,
+   "end": 11.0
+  },
+  {
+   "id": "12mOWgNqyDbNnqH8myp7EF8bREb25lRqX",
+   "start": 15.0,
+   "end": 17.0
+  },
+  {
+   "id": "1cX8iRVh5AJMBrPFsCLgh2G6R5xd0NBRr",
+   "start": 2.0,
+   "end": 4.5
+  },
+  {
+   "id": "1HuI8EB2MIstTZ6RhTOczIFSNVEiK1XH9",
+   "start": 6.0,
+   "end": 8.5
+  },
+  {
+   "id": "1cX8iRVh5AJMBrPFsCLgh2G6R5xd0NBRr",
+   "start": 34.0,
+   "end": 37.0
+  },
+  {
+   "id": "1HuI8EB2MIstTZ6RhTOczIFSNVEiK1XH9",
+   "start": 15.0,
+   "end": 18.0
+  },
+  {
+   "id": "1HuI8EB2MIstTZ6RhTOczIFSNVEiK1XH9",
+   "start": 23.5,
+   "end": 25.8
+  },
+  {
+   "id": "1HuI8EB2MIstTZ6RhTOczIFSNVEiK1XH9",
+   "start": 26.0,
+   "end": 29.0
+  },
+  {
+   "id": "1HuI8EB2MIstTZ6RhTOczIFSNVEiK1XH9",
+   "start": 29.5,
+   "end": 31.9
+  }
+ ],
+ "sfx": [
+  {
+   "file": "komazawa/reels/sfx/hit.wav",
+   "at": 0,
+   "vol": 0.7
+  },
+  {
+   "file": "komazawa/reels/sfx/pop.wav",
+   "at": 2.6,
+   "vol": 0.45
+  },
+  {
+   "file": "komazawa/reels/sfx/whoosh.wav",
+   "at": 6.45,
+   "vol": 0.45
+  },
+  {
+   "file": "komazawa/reels/sfx/pop.wav",
+   "at": 13.2,
+   "vol": 0.45
+  },
+  {
+   "file": "komazawa/reels/sfx/pop.wav",
+   "at": 18.2,
+   "vol": 0.45
+  },
+  {
+   "file": "komazawa/reels/sfx/whoosh.wav",
+   "at": 23.85,
+   "vol": 0.45
+  },
+  {
+   "file": "komazawa/reels/sfx/pop.wav",
+   "at": 24.2,
+   "vol": 0.45
+  },
+  {
+   "file": "komazawa/reels/sfx/pop.wav",
+   "at": 28.6,
+   "vol": 0.5
+  }
+ ],
+ "live_vol": 0.9,
+ "keep_audio": true,
+ "logo": false,
+ "end_secs": 3.2,
+ "caption_y": 0.24
+}
