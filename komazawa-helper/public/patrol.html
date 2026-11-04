@@ -51,7 +51,7 @@ async function load(){
   d.items.forEach((it,i)=>{
     const el=document.createElement("div");el.className="card item"+(done.has(i)?" done":"");
     el.innerHTML=`<div><span class="num">${i+1}</span><span class="what">${esc(it.summary)}</span></div>
-      <div class="meta">@${esc(it.username||"")}${it.comments!=null?"・"+esc(it.comments)+" 則留言":""}</div>
+      <div class="meta">@${esc(it.username||"")}${it.traffic?"・🔥 "+esc(it.traffic):(it.comments!=null?"・"+esc(it.comments)+" 則留言":"")}</div>
       <div class="cmt">${esc(it.comment)}</div>
       <button class="go">複製留言＋打開貼文</button>
       <div class="small"><span class="st">${done.has(i)?"✓ 已留言":""}</span><span><button class="ghost cp">只複製</button> <button class="ghost mk">${done.has(i)?"取消標記":"標記已留"}</button></span></div>`;
