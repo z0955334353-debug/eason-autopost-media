@@ -6,6 +6,8 @@
   "hook": {"title": "黃色大標", "sub": "白色副標"},   # 開頭 2.5 秒的標題（無底色、白字黑邊），選填
   "captions": [{"start": 9.5, "end": 12.0, "text": "糖先下鍋"}],   # 畫面中的字（約 7 成高度），選填
   "end_text": ["最後入座 00:30", "今晚要不要來一鍋？"],             # 疊在最後 2.4 秒，選填
+  "pin": [{"text": "台中北區", "color": "white"}, {"text": "開到半夜的壽喜燒", "color": "0xF5C518"}],  # 抖音版：整支置頂大字，選填
+  "caption_y": 0.62, "caption_size": 72,             # 字幕高度（畫面比例）與字級，選填
   "clips": [{"id": "雲端檔案ID", "start": 1.5, "end": 6.0, "speed": 1.0},
             {"photo": "komazawa/pro/2V1A6971.jpg", "dur": 0.6}],   # 照片：repo 內路徑，會慢慢推近
   "keep_audio": true,                               # 保留現場聲音
@@ -104,8 +106,12 @@ def main(edl_path):
         draws.append(text(hook["title"], 104, "0xF5C518", 560, 0, 2.5, 8))
         if hook.get("sub"):
             draws.append(text(hook["sub"], 60, "white", 700, 0, 2.5))
+    # 抖音式置頂大字（整支都在，無底色、粗黑邊）：避開最上方 220px 的系統列
+    for j, ln in enumerate(e.get("pin", [])):
+        draws.append(text(ln["text"], int(ln.get("size", 92)), ln.get("color", "white"), 250 + j * 118, 0, total + 1, 9))
+    cy, cs = float(e.get("caption_y", 0.70)), int(e.get("caption_size", 62))
     for cap in e.get("captions", []):
-        draws.append(text(cap["text"], 62, "white", int(H * 0.70), float(cap["start"]), float(cap["end"])))
+        draws.append(text(cap["text"], cs, cap.get("color", "white"), int(H * cy), float(cap["start"]), float(cap["end"]), 7))
     end_lines = e.get("end_text") or []
     for j, line in enumerate(end_lines):
         color = "0xF5C518" if j == 0 else "white"
