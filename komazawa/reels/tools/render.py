@@ -129,7 +129,8 @@ def main(edl_path):
     else:
         cmd += ["-map", "0:v"]
     cmd += ["-map", "0:a", "-af", "loudnorm=I=-14:TP=-1.5:LRA=11", "-c:v", "libx264", "-preset", "medium", "-crf", "17",
-            "-pix_fmt", "yuv420p", *COLOR, "-c:a", "aac", "-b:a", "192k", "-ar", "48000", "-movflags", "+faststart", str(final)]
+            "-pix_fmt", "yuv420p", *COLOR, "-bsf:v", "h264_metadata=colour_primaries=1:transfer_characteristics=1:matrix_coefficients=1",
+            "-c:a", "aac", "-b:a", "192k", "-ar", "48000", "-movflags", "+faststart", str(final)]
     run(cmd)
     run(["ffmpeg", "-v", "error", "-y", "-ss", "1", "-i", str(final), "-frames:v", "1", "-q:v", "3", str(out_dir / f"{e['slug']}.jpg")])
     print("完成", final, round(total, 1), "秒", final.stat().st_size // 1024, "KB")
