@@ -119,9 +119,10 @@ def main(edl_path):
     for cap in e.get("captions", []):
         draws.append(text(cap["text"], cs, cap.get("color", "white"), int(H * cy), float(cap["start"]), float(cap["end"]), 7))
     end_lines = e.get("end_text") or []
+    end_secs = float(e.get("end_secs", 2.4))
     for j, line in enumerate(end_lines):
         color = "0xF5C518" if j == 0 else "white"
-        draws.append(text(line, 76 if j == 0 else 62, color, int(H * 0.66) + j * 100, max(0, total - 2.4), total + 1))
+        draws.append(text(line, 84 if j == 0 else 62, color, int(H * 0.64) + j * (110 if j == 1 else 90), max(0, total - end_secs), total + 1))
 
     filters, inputs = [], ["-i", str(joined)]
     last = "0:v"
