@@ -57,10 +57,10 @@ def main(edl_path):
         cmd = ["ffmpeg", "-v", "error", "-y", "-ss", str(c["start"]), "-t", str(dur), "-i", str(src)]
         if not (has_audio and e.get("keep_audio", True)):
             cmd += ["-f", "lavfi", "-t", str(dur / speed), "-i", "anullsrc=r=48000:cl=stereo"]
-            amap = ["-map", "0:v", "-map", "1:a"]
+            amap = ["-map", "0:v:0", "-map", "1:a:0"]
         else:
-            amap = ["-map", "0:v", "-map", "0:a", "-af", f"atempo={speed}" if speed != 1.0 else "anull"]
-        cmd += ["-vf", vf, *amap, "-c:v", "libx264", "-preset", "veryfast", "-crf", "18", "-c:a", "aac", "-ar", "48000", "-ac", "2", "-shortest", str(out)]
+            amap = ["-map", "0:v:0", "-map", "0:a:0", "-af", f"atempo={speed}" if speed != 1.0 else "anull"]
+        cmd += ["-vf", vf, *amap, "-c:v", "libx264", "-preset", "veryfast", "-crf", "18", "-pix_fmt", "yuv420p", "-c:a", "aac", "-ar", "48000", "-ac", "2", "-shortest", str(out)]
         run(cmd)
         parts.append(out)
     lst = tmp / "list.txt"
