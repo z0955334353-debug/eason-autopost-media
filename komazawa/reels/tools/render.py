@@ -8,6 +8,9 @@
   "end_text": ["最後入座 00:30", "今晚要不要來一鍋？"],             # 疊在最後 2.4 秒，選填
   "pin": [{"text": "台中北區", "color": "white"}, {"text": "開到半夜的壽喜燒", "color": "0xF5C518"}],  # 抖音版：整支置頂大字，選填
   "caption_y": 0.62, "caption_size": 72,             # 字幕高度（畫面比例）與字級，選填
+  "sfx": [{"file": "komazawa/reels/sfx/hit.wav", "at": 0, "vol": 0.7}],  # 音效（hit 開場、whoosh 換段落、pop 字幕出現），選填
+  "live_vol": 0.9,                                  # 現場聲音音量，選填
+  （clips 裡的片段可加 "punch": true：開頭快速放大回彈，通常只用在第一個片段）
   "clips": [{"id": "雲端檔案ID", "start": 1.5, "end": 6.0, "speed": 1.0},
             {"photo": "komazawa/pro/2V1A6971.jpg", "dur": 0.6}],   # 照片：repo 內路徑，會慢慢推近
   "keep_audio": true,                               # 保留現場聲音
@@ -87,6 +90,9 @@ def main(edl_path):
             amap = ["-map", "0:v:0", "-map", "0:a:0", "-af", f"atempo={speed}" if speed != 1.0 else "anull"]
         tail = [*amap, "-c:v", "libx264", "-preset", "medium", "-crf", "16", "-pix_fmt", "yuv420p", *COLOR,
                 "-c:a", "aac", "-ar", "48000", "-ac", "2", "-shortest", str(out)]
+        if c.get("punch"):  # 開場快速放大回彈：前 0.35 秒從 1.15 倍縮回 1 倍
+            base = (f"scale={W}:{H}:force_original_aspect_ratio=increase:flags=lanczos,crop={W}:{H},setsar=1,fps=30,setpts=PTS/{speed},"
+                    f"scale=w='{W}*(1+0.15*max(0,1-t/0.35))':h='{H}*(1+0.15*max(0,1-t/0.35))':eval=frame,crop={W}:{H},setsar=1")
         ok = False
         if hdr:  # iPhone 的 HDR（HLG）影片要轉成一般色彩，不然上傳後會變灰變淡
             ok = run(cmd + ["-vf", f"{TONEMAP},{base}"] + tail, check=False).returncode == 0
@@ -129,12 +135,27 @@ def main(edl_path):
     out_dir = ROOT / "out"
     out_dir.mkdir(exist_ok=True)
     final = out_dir / f"{e['slug']}.mp4"
+    # 音效：[{"file": "komazawa/reels/sfx/pop.wav", "at": 4.8, "vol": 0.5}]，疊在現場聲音上
+    sfx = [x for x in e.get("sfx", []) if (repo / x["file"]).exists() and float(x["at"]) < total]
+    alabel = "0:a"
+    if sfx:
+        base_idx = len(inputs) // 2
+        mix = [f"[0:a]volume={float(e.get('live_vol', 1.0))}[live]"]
+        names = ["[live]"]
+        for k, x in enumerate(sfx):
+            inputs += ["-i", str(repo / x["file"])]
+            ms = int(float(x["at"]) * 1000)
+            mix.append(f"[{base_idx + k}:a]aresample=48000,aformat=channel_layouts=stereo,volume={float(x.get('vol', 0.6))},adelay={ms}|{ms}[s{k}]")
+            names.append(f"[s{k}]")
+        mix.append("".join(names) + f"amix=inputs={len(names)}:duration=first:normalize=0,loudnorm=I=-14:TP=-1.5:LRA=11[amx]")
+        filters += mix
+        alabel = "[amx]"
     cmd = ["ffmpeg", "-v", "error", "-y", *inputs]
     if filters:
-        cmd += ["-filter_complex", ";".join(filters), "-map", f"[{last}]"]
+        cmd += ["-filter_complex", ";".join(filters), "-map", f"[{last}]" if last != "0:v" else "0:v"]
     else:
         cmd += ["-map", "0:v"]
-    cmd += ["-map", "0:a", "-af", "loudnorm=I=-14:TP=-1.5:LRA=11", "-c:v", "libx264", "-preset", "medium", "-crf", "17",
+    cmd += ["-map", alabel, *([] if sfx else ["-af", "loudnorm=I=-14:TP=-1.5:LRA=11"]), "-c:v", "libx264", "-preset", "medium", "-crf", "17",
             "-pix_fmt", "yuv420p", *COLOR, "-bsf:v", "h264_metadata=colour_primaries=1:transfer_characteristics=1:matrix_coefficients=1",
             "-c:a", "aac", "-b:a", "192k", "-ar", "48000", "-movflags", "+faststart", str(final)]
     run(cmd)
