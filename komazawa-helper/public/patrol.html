@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>駒澤屋海巡清單</title>
+<link rel="stylesheet" href="/style.css"><link rel="icon" href="/favicon.png">
+<style>
+.item{position:relative}
+.item.done{opacity:.45}
+.num{display:inline-block;min-width:26px;height:26px;border-radius:50%;background:var(--brand);color:var(--brand-ink);text-align:center;font-weight:700;font-size:14px;line-height:26px;margin-right:6px}
+.what{font-weight:600}
+.cmt{background:var(--bg);border:1px dashed var(--line);border-radius:10px;padding:10px 12px;margin:10px 0;white-space:pre-wrap}
+.go{width:100%;font-size:17px;padding:14px}
+.small{font-size:13px;color:var(--muted);margin-top:8px;display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap}
+.small button{padding:4px 10px;font-size:13px;font-weight:500}
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:var(--brand);color:var(--brand-ink);padding:10px 18px;border-radius:999px;font-weight:600;display:none;z-index:9}
+.tip{font-size:14px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <img class="logo" src="/icon.png" alt="">
+    <div><h1 id="title">駒澤屋海巡清單</h1><p class="sub" id="sub">載入中…</p></div>
+  </header>
+  <div class="card tip">按綠色按鈕：<b>留言會自動複製</b>，接著打開那篇貼文，你在留言框<b>長按 → 貼上 → 發佈</b>就好。每則間隔 3～5 分鐘再留。</div>
+  <div id="list"></div>
+  <footer>瓏駒股份有限公司・駒澤屋壽喜燒</footer>
+</div>
+<div class="toast" id="toast">已複製留言，正在打開貼文…</div>
+<script>
+const $ = (id) => document.getElementById(id);
+function esc(s){return String(s||"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+function store(k,v){try{if(v===undefined)return localStorage.getItem(k);localStorage.setItem(k,v)}catch(e){return null}}
+async function copy(text){
+  try{await navigator.clipboard.writeText(text);return true}catch(e){}
+  const t=document.createElement("textarea");t.value=text;t.style.position="fixed";t.style.opacity="0";document.body.appendChild(t);t.focus();t.select();
+  let ok=false;try{ok=document.execCommand("copy")}catch(e){}
+  t.remove();return ok;
+}
+async function load(){
+  let d;
+  try{d=await fetch("/patrol/latest.json?t="+Date.now(),{cache:"no-store"}).then(r=>r.json())}
+  catch(e){$("sub").textContent="清單讀取失敗，請稍後重新整理";return}
+  $("title").textContent="駒澤屋海巡清單｜"+(d.slot||"");
+  $("sub").textContent=(d.date||"")+"・共 "+d.items.length+" 篇";
+  const key="kz_done_"+(d.id||d.date+d.slot);
+  const done=new Set(JSON.parse(store(key)||"[]"));
+  const list=$("list");list.innerHTML="";
+  d.items.forEach((it,i)=>{
+    const el=document.createElement("div");el.className="card item"+(done.has(i)?" done":"");
+    el.innerHTML=`<div><span class="num">${i+1}</span><span class="what">${esc(it.summary)}</span></div>
+      <div class="meta">@${esc(it.username||"")}${it.comments!=null?"・"+esc(it.comments)+" 則留言":""}</div>
+      <div class="cmt">${esc(it.comment)}</div>
+      <button class="go">複製留言＋打開貼文</button>
+      <div class="small"><span class="st">${done.has(i)?"✓ 已留言":""}</span><span><button class="ghost cp">只複製</button> <button class="ghost mk">${done.has(i)?"取消標記":"標記已留"}</button></span></div>`;
+    const mark=(v)=>{v?done.add(i):done.delete(i);store(key,JSON.stringify([...done]));el.classList.toggle("done",v);el.querySelector(".st").textContent=v?"✓ 已留言":"";el.querySelector(".mk").textContent=v?"取消標記":"標記已留"};
+    el.querySelector(".go").onclick=async()=>{await copy(it.comment);$("toast").style.display="block";mark(true);setTimeout(()=>{$("toast").style.display="none";location.href=it.url},700)};
+    el.querySelector(".cp").onclick=async()=>{const ok=await copy(it.comment);$("toast").textContent=ok?"已複製留言":"複製失敗，請長按文字複製";$("toast").style.display="block";setTimeout(()=>{$("toast").style.display="none";$("toast").textContent="已複製留言，正在打開貼文…"},1200)};
+    el.querySelector(".mk").onclick=()=>mark(!done.has(i));
+    list.appendChild(el);
+  });
+}
+load();
+</script>
+</body>
+</html>
