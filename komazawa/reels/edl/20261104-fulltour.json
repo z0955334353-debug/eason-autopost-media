@@ -1,0 +1,29 @@
+{
+  "slug": "20261104-fulltour",
+  "hook": {"title": "北區的深夜壽喜燒", "sub": "從備料到上桌，30 秒帶你看"},
+  "captions": [
+    {"start": 2.8, "end": 6.5, "text": "開門前，先把肉一片片排好"},
+    {"start": 7.0, "end": 14.5, "text": "飲料也備好了"},
+    {"start": 15.0, "end": 19.6, "text": "關西風：糖先下鍋"},
+    {"start": 20.0, "end": 25.5, "text": "肉貼著糖煎"},
+    {"start": 25.9, "end": 30.9, "text": "店員桌邊幫你煎好"}
+  ],
+  "end_text": ["最後入座 00:30", "今晚要不要來一鍋？"],
+  "clips": [
+    {"id": "1HuI8EB2MIstTZ6RhTOczIFSNVEiK1XH9", "start": 20.5, "end": 23.0},
+    {"id": "1xeo3jQEg8cvXk-67mF45OM_3xjGClSM5", "start": 2.0, "end": 4.0},
+    {"id": "1xeo3jQEg8cvXk-67mF45OM_3xjGClSM5", "start": 5.0, "end": 7.2},
+    {"id": "12mOWgNqyDbNnqH8myp7EF8bREb25lRqX", "start": 0.0, "end": 2.6},
+    {"id": "12mOWgNqyDbNnqH8myp7EF8bREb25lRqX", "start": 8.5, "end": 11.0},
+    {"id": "12mOWgNqyDbNnqH8myp7EF8bREb25lRqX", "start": 14.5, "end": 17.5},
+    {"id": "1cX8iRVh5AJMBrPFsCLgh2G6R5xd0NBRr", "start": 2.0, "end": 4.5},
+    {"id": "1HuI8EB2MIstTZ6RhTOczIFSNVEiK1XH9", "start": 6.0, "end": 8.5},
+    {"id": "1cX8iRVh5AJMBrPFsCLgh2G6R5xd0NBRr", "start": 34.0, "end": 37.0},
+    {"id": "1HuI8EB2MIstTZ6RhTOczIFSNVEiK1XH9", "start": 15.0, "end": 18.0},
+    {"id": "1HuI8EB2MIstTZ6RhTOczIFSNVEiK1XH9", "start": 23.5, "end": 25.8},
+    {"id": "1HuI8EB2MIstTZ6RhTOczIFSNVEiK1XH9", "start": 26.0, "end": 29.0},
+    {"id": "1HuI8EB2MIstTZ6RhTOczIFSNVEiK1XH9", "start": 29.5, "end": 31.9}
+  ],
+  "keep_audio": true,
+  "logo": false
+}
