@@ -10,6 +10,7 @@
   "caption_y": 0.62, "caption_size": 72,             # 字幕高度（畫面比例）與字級，選填
   "sfx": [{"file": "komazawa/reels/sfx/hit.wav", "at": 0, "vol": 0.7}],  # 音效（hit 開場、whoosh 換段落、pop 字幕出現），選填
   "live_vol": 0.9,                                  # 現場聲音音量，選填
+  "live_lufs": -30,                                 # 選填：把現場聲音壓成固定的小音量背景（數字越小越小聲），音效維持清楚；有設就不再把整支拉到 -14
   （clips 裡的片段可加 "punch": true：開頭快速放大回彈，通常只用在第一個片段）
   "clips": [{"id": "雲端檔案ID", "start": 1.5, "end": 6.0, "speed": 1.0},
             {"photo": "komazawa/pro/2V1A6971.jpg", "dur": 0.6}],   # 照片：repo 內路徑，會慢慢推近
@@ -141,14 +142,17 @@ def main(edl_path):
     alabel = "0:a"
     if sfx:
         base_idx = len(inputs) // 2
-        mix = [f"[0:a]volume={float(e.get('live_vol', 1.0))}[live]"]
+        live_lufs = e.get("live_lufs")
+        live_chain = f"loudnorm=I={float(live_lufs)}:TP=-3:LRA=11," if live_lufs is not None else ""
+        mix = [f"[0:a]{live_chain}volume={float(e.get('live_vol', 1.0))}[live]"]
         names = ["[live]"]
         for k, x in enumerate(sfx):
             inputs += ["-i", str(repo / x["file"])]
             ms = int(float(x["at"]) * 1000)
             mix.append(f"[{base_idx + k}:a]aresample=48000,aformat=channel_layouts=stereo,volume={float(x.get('vol', 0.6))},adelay={ms}|{ms}[s{k}]")
             names.append(f"[s{k}]")
-        mix.append("".join(names) + f"amix=inputs={len(names)}:duration=first:normalize=0,loudnorm=I=-14:TP=-1.5:LRA=11[amx]")
+        mix.append("".join(names) + f"amix=inputs={len(names)}:duration=first:normalize=0,"
+                   + ("alimiter=limit=0.89[amx]" if live_lufs is not None else "loudnorm=I=-14:TP=-1.5:LRA=11[amx]"))
         filters += mix
         alabel = "[amx]"
     cmd = ["ffmpeg", "-v", "error", "-y", *inputs]
@@ -156,7 +160,7 @@ def main(edl_path):
         cmd += ["-filter_complex", ";".join(filters), "-map", f"[{last}]" if last != "0:v" else "0:v"]
     else:
         cmd += ["-map", "0:v"]
-    cmd += ["-map", alabel, *([] if sfx else ["-af", "loudnorm=I=-14:TP=-1.5:LRA=11"]), "-c:v", "libx264", "-preset", "medium", "-crf", "17",
+    cmd += ["-map", alabel, *([] if sfx else ["-af", f"loudnorm=I={float(e.get('live_lufs', -14))}:TP=-1.5:LRA=11"]), "-c:v", "libx264", "-preset", "medium", "-crf", "17",
             "-pix_fmt", "yuv420p", *COLOR, "-bsf:v", "h264_metadata=colour_primaries=1:transfer_characteristics=1:matrix_coefficients=1",
             "-c:a", "aac", "-b:a", "192k", "-ar", "48000", "-movflags", "+faststart", str(final)]
     run(cmd)
