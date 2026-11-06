@@ -1,0 +1,195 @@
+{
+ "caption_y": 0.24,
+ "end_text": [
+  "駒澤屋壽喜燒",
+  "台中北區健行路837號",
+  "每天 18:00 開門｜最後入座 00:30"
+ ],
+ "slug": "20261106-ig-v5",
+ "captions": [
+  {
+   "start": 0,
+   "end": 2.2,
+   "text": "晚上坐滿的這排吧台",
+   "y": 0.405,
+   "size": 96,
+   "color": "0xF5C518"
+  },
+  {
+   "start": 0,
+   "end": 2.2,
+   "text": "下午其實長這樣",
+   "y": 0.48,
+   "size": 60
+  },
+  {
+   "start": 4.5,
+   "end": 6.3,
+   "text": "每個位子先擺一鍋"
+  },
+  {
+   "start": 6.5,
+   "end": 10.9,
+   "text": "油花先給你看",
+   "y": 0.1
+  },
+  {
+   "start": 11.1,
+   "end": 15.3,
+   "text": "小菜一碟一碟裝",
+   "y": 0.1
+  },
+  {
+   "start": 17.9,
+   "end": 20.4,
+   "text": "開店前先拉個筋",
+   "y": 0.12
+  },
+  {
+   "start": 20.6,
+   "end": 22.2,
+   "text": "糖先下鍋",
+   "y": 0.08
+  },
+  {
+   "start": 22.4,
+   "end": 24.0,
+   "text": "肉貼著糖煎",
+   "y": 0.82
+  }
+ ],
+ "clips": [
+  {
+   "id": "1J3JiRJlF7To3hAmgaiDTKUcbDVaDFuTI",
+   "start": 2.5,
+   "end": 4.7,
+   "punch": true
+  },
+  {
+   "id": "16s4mwlKL5SFweaB5Fh6dYlNOqGRmes_j",
+   "start": 2.0,
+   "end": 4.2
+  },
+  {
+   "id": "16s4mwlKL5SFweaB5Fh6dYlNOqGRmes_j",
+   "start": 5.8,
+   "end": 7.8
+  },
+  {
+   "id": "1xeo3jQEg8cvXk-67mF45OM_3xjGClSM5",
+   "start": 0.0,
+   "end": 2.4
+  },
+  {
+   "id": "1xeo3jQEg8cvXk-67mF45OM_3xjGClSM5",
+   "start": 4.6,
+   "end": 6.8
+  },
+  {
+   "id": "1FoAlYD8xdbJzY09eyXaFl1kEbEU5mF1s",
+   "start": 2.3,
+   "end": 4.7
+  },
+  {
+   "id": "1xrNagWi6qhx3y299_83CPfDR_T-s3wu-",
+   "start": 0.0,
+   "end": 2.0
+  },
+  {
+   "id": "1z3Yl8YGomu-LkpkTGY1VlOumo1zQmnsU",
+   "start": 10.0,
+   "end": 12.4
+  },
+  {
+   "id": "16GJ_RlmUPqHpOVQAdbQXci34gfBkDGd3",
+   "start": 1.0,
+   "end": 3.7
+  },
+  {
+   "id": "1cX8iRVh5AJMBrPFsCLgh2G6R5xd0NBRr",
+   "start": 2.2,
+   "end": 4.0
+  },
+  {
+   "id": "1cX8iRVh5AJMBrPFsCLgh2G6R5xd0NBRr",
+   "start": 34.4,
+   "end": 36.2
+  },
+  {
+   "id": "17aGcBYji4OJuMhGGSJGkV4EecCmo2ibz",
+   "start": 0.3,
+   "end": 2.95
+  },
+  {
+   "id": "1JOpbmPc7kLteIz_s6plq7EX9jyqVuOts",
+   "start": 4.6,
+   "end": 7.25,
+   "speed": 0.8
+  }
+ ],
+ "sfx": [
+  {
+   "file": "komazawa/reels/sfx/hit.wav",
+   "at": 0,
+   "vol": 0.7
+  },
+  {
+   "file": "komazawa/reels/sfx/pop.wav",
+   "at": 4.5,
+   "vol": 0.45
+  },
+  {
+   "file": "komazawa/reels/sfx/pop.wav",
+   "at": 6.5,
+   "vol": 0.45
+  },
+  {
+   "file": "komazawa/reels/sfx/pop.wav",
+   "at": 11.1,
+   "vol": 0.45
+  },
+  {
+   "file": "komazawa/reels/sfx/pop.wav",
+   "at": 17.9,
+   "vol": 0.45
+  },
+  {
+   "file": "komazawa/reels/sfx/whoosh.wav",
+   "at": 20.25,
+   "vol": 0.45
+  },
+  {
+   "file": "komazawa/reels/sfx/pop.wav",
+   "at": 20.6,
+   "vol": 0.45
+  },
+  {
+   "file": "komazawa/reels/sfx/pop.wav",
+   "at": 22.4,
+   "vol": 0.45
+  },
+  {
+   "file": "komazawa/reels/sfx/whoosh.wav",
+   "at": 23.85,
+   "vol": 0.45
+  },
+  {
+   "file": "komazawa/reels/sfx/pop.wav",
+   "at": 26.86,
+   "vol": 0.5
+  }
+ ],
+ "live_vol": 1.0,
+ "live_lufs": -30,
+ "keep_audio": true,
+ "logo": false,
+ "end_secs": 3.2,
+ "masks": [
+  {
+   "y0": 0.38,
+   "y1": 0.557,
+   "start": 0,
+   "end": 2.22
+  }
+ ]
+}

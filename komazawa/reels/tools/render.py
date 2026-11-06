@@ -15,8 +15,11 @@
   "clips": [{"id": "雲端檔案ID", "start": 1.5, "end": 6.0, "speed": 1.0},
             {"photo": "komazawa/pro/2V1A6971.jpg", "dur": 0.6}],   # 照片：repo 內路徑，會慢慢推近
   "keep_audio": true,                               # 保留現場聲音
-  "logo": false                                     # 右下角小 logo（預設不放）
+  "logo": false,                                    # 右下角小 logo（預設不放）
+  "masks": [{"y0": 0.26, "y1": 0.42, "start": 0, "end": 2.2}]   # 選填：遮客人臉的色帶（老闆 11/06：可以用圖樣或文字設計擋住臉）
 }
+masks：每個是一條實心色帶（預設全寬、深色 0x111111，可加 "x0"/"x1" 變成方塊、"color" 改顏色），畫在字的下面，
+hook／字幕可以直接壓在色帶上當「文字設計」。秒數是成片時間；色帶要把整段裡每一格的客人臉（含側臉）都蓋住，做完一定要逐格檢查。
 舊格式的 "title" 會當成 hook 的大標（不再畫上方的色塊標題列）。
 長度建議 25～35 秒，每 2～3 秒換一個畫面。
 """
@@ -108,6 +111,11 @@ def main(edl_path):
                                  capture_output=True, text=True).stdout.strip())
 
     draws = []
+    for m in e.get("masks", []):
+        x0, x1 = float(m.get("x0", 0)), float(m.get("x1", 1))
+        y0, y1 = float(m["y0"]), float(m["y1"])
+        draws.append(f"drawbox=x={int(W*x0)}:y={int(H*y0)}:w={int(W*(x1-x0))}:h={int(H*(y1-y0))}:color={m.get('color', '0x111111')}@1:t=fill:"
+                     f"enable='between(t,{float(m.get('start', 0)):.2f},{float(m['end']):.2f})'")
     hook = e.get("hook") or ({"title": e["title"]} if e.get("title") else None)
     if hook:
         draws.append(text(hook["title"], 104, "0xF5C518", 560, 0, 2.5, 8))
@@ -118,7 +126,7 @@ def main(edl_path):
         draws.append(text(ln["text"], int(ln.get("size", 92)), ln.get("color", "white"), 250 + j * 118, 0, total + 1, 9))
     cy, cs = float(e.get("caption_y", 0.70)), int(e.get("caption_size", 62))
     for cap in e.get("captions", []):
-        draws.append(text(cap["text"], cs, cap.get("color", "white"), int(H * float(cap.get("y", cy))), float(cap["start"]), float(cap["end"]), 7))
+        draws.append(text(cap["text"], int(cap.get("size", cs)), cap.get("color", "white"), int(H * float(cap.get("y", cy))), float(cap["start"]), float(cap["end"]), 7))
     end_lines = e.get("end_text") or []
     end_secs = float(e.get("end_secs", 2.4))
     for j, line in enumerate(end_lines):
