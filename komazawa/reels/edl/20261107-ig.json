@@ -1,0 +1,175 @@
+{
+ "live_lufs": -30,
+ "live_vol": 1.0,
+ "keep_audio": true,
+ "logo": false,
+ "end_secs": 3.2,
+ "end_y": 0.385,
+ "caption_y": 0.24,
+ "hook": {
+  "title": "POV：今天輪我備料",
+  "sub": "客人看不到的這一段",
+  "y": 0.13
+ },
+ "end_text": [
+  "駒澤屋壽喜燒",
+  "台中北區健行路837號",
+  "每天 18:00 開門｜最後入座 00:30"
+ ],
+ "slug": "20261107-ig",
+ "clips": [
+  {
+   "id": "12vfjL-rvI8nFa5HOpBBfEDvobnlGm9yB",
+   "start": 1.8,
+   "end": 4.2,
+   "punch": true
+  },
+  {
+   "id": "1QV6-zdrBIN5A-dXSP5AyDGwUQdyWj4RH",
+   "start": 4.8,
+   "end": 7.3
+  },
+  {
+   "id": "19RtquvnFg9T6lBJre4WF71eHcsdUejiP",
+   "start": 0.3,
+   "end": 2.3
+  },
+  {
+   "id": "19RtquvnFg9T6lBJre4WF71eHcsdUejiP",
+   "start": 2.95,
+   "end": 4.95
+  },
+  {
+   "id": "1x54MKWYTF0k9YqPI6kknmBbjDVlD2n-D",
+   "start": 2.0,
+   "end": 4.5
+  },
+  {
+   "id": "1x54MKWYTF0k9YqPI6kknmBbjDVlD2n-D",
+   "start": 4.8,
+   "end": 7.0
+  },
+  {
+   "id": "1cnSo4rJ99zBA-09DyUQqmi7kx3uBCE_d",
+   "start": 0.2,
+   "end": 2.95
+  },
+  {
+   "id": "1fXkxpBOyZ3tjZWUz4wMdlaKZ2Dl_Bb1A",
+   "start": 0.3,
+   "end": 2.6
+  },
+  {
+   "id": "1p3G2VpBb43EAj2YMTkvS9pgG5n3rNIIU",
+   "start": 0.0,
+   "end": 2.0
+  },
+  {
+   "id": "1jUSdQ6g5R-0SSa8jDmkesQC6ubu17582",
+   "start": 0.0,
+   "end": 1.5
+  },
+  {
+   "id": "1Xp38kuwbuhSVd5F-LT_i2YkO8u-pRb54",
+   "start": 1.6,
+   "end": 3.1
+  },
+  {
+   "id": "1F8e0ECCiC8FMBNT1naqlAgowbHufGn7M",
+   "start": 0.85,
+   "end": 2.95
+  },
+  {
+   "id": "1Q9K34CJAMjvNGOqBVYhksaHWpW04SDe-",
+   "start": 0.0,
+   "end": 4.6
+  }
+ ],
+ "captions": [
+  {
+   "start": 5.2,
+   "end": 8.6,
+   "text": "玉米筍一次開一整箱",
+   "y": 0.12
+  },
+  {
+   "start": 13.9,
+   "end": 16.1,
+   "text": "小菜先一碗一碗排好"
+  },
+  {
+   "start": 16.65,
+   "end": 18.55,
+   "text": "醬料杯是用箱在算的",
+   "y": 0.12
+  },
+  {
+   "start": 19.05,
+   "end": 20.55,
+   "text": "這排吧台等等會…"
+  },
+  {
+   "start": 25.75,
+   "end": 27.05,
+   "text": "全部坐滿",
+   "y": 0.43,
+   "size": 104,
+   "color": "0xF5C518"
+  }
+ ],
+ "sfx": [
+  {
+   "file": "komazawa/reels/sfx/hit.wav",
+   "at": 0,
+   "vol": 0.7
+  },
+  {
+   "file": "komazawa/reels/sfx/bubble.wav",
+   "at": 5.2,
+   "vol": 0.45
+  },
+  {
+   "file": "komazawa/reels/sfx/bubble.wav",
+   "at": 13.9,
+   "vol": 0.45
+  },
+  {
+   "file": "komazawa/reels/sfx/bubble.wav",
+   "at": 16.65,
+   "vol": 0.45
+  },
+  {
+   "file": "komazawa/reels/sfx/swish.wav",
+   "at": 18.4,
+   "vol": 0.45
+  },
+  {
+   "file": "komazawa/reels/sfx/bubble.wav",
+   "at": 19.05,
+   "vol": 0.45
+  },
+  {
+   "file": "komazawa/reels/sfx/shutter.wav",
+   "at": 23.65,
+   "vol": 0.35
+  },
+  {
+   "file": "komazawa/reels/sfx/ding.wav",
+   "at": 25.75,
+   "vol": 0.45
+  },
+  {
+   "file": "komazawa/reels/sfx/bubble.wav",
+   "at": 27.15,
+   "vol": 0.5
+  }
+ ],
+ "masks": [
+  {
+   "y0": 0.36,
+   "y1": 0.58,
+   "start": 25.75,
+   "end": 31.35
+  }
+ ]
+}

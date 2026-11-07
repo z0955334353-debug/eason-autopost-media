@@ -3,9 +3,9 @@
 剪輯單格式：
 {
   "slug": "20261104-kansai",                       # 檔名
-  "hook": {"title": "黃色大標", "sub": "白色副標"},   # 開頭 2.5 秒的標題（無底色、白字黑邊），選填
+  "hook": {"title": "黃色大標", "sub": "白色副標", "y": 0.13},   # 開頭 2.5 秒的標題（無底色、白字黑邊），選填；y 選填（預設 560px）
   "captions": [{"start": 9.5, "end": 12.0, "text": "糖先下鍋", "y": 0.24}],   # 畫面中的字；y 可個別指定高度（畫面比例），字不可蓋住肉、鍋、手的動作
-  "end_text": ["最後入座 00:30", "今晚要不要來一鍋？"],             # 疊在最後 2.4 秒，選填
+  "end_text": ["最後入座 00:30", "今晚要不要來一鍋？"],             # 疊在最後 2.4 秒（end_secs 可改），選填；"end_y" 選填（預設 0.64）
   "pin": [{"text": "台中北區", "color": "white"}, {"text": "開到半夜的壽喜燒", "color": "0xF5C518"}],  # 抖音版：整支置頂大字，選填
   "caption_y": 0.62, "caption_size": 72,             # 字幕高度（畫面比例）與字級，選填
   "sfx": [{"file": "komazawa/reels/sfx/hit.wav", "at": 0, "vol": 0.7}],  # 音效（hit 開場、whoosh 換段落、pop 字幕出現），選填
@@ -118,9 +118,10 @@ def main(edl_path):
                      f"enable='between(t,{float(m.get('start', 0)):.2f},{float(m['end']):.2f})'")
     hook = e.get("hook") or ({"title": e["title"]} if e.get("title") else None)
     if hook:
-        draws.append(text(hook["title"], 104, "0xF5C518", 560, 0, 2.5, 8))
+        hy = int(H * float(hook["y"])) if hook.get("y") is not None else 560  # 選填 "y"：大標高度（畫面比例），副標在下方 140px
+        draws.append(text(hook["title"], 104, "0xF5C518", hy, 0, 2.5, 8))
         if hook.get("sub"):
-            draws.append(text(hook["sub"], 60, "white", 700, 0, 2.5))
+            draws.append(text(hook["sub"], 60, "white", hy + 140, 0, 2.5))
     # 抖音式置頂大字（整支都在，無底色、粗黑邊）：避開最上方 220px 的系統列
     for j, ln in enumerate(e.get("pin", [])):
         draws.append(text(ln["text"], int(ln.get("size", 92)), ln.get("color", "white"), 250 + j * 118, 0, total + 1, 9))
@@ -131,7 +132,8 @@ def main(edl_path):
     end_secs = float(e.get("end_secs", 2.4))
     for j, line in enumerate(end_lines):
         color = "0xF5C518" if j == 0 else "white"
-        draws.append(text(line, 84 if j == 0 else 62, color, int(H * 0.64) + j * (110 if j == 1 else 90), max(0, total - end_secs), total + 1))
+        ey = int(H * float(e.get("end_y", 0.64)))  # 選填 "end_y"：字卡第一行高度（畫面比例），可壓在 masks 字帶上
+        draws.append(text(line, 84 if j == 0 else 62, color, ey + j * (110 if j == 1 else 90), max(0, total - end_secs), total + 1))
 
     filters, inputs = [], ["-i", str(joined)]
     last = "0:v"
