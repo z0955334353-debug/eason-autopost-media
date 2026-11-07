@@ -12,13 +12,15 @@
   "live_vol": 0.9,                                  # 現場聲音音量，選填
   "live_lufs": -30,                                 # 選填：把現場聲音壓成固定的小音量背景（數字越小越小聲），音效維持清楚；有設就不再把整支拉到 -14
   （clips 裡的片段可加 "punch": true：開頭快速放大回彈，通常只用在第一個片段）
+  （clips 裡的片段可加 "gain_db": 6：只調這一刀的現場聲（dB，正數大聲、負數小聲）。B 套剪法用：肉下鍋／冒煙那幾刀 +6～+8，備料刀 -4～0；
+    整條現場聲之後仍會被 live_lufs 壓到固定響度，所以是「相對大小」）
   "clips": [{"id": "雲端檔案ID", "start": 1.5, "end": 6.0, "speed": 1.0},
             {"photo": "komazawa/pro/2V1A6971.jpg", "dur": 0.6}],   # 照片：repo 內路徑，會慢慢推近
   "keep_audio": true,                               # 保留現場聲音
   "logo": false,                                    # 右下角小 logo（預設不放）
   "masks": [{"y0": 0.26, "y1": 0.42, "start": 0, "end": 2.2}]   # 選填：遮客人臉的色帶（老闆 11/06：可以用圖樣或文字設計擋住臉）
 }
-masks：每個是一條實心色帶（預設全寬、深色 0x111111，可加 "x0"/"x1" 變成方塊、"color" 改顏色），畫在字的下面，
+masks：**老闆 2026-11-07 禁止畫面中間有任何色塊，render.py 會略過 masks 並印警告**（舊說明保留供查）。每個是一條實心色帶（預設全寬、深色 0x111111，可加 "x0"/"x1" 變成方塊、"color" 改顏色），畫在字的下面，
 hook／字幕可以直接壓在色帶上當「文字設計」。秒數是成片時間；色帶要把整段裡每一格的客人臉（含側臉）都蓋住，做完一定要逐格檢查。
 舊格式的 "title" 會當成 hook 的大標（不再畫上方的色塊標題列）。
 長度建議 25～35 秒，每 2～3 秒換一個畫面。
@@ -91,7 +93,10 @@ def main(edl_path):
             cmd += ["-f", "lavfi", "-t", str(dur / speed), "-i", "anullsrc=r=48000:cl=stereo"]
             amap = ["-map", "0:v:0", "-map", "1:a:0"]
         else:
-            amap = ["-map", "0:v:0", "-map", "0:a:0", "-af", f"atempo={speed}" if speed != 1.0 else "anull"]
+            af = f"atempo={speed}" if speed != 1.0 else "anull"
+            if c.get("gain_db") is not None:  # 單刀現場聲加減（B 套：鍋裡大聲、備料小聲）
+                af += f",volume={float(c['gain_db'])}dB"
+            amap = ["-map", "0:v:0", "-map", "0:a:0", "-af", af]
         tail = [*amap, "-c:v", "libx264", "-preset", "medium", "-crf", "16", "-pix_fmt", "yuv420p", *COLOR,
                 "-c:a", "aac", "-ar", "48000", "-ac", "2", "-shortest", str(out)]
         if c.get("punch"):  # 開場快速放大回彈：前 0.35 秒從 1.15 倍縮回 1 倍
@@ -111,7 +116,9 @@ def main(edl_path):
                                  capture_output=True, text=True).stdout.strip())
 
     draws = []
-    for m in e.get("masks", []):
+    if e.get("masks"):
+        print("警告：剪輯單有 masks，老闆 2026-11-07 規定畫面中間不准有色塊，已略過。有客人臉的段落請直接不用。")
+    for m in []:
         x0, x1 = float(m.get("x0", 0)), float(m.get("x1", 1))
         y0, y1 = float(m["y0"]), float(m["y1"])
         draws.append(f"drawbox=x={int(W*x0)}:y={int(H*y0)}:w={int(W*(x1-x0))}:h={int(H*(y1-y0))}:color={m.get('color', '0x111111')}@1:t=fill:"
