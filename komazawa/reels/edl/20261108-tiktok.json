@@ -1,0 +1,142 @@
+{
+ "slug": "20261108-tiktok",
+ "live_lufs": -30,
+ "live_vol": 1.0,
+ "keep_audio": true,
+ "logo": false,
+ "hook": {
+  "title": "冒煙的那一秒",
+  "sub": "台中北區健行路",
+  "y": 0.08
+ },
+ "caption_y": 0.09,
+ "captions": [],
+ "end_text": [
+  "駒澤屋壽喜燒",
+  "健行路837號",
+  "最後入座 00:30"
+ ],
+ "end_secs": 3.0,
+ "end_y": 0.08,
+ "clips": [
+  {
+   "id": "1RF0I3BJAe6kuA95iln936NWxPx43LGHf",
+   "start": 0.2,
+   "end": 3.0,
+   "gain_db": 6,
+   "punch": true
+  },
+  {
+   "id": "1s81BgZD8lMDSsbdAHsZ8e52MaSJ5tRjI",
+   "start": 0.4,
+   "end": 1.6,
+   "gain_db": -4
+  },
+  {
+   "id": "1dNx-PEFe022VXFcSlNhIUv7L22Oh2OhM",
+   "start": 3.0,
+   "end": 4.1,
+   "gain_db": -4
+  },
+  {
+   "id": "1s81BgZD8lMDSsbdAHsZ8e52MaSJ5tRjI",
+   "start": 4.4,
+   "end": 5.6,
+   "gain_db": -4
+  },
+  {
+   "id": "1no54227rDmh1hpANvWDFN5cPc610pdD3",
+   "start": 0.0,
+   "end": 1.2,
+   "gain_db": -4
+  },
+  {
+   "id": "1PwIYgd0eCmf4pQ8FqvZtKeZGsCBlKQ0z",
+   "start": 2.9,
+   "end": 4.1,
+   "gain_db": -4
+  },
+  {
+   "id": "1HWQGSJGN5tMWqqT2Q6656v7aTy3_Vl5E",
+   "start": 13.0,
+   "end": 14.2,
+   "gain_db": -4
+  },
+  {
+   "id": "1IMvBUvPfrhqi6VHyIGvHFjV3MkO62PS7",
+   "start": 2.6,
+   "end": 3.8,
+   "gain_db": -4
+  },
+  {
+   "id": "19cR4FxAK2b9uOiuQZO5eaWkXmv2_tQBQ",
+   "start": 3.0,
+   "end": 4.2,
+   "gain_db": -4
+  },
+  {
+   "id": "1Cg-uWUprxASSTUgj3jAba_Of8pwi4qt9",
+   "start": 3.0,
+   "end": 4.2,
+   "gain_db": -4
+  },
+  {
+   "id": "1H1muRwXZaAuQfqAlCcylgTFvLmgq8C4l",
+   "start": 0.5,
+   "end": 1.7,
+   "gain_db": -4
+  },
+  {
+   "id": "1WZFuPZ72UsAuHSdk2Y5bwmlRNgic1T0Y",
+   "start": 4.8,
+   "end": 7.6,
+   "gain_db": 4
+  },
+  {
+   "id": "1HkmrYx1I5RQQk3BUcx0vB25LJp8OwBhh",
+   "start": 0.0,
+   "end": 2.2,
+   "gain_db": 6
+  },
+  {
+   "id": "1HkmrYx1I5RQQk3BUcx0vB25LJp8OwBhh",
+   "start": 15.6,
+   "end": 17.8,
+   "gain_db": 6
+  },
+  {
+   "id": "1RF0I3BJAe6kuA95iln936NWxPx43LGHf",
+   "start": 3.0,
+   "end": 4.7,
+   "gain_db": 6
+  },
+  {
+   "id": "1WZFuPZ72UsAuHSdk2Y5bwmlRNgic1T0Y",
+   "start": 18.2,
+   "end": 21.75,
+   "gain_db": 2
+  }
+ ],
+ "sfx": [
+  {
+   "file": "komazawa/reels/sfx/hit.wav",
+   "at": 0,
+   "vol": 0.7
+  },
+  {
+   "file": "komazawa/reels/sfx/swish.wav",
+   "at": 2.55,
+   "vol": 0.45
+  },
+  {
+   "file": "komazawa/reels/sfx/whoosh.wav",
+   "at": 14.45,
+   "vol": 0.45
+  },
+  {
+   "file": "komazawa/reels/sfx/shutter.wav",
+   "at": 24.15,
+   "vol": 0.5
+  }
+ ]
+}
