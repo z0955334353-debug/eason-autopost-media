@@ -12,6 +12,8 @@
   "live_vol": 0.9,                                  # 現場聲音音量，選填
   "live_lufs": -30,                                 # 選填：把現場聲音壓成固定的小音量背景（數字越小越小聲），音效維持清楚；有設就不再把整支拉到 -14
   （clips 裡的片段可加 "punch": true：開頭快速放大回彈，通常只用在第一個片段）
+  （clips 裡的片段可加 "crop_top": 0.3／"crop_bottom": 0.1：先把原片上方（下方）這個比例裁掉，再放大填滿 1080x1920（左右置中裁）。
+    行銷長 11/08：桌邊鏡頭畫面上緣有客人身體／下巴就用 crop_top 裁掉，裁完仍看得到就整段不用；照片也適用）
   （clips 裡的片段可加 "gain_db": 6：只調這一刀的現場聲（dB，正數大聲、負數小聲）。B 套剪法用：肉下鍋／冒煙那幾刀 +6～+8，備料刀 -4～0；
     整條現場聲之後仍會被 live_lufs 壓到固定響度，所以是「相對大小」）
   "clips": [{"id": "雲端檔案ID", "start": 1.5, "end": 6.0, "speed": 1.0},
@@ -60,6 +62,16 @@ def text(t, size, color, y, start, end, border=6):
             f"x=(w-text_w)/2:y={y}:enable='between(t,{start:.2f},{end:.2f})'")
 
 
+def trim(c):
+    """crop_top／crop_bottom：先裁掉原片上（下）緣的比例，回傳 ffmpeg 濾鏡前綴（沒設就空字串）。"""
+    t, b = float(c.get("crop_top", 0) or 0), float(c.get("crop_bottom", 0) or 0)
+    if t <= 0 and b <= 0:
+        return ""
+    if t < 0 or b < 0 or t + b >= 0.8:
+        raise SystemExit(f"crop_top + crop_bottom 要介於 0～0.8：{c}")
+    return f"crop=iw:trunc(ih*{1 - t - b:.4f}/2)*2:0:trunc(ih*{t:.4f}/2)*2,"
+
+
 def main(edl_path):
     e = json.loads(Path(edl_path).read_text(encoding="utf-8"))
     tmp = Path("/tmp/kzr")
@@ -71,7 +83,7 @@ def main(edl_path):
         if c.get("photo"):
             dur = float(c.get("dur", 0.8))
             frames = int(dur * 30)
-            vf = (f"scale={W*2}:{H*2}:force_original_aspect_ratio=increase,crop={W*2}:{H*2},"
+            vf = (f"{trim(c)}scale={W*2}:{H*2}:force_original_aspect_ratio=increase,crop={W*2}:{H*2},"
                   f"zoompan=z='1+0.04*on/{frames}':x='iw/2-(iw/zoom/2)':y='ih/2-(ih/zoom/2)':d={frames}:s={W}x{H}:fps=30,setsar=1")
             run(["ffmpeg", "-v", "error", "-y", "-i", str(repo / c["photo"]), "-f", "lavfi", "-t", str(dur), "-i", "anullsrc=r=48000:cl=stereo",
                  "-vf", vf, "-frames:v", str(frames), "-map", "0:v", "-map", "1:a", "-c:v", "libx264", "-preset", "medium", "-crf", "16",
@@ -87,7 +99,7 @@ def main(edl_path):
         hdr = probe(src, "stream=color_transfer") in ("arib-std-b67", "smpte2084")
         speed = float(c.get("speed", 1.0))
         dur = float(c["end"]) - float(c["start"])
-        base = f"scale={W}:{H}:force_original_aspect_ratio=increase:flags=lanczos,crop={W}:{H},setsar=1,fps=30,setpts=PTS/{speed}"
+        base = f"{trim(c)}scale={W}:{H}:force_original_aspect_ratio=increase:flags=lanczos,crop={W}:{H},setsar=1,fps=30,setpts=PTS/{speed}"
         cmd = ["ffmpeg", "-v", "error", "-y", "-ss", str(c["start"]), "-t", str(dur), "-i", str(src)]
         if not (has_audio and e.get("keep_audio", True)):
             cmd += ["-f", "lavfi", "-t", str(dur / speed), "-i", "anullsrc=r=48000:cl=stereo"]
@@ -100,7 +112,7 @@ def main(edl_path):
         tail = [*amap, "-c:v", "libx264", "-preset", "medium", "-crf", "16", "-pix_fmt", "yuv420p", *COLOR,
                 "-c:a", "aac", "-ar", "48000", "-ac", "2", "-shortest", str(out)]
         if c.get("punch"):  # 開場快速放大回彈：前 0.35 秒從 1.15 倍縮回 1 倍
-            base = (f"scale={W}:{H}:force_original_aspect_ratio=increase:flags=lanczos,crop={W}:{H},setsar=1,fps=30,setpts=PTS/{speed},"
+            base = (f"{trim(c)}scale={W}:{H}:force_original_aspect_ratio=increase:flags=lanczos,crop={W}:{H},setsar=1,fps=30,setpts=PTS/{speed},"
                     f"scale=w='{W}*(1+0.15*max(0,1-t/0.35))':h='{H}*(1+0.15*max(0,1-t/0.35))':eval=frame,crop={W}:{H},setsar=1")
         ok = False
         if hdr:  # iPhone 的 HDR（HLG）影片要轉成一般色彩，不然上傳後會變灰變淡
