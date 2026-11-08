@@ -3,7 +3,7 @@
 剪輯單格式：
 {
   "slug": "20261104-kansai",                       # 檔名
-  "hook": {"title": "黃色大標", "sub": "白色副標", "y": 0.13},   # 開頭 2.5 秒的標題（無底色、白字黑邊），選填；y 選填（預設 560px）
+  "hook": {"title": "黃色大標", "sub": "白色副標"},   # 開頭 2.5 秒的標題（無底色、白字黑邊），選填；位置固定在 TITLE_Y（IG 主頁格子安全區），不可自訂
   "captions": [{"start": 9.5, "end": 12.0, "text": "糖先下鍋", "y": 0.24}],   # 畫面中的字；y 可個別指定高度（畫面比例），字不可蓋住肉、鍋、手的動作
   "end_text": ["最後入座 00:30", "今晚要不要來一鍋？"],             # 疊在最後 2.4 秒（end_secs 可改），選填；"end_y" 選填（預設 0.64）
   "pin": [{"text": "台中北區", "color": "white"}, {"text": "開到半夜的壽喜燒", "color": "0xF5C518"}],  # 抖音版：整支置頂大字，選填
@@ -38,6 +38,7 @@ if not Path(FONT).exists():
     FONT = "/usr/share/fonts/opentype/noto/NotoSansCJK-Bold.ttc"
 LOGO = ROOT.parent.parent / "komazawa-helper" / "public" / "icon.png"
 W, H = 1080, 1920
+TITLE_Y = 400  # 封面標題的固定高度：IG 主頁 3:4 格子只顯示 y 240～1680，標題放 400 起才不會被切
 TONEMAP = ("zscale=t=linear:npl=100,format=gbrpf32le,zscale=p=bt709,tonemap=tonemap=hable:desat=0,"
            "zscale=t=bt709:m=bt709:r=tv,format=yuv420p")
 COLOR = ["-colorspace", "bt709", "-color_primaries", "bt709", "-color_trc", "bt709"]
@@ -137,13 +138,15 @@ def main(edl_path):
                      f"enable='between(t,{float(m.get('start', 0)):.2f},{float(m['end']):.2f})'")
     hook = e.get("hook") or ({"title": e["title"]} if e.get("title") else None)
     if hook:
-        hy = int(H * float(hook["y"])) if hook.get("y") is not None else 560  # 選填 "y"：大標高度（畫面比例），副標在下方 140px
+        # 封面標題固定位置（老闆 2026-11-09：IG 主頁格子會把 9:16 裁成 3:4，上下各切掉 240px，標題位置不一致又會被切掉）
+        # 一律放在 TITLE_Y，不再接受剪輯單自訂高度，讓主頁每一格的標題都在同一個位置、完整看得到
+        hy = TITLE_Y
         draws.append(text(hook["title"], 104, "0xF5C518", hy, 0, 2.5, 8))
         if hook.get("sub"):
             draws.append(text(hook["sub"], 60, "white", hy + 140, 0, 2.5))
     # 抖音式置頂大字（整支都在，無底色、粗黑邊）：避開最上方 220px 的系統列
     for j, ln in enumerate(e.get("pin", [])):
-        draws.append(text(ln["text"], int(ln.get("size", 92)), ln.get("color", "white"), 250 + j * 118, 0, total + 1, 9))
+        draws.append(text(ln["text"], int(ln.get("size", 92)), ln.get("color", "white"), TITLE_Y + j * 118, 0, total + 1, 9))
     cy, cs = float(e.get("caption_y", 0.70)), int(e.get("caption_size", 62))
     for cap in e.get("captions", []):
         draws.append(text(cap["text"], int(cap.get("size", cs)), cap.get("color", "white"), int(H * float(cap.get("y", cy))), float(cap["start"]), float(cap["end"]), 7))
@@ -194,6 +197,9 @@ def main(edl_path):
             "-c:a", "aac", "-b:a", "192k", "-ar", "48000", "-movflags", "+faststart", str(final)]
     run(cmd)
     run(["ffmpeg", "-v", "error", "-y", "-ss", "1", "-i", str(final), "-frames:v", "1", "-q:v", "3", str(out_dir / f"{e['slug']}.jpg")])
+    # IG 主頁格子預覽（中間 3:4），檢查標題有沒有完整出現在格子裡
+    run(["ffmpeg", "-v", "error", "-y", "-i", str(out_dir / f"{e['slug']}.jpg"), "-vf", "crop=1080:1440:0:240", "-q:v", "3",
+         str(out_dir / f"{e['slug']}_grid.jpg")])
     print("完成", final, round(total, 1), "秒", final.stat().st_size // 1024, "KB")
 
 
