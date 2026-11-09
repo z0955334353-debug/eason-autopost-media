@@ -1,4 +1,8 @@
-"""依剪輯單（edl/*.json）剪出 1080x1920 的 Reels，輸出到 out/。
+"""壹神旅途 Reels：依剪輯單剪出 1080x1920 的 Reels，輸出到 out/。
+（11/09 改成壹神版：沒有 logo、畫面不放免責（免責寫在 post.json 文案最後）、字幕專有名詞黃色。
+ 通常先跑 autocaption.py 產生 build/<slug>.json 再交給本程式；規格以 README 與 eason-reels-editing 技能為準。）
+字幕可加 "hl": ["台指期"]：該詞改黃色。片段可用 "file": "repo內或絕對路徑" 代替雲端 "id"。
+"out_dir": "repo 內路徑" 可改輸出位置（自我測試用）。
 
 剪輯單格式：
 {
@@ -15,13 +19,12 @@
   "clips": [{"id": "雲端檔案ID", "start": 1.5, "end": 6.0, "speed": 1.0},
             {"photo": "komazawa/pro/2V1A6971.jpg", "dur": 0.6}],   # 照片：repo 內路徑，會慢慢推近
   "keep_audio": true,                               # 保留現場聲音
-  "logo": false,                                    # 右下角小 logo（預設不放）
-  "masks": [{"y0": 0.26, "y1": 0.42, "start": 0, "end": 2.2}]   # 選填：遮客人臉的色帶（老闆 11/06：可以用圖樣或文字設計擋住臉）
+    "masks": [{"y0": 0.26, "y1": 0.42, "start": 0, "end": 2.2}]   # 選填：遮客人臉的色帶（老闆 11/06：可以用圖樣或文字設計擋住臉）
 }
 masks：每個是一條實心色帶（預設全寬、深色 0x111111，可加 "x0"/"x1" 變成方塊、"color" 改顏色），畫在字的下面，
 hook／字幕可以直接壓在色帶上當「文字設計」。秒數是成片時間；色帶要把整段裡每一格的客人臉（含側臉）都蓋住，做完一定要逐格檢查。
 舊格式的 "title" 會當成 hook 的大標（不再畫上方的色塊標題列）。
-長度建議 25～35 秒，每 2～3 秒換一個畫面。
+長度 15～25 秒（最長 35），第一秒就要有聲音，每 2～3 秒換一個畫面。
 """
 import json
 import subprocess
@@ -32,7 +35,6 @@ ROOT = Path(__file__).resolve().parent.parent
 FONT = "/usr/share/fonts/opentype/noto/NotoSansCJK-Black.ttc"
 if not Path(FONT).exists():
     FONT = "/usr/share/fonts/opentype/noto/NotoSansCJK-Bold.ttc"
-LOGO = ROOT.parent.parent / "komazawa-helper" / "public" / "icon.png"
 W, H = 1080, 1920
 TONEMAP = ("zscale=t=linear:npl=100,format=gbrpf32le,zscale=p=bt709,tonemap=tonemap=hable:desat=0,"
            "zscale=t=bt709:m=bt709:r=tv,format=yuv420p")
@@ -58,10 +60,29 @@ def text(t, size, color, y, start, end, border=6):
             f"x=(w-text_w)/2:y={y}:enable='between(t,{start:.2f},{end:.2f})'")
 
 
+def text_hl(t, size, y, start, end, hl, border=7):
+    """整句白字，專有名詞另外疊一層黃色在同一位置（用字型實際寬度算位置）。"""
+    from PIL import ImageFont
+    f = ImageFont.truetype(FONT, size)
+    tw = f.getlength(t)
+    out = [text(t, size, "white", y, start, end, border)]
+    done = set()
+    for k in sorted(hl, key=len, reverse=True):
+        i = t.find(k)
+        while i >= 0:
+            if not any(j in done for j in range(i, i + len(k))):
+                x = (W - tw) / 2 + f.getlength(t[:i])
+                out.append(f"drawtext=fontfile={FONT}:text='{esc(k)}':fontsize={size}:fontcolor=0xF5C518:borderw={border}:"
+                           f"bordercolor=black@0.85:x={x:.1f}:y={y}:enable='between(t,{start:.2f},{end:.2f})'")
+                done.update(range(i, i + len(k)))
+            i = t.find(k, i + 1)
+    return out
+
+
 def main(edl_path):
     e = json.loads(Path(edl_path).read_text(encoding="utf-8"))
-    tmp = Path("/tmp/kzr")
-    tmp.mkdir(exist_ok=True)
+    tmp = Path(f"/tmp/esr/{e['slug']}")
+    tmp.mkdir(parents=True, exist_ok=True)
     parts = []
     repo = ROOT.parent.parent
     for i, c in enumerate(e["clips"]):
@@ -76,7 +97,10 @@ def main(edl_path):
                  "-pix_fmt", "yuv420p", *COLOR, "-c:a", "aac", "-ar", "48000", "-ac", "2", "-shortest", str(out)])
             parts.append(out)
             continue
-        src = tmp / f"src_{c['id']}"
+        if c.get("file"):
+            src = Path(c["file"]) if Path(c["file"]).is_absolute() else repo / c["file"]
+        else:
+            src = tmp / f"src_{c['id']}"
         if not src.exists():
             run(["curl", "-sSL", "-A", "Mozilla/5.0", "-o", str(src),
                  f"https://drive.usercontent.google.com/download?id={c['id']}&export=download&confirm=t"])
@@ -126,7 +150,11 @@ def main(edl_path):
         draws.append(text(ln["text"], int(ln.get("size", 92)), ln.get("color", "white"), 250 + j * 118, 0, total + 1, 9))
     cy, cs = float(e.get("caption_y", 0.70)), int(e.get("caption_size", 62))
     for cap in e.get("captions", []):
-        draws.append(text(cap["text"], int(cap.get("size", cs)), cap.get("color", "white"), int(H * float(cap.get("y", cy))), float(cap["start"]), float(cap["end"]), 7))
+        size, y, st, en = int(cap.get("size", cs)), int(H * float(cap.get("y", cy))), float(cap["start"]), float(cap["end"])
+        if cap.get("hl") and cap.get("color", "white") == "white":
+            draws += text_hl(cap["text"], size, y, st, en, cap["hl"])
+        else:
+            draws.append(text(cap["text"], size, cap.get("color", "white"), y, st, en, 7))
     end_lines = e.get("end_text") or []
     end_secs = float(e.get("end_secs", 2.4))
     for j, line in enumerate(end_lines):
@@ -138,12 +166,8 @@ def main(edl_path):
     if draws:
         filters.append(f"[{last}]" + ",".join(draws) + "[v1]")
         last = "v1"
-    if e.get("logo", False) and LOGO.exists():
-        inputs += ["-i", str(LOGO)]
-        filters.append(f"[1:v]scale=120:120,format=rgba[lg];[{last}][lg]overlay=x=W-w-40:y=H-h-300[v2]")
-        last = "v2"
-    out_dir = ROOT / "out"
-    out_dir.mkdir(exist_ok=True)
+    out_dir = repo / e["out_dir"] if e.get("out_dir") else ROOT / "out"
+    out_dir.mkdir(parents=True, exist_ok=True)
     final = out_dir / f"{e['slug']}.mp4"
     # 音效：[{"file": "komazawa/reels/sfx/pop.wav", "at": 4.8, "vol": 0.5}]，疊在現場聲音上
     sfx = [x for x in e.get("sfx", []) if (repo / x["file"]).exists() and float(x["at"]) < total]

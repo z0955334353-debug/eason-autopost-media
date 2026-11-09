@@ -1,0 +1,62 @@
+name: 壹神旅途 Reels（自動字幕＋剪停頓＋剪片）
+
+on:
+  push:
+    branches: [main]
+    paths: ["eason/reels/edl/**"]
+  workflow_dispatch:
+    inputs:
+      selftest:
+        description: "跑自我測試（合成人聲測試片）"
+        type: boolean
+        default: false
+
+concurrency:
+  group: eason-reels
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  reels:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+      - name: 安裝 ffmpeg、中文字型、轉字幕工具
+        run: |
+          sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg fonts-noto-cjk espeak-ng >/dev/null
+          pip install -q faster-whisper opencc-python-reimplemented pillow
+      - name: 語音模型快取
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/huggingface
+          key: whisper-small-v1
+      - name: 自我測試
+        if: ${{ inputs.selftest }}
+        run: bash eason/reels/tools/selftest.sh
+      - name: 依剪輯單：自動字幕＋剪停頓 → 剪片（單支失敗不影響其他支）
+        if: ${{ !inputs.selftest }}
+        run: |
+          fail=0
+          for f in eason/reels/edl/*.json; do
+            [ -e "$f" ] || continue
+            slug=$(basename "$f" .json)
+            [ -f "eason/reels/out/$slug.mp4" ] && continue
+            if python3 eason/reels/tools/autocaption.py "$f" && python3 eason/reels/tools/render.py "eason/reels/build/$slug.json"; then
+              echo "✅ $slug"
+            else
+              echo "❌ $slug 失敗（合規未過或剪片錯誤，見 out/$slug.合規未過.txt 或上方紀錄）"; fail=1
+            fi
+          done
+          echo "FAIL=$fail" >> $GITHUB_ENV
+      - name: 存檔
+        run: |
+          git config user.name "eason-autopost-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add -A eason/reels
+          git diff --cached --quiet || (git commit -m "壹神旅途 Reels $(TZ=Asia/Taipei date '+%m/%d %H:%M')" && git pull --rebase -q && git push -q)
+      - name: 有失敗就標紅
+        if: ${{ env.FAIL == '1' }}
+        run: exit 1
