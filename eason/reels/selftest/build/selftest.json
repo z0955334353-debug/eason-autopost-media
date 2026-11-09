@@ -1,0 +1,59 @@
+{
+ "slug": "selftest",
+ "out_dir": "eason/reels/selftest/out",
+ "clips": [
+  {
+   "file": "/tmp/esr_selftest/voice.mp4",
+   "start": 0.0,
+   "end": 2.445
+  },
+  {
+   "file": "/tmp/esr_selftest/voice.mp4",
+   "start": 3.707,
+   "end": 8.273
+  },
+  {
+   "file": "/tmp/esr_selftest/voice.mp4",
+   "start": 9.279,
+   "end": 12.429
+  }
+ ],
+ "captions": [
+  {
+   "start": 0.0,
+   "end": 0.6,
+   "text": "大家好"
+  },
+  {
+   "start": 1.14,
+   "end": 2.24,
+   "text": "我是壹神",
+   "hl": [
+    "壹神"
+   ]
+  },
+  {
+   "start": 2.48,
+   "end": 6.2,
+   "text": "今天在胡志明的咖啡店看台",
+   "hl": [
+    "胡志明"
+   ]
+  },
+  {
+   "start": 6.2,
+   "end": 6.96,
+   "text": "指期"
+  },
+  {
+   "start": 7.05,
+   "end": 9.87,
+   "text": "先看生命線跟停損",
+   "hl": [
+    "生命線",
+    "停損"
+   ]
+  }
+ ],
+ "auto_done": true
+}
