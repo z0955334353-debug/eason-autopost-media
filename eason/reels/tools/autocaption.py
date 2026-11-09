@@ -92,6 +92,14 @@ def has_audio(src):
     return "audio" in run(["ffprobe", "-v", "error", "-show_entries", "stream=codec_type", "-of", "csv=p=0", str(src)]).stdout
 
 
+def pcm(wav):
+    """用 ffmpeg 解成 16k 單聲道 float32（不靠 PyAV，避免版本不合）。"""
+    import numpy as np
+    raw = subprocess.run(["ffmpeg", "-v", "error", "-i", str(wav), "-f", "f32le", "-ac", "1", "-ar", "16000", "-"],
+                         capture_output=True, check=True).stdout
+    return np.frombuffer(raw, dtype=np.float32).copy()
+
+
 def speech_ranges(wav, dur, pause, pad, noise_db):
     """回傳要保留的區間（相對片段起點）：剪掉超過 pause 秒的停頓，前後各留 pad 秒。"""
     err = run(["ffmpeg", "-hide_banner", "-i", str(wav), "-af", f"silencedetect=noise={noise_db}dB:d={pause}", "-f", "null", "-"]).stderr
@@ -169,7 +177,7 @@ def main(edl_path):
         if c.get("voice", True) and e.get("keep_audio", True) and has_audio(src):
             wav = TMP / f"{slug}_{i}.wav"
             run(["ffmpeg", "-v", "error", "-y", "-ss", str(a), "-t", str(b - a), "-i", str(src), "-vn", "-ac", "1", "-ar", "16000", str(wav)])
-            segs, _ = model().transcribe(str(wav), language="zh", initial_prompt=PROMPT, word_timestamps=True,
+            segs, _ = model().transcribe(pcm(wav), language="zh", initial_prompt=PROMPT, word_timestamps=True,
                                          vad_filter=True, beam_size=5)
             for sg in segs:
                 for w in (sg.words or []):
