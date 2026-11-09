@@ -26,6 +26,8 @@ masks：**老闆 2026-11-07 禁止畫面中間有任何色塊，render.py 會略
 hook／字幕可以直接壓在色帶上當「文字設計」。秒數是成片時間；色帶要把整段裡每一格的客人臉（含側臉）都蓋住，做完一定要逐格檢查。
 舊格式的 "title" 會當成 hook 的大標（不再畫上方的色塊標題列）。
 長度建議 25～35 秒，每 2～3 秒換一個畫面。
+"copy": {"ig": "IG 文案", "tiktok": "抖音文案"}：選填。有寫的話會跟畫面上的字一起做「禁用說法」檢查（BANNED，老闆 11/09：只有開鍋由店員服務），
+  命中就直接停止、不出片；推 LINE 前請把文案也放進剪輯單讓程式檢查。
 """
 import json
 import subprocess
@@ -73,8 +75,27 @@ def trim(c):
     return f"crop=iw:trunc(ih*{1 - t - b:.4f}/2)*2:0:trunc(ih*{t:.4f}/2)*2,"
 
 
+BANNED = ["幫你煎好", "全程幫你煎", "只要負責吃", "負責吃就好", "全程幫你", "全程代煎", "幫你顧到好"]  # 老闆 2026-11-09 更正桌邊服務說法
+
+
+def check_words(e):
+    """畫面上的字＋選填文案（copy）裡有禁用說法就停止。回傳命中清單（測試用）。"""
+    texts = []
+    h = e.get("hook") or {}
+    texts += [h.get("title", ""), h.get("sub", ""), e.get("title", "")]
+    texts += [c.get("text", "") for c in e.get("captions", [])]
+    texts += list(e.get("end_text", []))
+    texts += [p.get("text", "") for p in e.get("pin", [])]
+    texts += [str(v) for v in (e.get("copy") or {}).values()]
+    hits = sorted({w for t in texts for w in BANNED if w in str(t)})
+    if hits:
+        raise SystemExit(f"剪輯單／文案有禁用說法 {hits}：老闆 11/09 更正只有「開鍋」由店員桌邊服務，請改成「店員桌邊開鍋」「第一鍋店員幫你開」。")
+    return hits
+
+
 def main(edl_path):
     e = json.loads(Path(edl_path).read_text(encoding="utf-8"))
+    check_words(e)
     tmp = Path("/tmp/kzr")
     tmp.mkdir(exist_ok=True)
     parts = []
