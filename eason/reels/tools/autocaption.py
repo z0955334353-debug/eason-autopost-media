@@ -144,6 +144,16 @@ def lines_from_words(words):
         if brk:
             flush()
     flush()
+    # 專有名詞不可被切成兩行（例如「看台」／「指期」）：把前半移到下一行
+    for i in range(len(out) - 1):
+        a_, b_ = out[i], out[i + 1]
+        for k in KEYWORDS:
+            for j in range(1, len(k)):
+                if a_["text"].endswith(k[:j]) and b_["text"].startswith(k[j:]):
+                    a_["text"] = a_["text"][:-j].rstrip()
+                    b_["text"] = k[:j] + b_["text"]
+                    break
+    out = [c for c in out if c["text"]]
     # 字幕不留空窗太短的閃爍：每句至少 0.6 秒，不壓到下一句
     for i, c in enumerate(out):
         nxt = out[i + 1]["start"] if i + 1 < len(out) else c["end"] + 0.6
