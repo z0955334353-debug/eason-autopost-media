@@ -27,15 +27,24 @@ jobs:
         run: python3 komazawa/reels/tools/import_drive.py 1wUc_kgh63D_vhDkB4P9MiFHE4voF1YEq
       - name: 依剪輯單剪出還沒剪過的 Reels
         run: |
+          fail=0
           for f in komazawa/reels/edl/*.json; do
             [ -e "$f" ] || continue
             slug=$(basename "$f" .json)
             [ -f "komazawa/reels/out/$slug.mp4" ] && continue
-            python3 komazawa/reels/tools/render.py "$f"
+            if python3 komazawa/reels/tools/render.py "$f"; then
+              echo "✅ $slug"
+            else
+              echo "❌ $slug 失敗（見上方訊息），繼續剪下一支"; fail=1
+            fi
           done
+          echo "FAIL=$fail" >> $GITHUB_ENV
       - name: 存檔
         run: |
           git config user.name "eason-autopost-bot"
           git config user.email "actions@users.noreply.github.com"
           git add -A komazawa/reels
           git diff --cached --quiet || (git commit -m "駒澤屋 Reels $(TZ=Asia/Taipei date '+%m/%d %H:%M')" && git pull --rebase -q && git push -q)
+      - name: 有剪輯單失敗就標紅（成功的已經存檔）
+        if: env.FAIL == '1'
+        run: exit 1

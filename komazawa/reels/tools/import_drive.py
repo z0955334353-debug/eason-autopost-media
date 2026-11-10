@@ -5,7 +5,8 @@
         並記錄長度、解析度、是否有聲音（inbox/<日期>/<檔名>.json）
 - 照片：縮到長邊 1600px 存到 inbox/<日期>/photos/
 - 已處理過的檔案記在 manifest.json，不重複處理
-原始影片不進 repo（太大），剪片時再用檔案 ID 重新下載。
+- 影片另外轉成 1080p 輕量備份存到 raw/<檔案ID>.mp4（店員常把雲端舊片刪掉；render.py 先用備份、沒有才去雲端抓）。
+  舊素材還沒備份的，每次順手補備份最多 BACKFILL 支；雲端已刪的記成 raw_gone，不再重試。
 """
 import html
 import json
@@ -22,6 +23,10 @@ MANIFEST = ROOT / "manifest.json"
 TZ = ZoneInfo("Asia/Taipei")
 UA = {"User-Agent": "Mozilla/5.0"}
 VIDEO_EXT = (".mp4", ".mov", ".m4v", ".3gp", ".avi", ".mkv")
+RAW = ROOT / "raw"
+BACKFILL = 12
+TONEMAP = ("zscale=t=linear:npl=100,format=gbrpf32le,zscale=p=bt709,tonemap=tonemap=hable:desat=0,"
+           "zscale=t=bt709:m=bt709:r=tv,format=yuv420p")
 PHOTO_EXT = (".jpg", ".jpeg", ".png", ".heic", ".heif", ".webp")
 
 
@@ -52,6 +57,49 @@ def list_folder(folder_id, depth=0):
 def download(fid, dest):
     url = f"https://drive.usercontent.google.com/download?id={fid}&export=download&confirm=t"
     subprocess.run(["curl", "-sSL", "-A", "Mozilla/5.0", "-o", str(dest), url], check=True)
+
+
+def backup(src, fid):
+    """轉成短邊 1080、H.264 輕量版；iPhone HDR 先轉一般色彩（標成 bt709，render 就不會再轉一次）。"""
+    RAW.mkdir(exist_ok=True)
+    dest = RAW / f"{fid}.mp4"
+    trc = subprocess.run(["ffprobe", "-v", "error", "-select_streams", "v:0", "-show_entries", "stream=color_transfer",
+                          "-of", "csv=p=0", str(src)], capture_output=True, text=True).stdout.strip()
+    scale = "scale='if(gt(iw,ih),-2,min(1080,iw))':'if(gt(iw,ih),min(1080,ih),-2)'"
+    tail = ["-c:v", "libx264", "-preset", "veryfast", "-crf", "23", "-pix_fmt", "yuv420p", "-colorspace", "bt709",
+            "-color_primaries", "bt709", "-color_trc", "bt709", "-c:a", "aac", "-b:a", "128k", "-movflags", "+faststart", str(dest)]
+    base = ["ffmpeg", "-v", "error", "-y", "-i", str(src), "-map", "0:v:0", "-map", "0:a:0?"]
+    ok = False
+    if trc in ("arib-std-b67", "smpte2084"):
+        ok = subprocess.run(base + ["-vf", f"{TONEMAP},{scale}"] + tail).returncode == 0
+    if not ok:
+        subprocess.run(base + ["-vf", scale] + tail, check=True)
+    print(f"  備份 {dest.name}：{dest.stat().st_size / 1e6:.1f} MB")
+    return f"raw/{fid}.mp4"
+
+
+def backfill(manifest, tmp):
+    """舊素材還沒備份的補備份；雲端已經刪掉的標 raw_gone。"""
+    done = 0
+    for fid, m in manifest.items():
+        if done >= BACKFILL:
+            break
+        if m.get("type") != "video" or m.get("raw") or m.get("raw_gone") or (RAW / f"{fid}.mp4").exists():
+            continue
+        src = tmp / f"bf_{fid}"
+        try:
+            download(fid, src)
+            kind = subprocess.run(["file", "-b", "--mime-type", str(src)], capture_output=True, text=True).stdout.strip()
+            if kind.startswith("video/"):
+                m["raw"] = backup(src, fid)
+            else:
+                m["raw_gone"] = datetime.now(TZ).strftime("%Y%m%d")
+                print(f"  {m.get('name')} 雲端已不在，無法補備份")
+            done += 1
+        except Exception as e:  # noqa: BLE001
+            print("補備份失敗", m.get("name"), e)
+        finally:
+            src.unlink(missing_ok=True)
 
 
 def probe(path):
@@ -107,6 +155,10 @@ def main(folder_ids):
                     contact_sheet(src, inbox / f"{stem}.jpg", info["duration"])
                     rec = {"id": f["id"], "name": name, "type": "video", **info,
                            "sheet": f"inbox/{day}/{stem}.jpg"}
+                    try:
+                        rec["raw"] = backup(src, f["id"])
+                    except Exception as e:  # noqa: BLE001  備份失敗不影響縮圖表
+                        print("備份失敗", name, e)
                 elif kind.startswith("image/"):
                     (inbox / "photos").mkdir(parents=True, exist_ok=True)
                     out = inbox / "photos" / f"{stem}.jpg"
@@ -118,11 +170,12 @@ def main(folder_ids):
                 if "skipped" not in rec:
                     (inbox / f"{stem}.json").write_text(json.dumps(rec, ensure_ascii=False, indent=1), encoding="utf-8")
                     new.append(rec)
-                manifest[f["id"]] = {"name": name, "imported": day, **{k: rec[k] for k in rec if k in ("type", "skipped")}}
+                manifest[f["id"]] = {"name": name, "imported": day, **{k: rec[k] for k in rec if k in ("type", "skipped", "raw")}}
             except Exception as e:  # noqa: BLE001
                 print("失敗", name, e)
             finally:
                 src.unlink(missing_ok=True)
+    backfill(manifest, tmp)
     MANIFEST.write_text(json.dumps(manifest, ensure_ascii=False, indent=1), encoding="utf-8")
     (ROOT / "inbox").mkdir(exist_ok=True)
     summary = {"date": day, "new": new}

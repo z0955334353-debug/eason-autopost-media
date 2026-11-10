@@ -51,6 +51,22 @@ def run(cmd, check=True):
     return subprocess.run(cmd, check=check)
 
 
+def fetch(fid, tmp):
+    """先用 repo 裡的備份（raw/<ID>.mp4），沒有才去雲端抓；雲端被刪就清楚說明。"""
+    raw = ROOT / "raw" / f"{fid}.mp4"
+    if raw.exists():
+        return raw
+    src = tmp / f"src_{fid}"
+    if not src.exists():
+        run(["curl", "-sSL", "-A", "Mozilla/5.0", "-o", str(src),
+             f"https://drive.usercontent.google.com/download?id={fid}&export=download&confirm=t"], check=False)
+        kind = subprocess.run(["file", "-b", "--mime-type", str(src)], capture_output=True, text=True).stdout.strip() if src.exists() else ""
+        if not kind.startswith("video/"):
+            src.unlink(missing_ok=True)
+            sys.exit(f"素材 {fid} 沒有備份，雲端也抓不到（可能已被刪除）→ 這支剪輯單請換片段")
+    return src
+
+
 def probe(src, entries):
     return subprocess.run(["ffprobe", "-v", "error", "-select_streams", "v:0", "-show_entries", entries, "-of", "csv=p=0", str(src)],
                           capture_output=True, text=True).stdout.strip()
@@ -112,10 +128,7 @@ def main(edl_path):
                  "-pix_fmt", "yuv420p", *COLOR, "-c:a", "aac", "-ar", "48000", "-ac", "2", "-shortest", str(out)])
             parts.append(out)
             continue
-        src = tmp / f"src_{c['id']}"
-        if not src.exists():
-            run(["curl", "-sSL", "-A", "Mozilla/5.0", "-o", str(src),
-                 f"https://drive.usercontent.google.com/download?id={c['id']}&export=download&confirm=t"])
+        src = fetch(c["id"], tmp)
         has_audio = "audio" in subprocess.run(["ffprobe", "-v", "error", "-show_entries", "stream=codec_type", "-of", "csv=p=0", str(src)],
                                               capture_output=True, text=True).stdout
         hdr = probe(src, "stream=color_transfer") in ("arib-std-b67", "smpte2084")
