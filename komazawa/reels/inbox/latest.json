@@ -1,4 +1,93 @@
 {
- "date": "20261110",
- "new": []
+ "date": "20261111",
+ "new": [
+  {
+   "id": "1JGodN_uYMj10jgQJiK6wkWOo1W4zwGJ1",
+   "name": "IMG_1823.MOV",
+   "type": "video",
+   "duration": 6.03,
+   "width": 3840,
+   "height": 2160,
+   "has_audio": true,
+   "sheet": "inbox/20261111/IMG_1823_1JGodN.jpg",
+   "raw": "raw/1JGodN_uYMj10jgQJiK6wkWOo1W4zwGJ1.mp4"
+  },
+  {
+   "id": "1YS0Gh4uyU2Y_MYa8R5pFSFKzhofFNvuN",
+   "name": "IMG_1824.MOV",
+   "type": "video",
+   "duration": 2.8,
+   "width": 3840,
+   "height": 2160,
+   "has_audio": true,
+   "sheet": "inbox/20261111/IMG_1824_1YS0Gh.jpg",
+   "raw": "raw/1YS0Gh4uyU2Y_MYa8R5pFSFKzhofFNvuN.mp4"
+  },
+  {
+   "id": "1Np0-oTirHEpwo1MylT9QiRAu3XikOMCL",
+   "name": "IMG_1826.MOV",
+   "type": "video",
+   "duration": 1.86,
+   "width": 3840,
+   "height": 2160,
+   "has_audio": true,
+   "sheet": "inbox/20261111/IMG_1826_1Np0-o.jpg",
+   "raw": "raw/1Np0-oTirHEpwo1MylT9QiRAu3XikOMCL.mp4"
+  },
+  {
+   "id": "1izEg53u9cEYHsRnuhVoIYMVDrkRuzZ76",
+   "name": "IMG_1828.MOV",
+   "type": "video",
+   "duration": 17.97,
+   "width": 1920,
+   "height": 1080,
+   "has_audio": true,
+   "sheet": "inbox/20261111/IMG_1828_1izEg5.jpg",
+   "raw": "raw/1izEg53u9cEYHsRnuhVoIYMVDrkRuzZ76.mp4"
+  },
+  {
+   "id": "1F1I315OWczxklVVjoixFlWjj6kNOL2bY",
+   "name": "IMG_1830.MOV",
+   "type": "video",
+   "duration": 2.47,
+   "width": 3840,
+   "height": 2160,
+   "has_audio": true,
+   "sheet": "inbox/20261111/IMG_1830_1F1I31.jpg",
+   "raw": "raw/1F1I315OWczxklVVjoixFlWjj6kNOL2bY.mp4"
+  },
+  {
+   "id": "18sS7OZhWcguDeHjhWeFtjksDgETsza1p",
+   "name": "IMG_1835.MOV",
+   "type": "video",
+   "duration": 2.32,
+   "width": 3840,
+   "height": 2160,
+   "has_audio": true,
+   "sheet": "inbox/20261111/IMG_1835_18sS7O.jpg",
+   "raw": "raw/18sS7OZhWcguDeHjhWeFtjksDgETsza1p.mp4"
+  },
+  {
+   "id": "1QAMB-027Qn7nXrHhhfruN3kVPoJoER9P",
+   "name": "IMG_1854.MOV",
+   "type": "video",
+   "duration": 6.9,
+   "width": 3840,
+   "height": 2160,
+   "has_audio": true,
+   "sheet": "inbox/20261111/IMG_1854_1QAMB-.jpg",
+   "raw": "raw/1QAMB-027Qn7nXrHhhfruN3kVPoJoER9P.mp4"
+  },
+  {
+   "id": "1OpFGuaHZ0WED8eflbQ1_2lDnFOdqPk5x",
+   "name": "IMG_1856.MOV",
+   "type": "video",
+   "duration": 12.57,
+   "width": 3840,
+   "height": 2160,
+   "has_audio": true,
+   "sheet": "inbox/20261111/IMG_1856_1OpFGu.jpg",
+   "raw": "raw/1OpFGuaHZ0WED8eflbQ1_2lDnFOdqPk5x.mp4"
+  }
+ ]
 }
