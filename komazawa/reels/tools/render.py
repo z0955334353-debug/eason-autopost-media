@@ -28,6 +28,7 @@ masks：**老闆 2026-11-07 禁止畫面中間有任何色塊，render.py 會略
 hook／字幕可以直接壓在色帶上當「文字設計」。秒數是成片時間；色帶要把整段裡每一格的客人臉（含側臉）都蓋住，做完一定要逐格檢查。
 舊格式的 "title" 會當成 hook 的大標（不再畫上方的色塊標題列）。
 長度建議 25～35 秒，每 2～3 秒換一個畫面。
+警告（只印、不擋出片，11/11 加）：同一支原片合計超過 5 秒；zoom 後保留寬度不到 640 像素（1080p 原片 w < 0.6 會偏糊）。
 "copy": {"ig": "IG 文案", "tiktok": "抖音文案"}：選填。有寫的話會跟畫面上的字一起做「禁用說法」檢查（BANNED，老闆 11/09：只有開鍋由店員服務），
   命中就直接停止、不出片；推 LINE 前請把文案也放進剪輯單讓程式檢查。
 """
@@ -118,9 +119,42 @@ def check_words(e):
     return hits
 
 
+def warn_scenes(e):
+    """同一支原片（同檔名）合計超過 5 秒就警告（PLAYBOOK：同一場景總長不超過 5 秒）。只印警告、不擋出片。回傳超標清單（測試用）。"""
+    try:
+        names = {k: v.get("name", k).upper() for k, v in json.loads((ROOT / "manifest.json").read_text(encoding="utf-8")).items()}
+    except Exception:
+        names = {}
+    tot = {}
+    for c in e.get("clips", []):
+        if c.get("id"):
+            n = names.get(c["id"], c["id"])
+            tot[n] = tot.get(n, 0) + (float(c["end"]) - float(c["start"])) / float(c.get("speed", 1.0))
+    over = {n: round(t, 1) for n, t in tot.items() if t > 5.05}
+    for n, t in over.items():
+        print(f"⚠️ 同一場景 {n} 合計 {t} 秒（規則 5 秒內），挑最好的兩刀就好")
+    return over
+
+
+def warn_zoom(c, src):
+    """zoom 後保留的寬度太少（< 640 像素）會放大太多、畫面偏糊，印警告（11/11 研究：1080p 原片 w 0.55 已偏軟）。"""
+    z = c.get("zoom")
+    if not z:
+        return None
+    try:
+        short = min(int(x) for x in probe(src, "stream=width,height").split(",")[:2])
+    except Exception:
+        return None
+    px = int(short * float(z.get("w", 0.6)))
+    if px < 640:
+        print(f"⚠️ {c.get('id')} zoom 後只剩約 {px} 像素寬，要放大 {W / px:.1f} 倍會偏糊：1080p 原片 w 用 0.6 以上，或改用 4K 原片")
+    return px
+
+
 def main(edl_path):
     e = json.loads(Path(edl_path).read_text(encoding="utf-8"))
     check_words(e)
+    warn_scenes(e)
     tmp = Path("/tmp/kzr")
     tmp.mkdir(exist_ok=True)
     parts = []
@@ -138,6 +172,7 @@ def main(edl_path):
             parts.append(out)
             continue
         src = fetch(c["id"], tmp)
+        warn_zoom(c, src)
         has_audio = "audio" in subprocess.run(["ffprobe", "-v", "error", "-show_entries", "stream=codec_type", "-of", "csv=p=0", str(src)],
                                               capture_output=True, text=True).stdout
         hdr = probe(src, "stream=color_transfer") in ("arib-std-b67", "smpte2084")
