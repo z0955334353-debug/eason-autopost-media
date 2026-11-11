@@ -14,6 +14,8 @@
   （clips 裡的片段可加 "punch": true：開頭快速放大回彈，通常只用在第一個片段）
   （clips 裡的片段可加 "crop_top": 0.3／"crop_bottom": 0.1：先把原片上方（下方）這個比例裁掉，再放大填滿 1080x1920（左右置中裁）。
     行銷長 11/08：桌邊鏡頭畫面上緣有客人身體／下巴就用 crop_top 裁掉，裁完仍看得到就整段不用；照片也適用）
+  （clips 裡的片段可加 "zoom": {"x": 0.5, "y": 0.65, "w": 0.55}：老闆 11/11「放大鍋物、閃掉客人就好」。以 (x, y) 為中心（原片比例）
+    裁出寬度 w（0.4～1）的直式畫面再放大填滿，用來只留鍋、肉、手。有 zoom 就不看 crop_top／crop_bottom；照片也適用）
   （clips 裡的片段可加 "gain_db": 6：只調這一刀的現場聲（dB，正數大聲、負數小聲）。B 套剪法用：肉下鍋／冒煙那幾刀 +6～+8，備料刀 -4～0；
     整條現場聲之後仍會被 live_lufs 壓到固定響度，所以是「相對大小」）
   "clips": [{"id": "雲端檔案ID", "start": 1.5, "end": 6.0, "speed": 1.0},
@@ -82,7 +84,14 @@ def text(t, size, color, y, start, end, border=6):
 
 
 def trim(c):
-    """crop_top／crop_bottom：先裁掉原片上（下）緣的比例，回傳 ffmpeg 濾鏡前綴（沒設就空字串）。"""
+    """zoom 或 crop_top／crop_bottom：先裁原片，回傳 ffmpeg 濾鏡前綴（沒設就空字串）。"""
+    z = c.get("zoom")
+    if z:  # 老闆 11/11：放大鍋物、閃掉客人。{"x": 中心橫向比例, "y": 中心直向比例, "w": 保留寬度比例 0.4～1}
+        w, cx, cy = float(z.get("w", 0.6)), float(z.get("x", 0.5)), float(z.get("y", 0.5))
+        if not (0.4 <= w <= 1 and 0 <= cx <= 1 and 0 <= cy <= 1):
+            raise SystemExit(f"zoom 的 w 要 0.4～1、x／y 要 0～1：{c}")
+        return (f"crop=w='trunc(iw*{w:.4f}/2)*2':h='trunc(min(ih,iw*{w:.4f}*16/9)/2)*2':"
+                f"x='max(0,min(iw-out_w,iw*{cx:.4f}-out_w/2))':y='max(0,min(ih-out_h,ih*{cy:.4f}-out_h/2))',")
     t, b = float(c.get("crop_top", 0) or 0), float(c.get("crop_bottom", 0) or 0)
     if t <= 0 and b <= 0:
         return ""
