@@ -29,6 +29,7 @@ hook／字幕可以直接壓在色帶上當「文字設計」。秒數是成片�
 舊格式的 "title" 會當成 hook 的大標（不再畫上方的色塊標題列）。
 長度建議 25～35 秒，每 2～3 秒換一個畫面。
 警告（只印、不擋出片，11/11 加）：同一支原片合計超過 5 秒；zoom 後保留寬度不到 640 像素（1080p 原片 w < 0.6 會偏糊）。
+警告（11/12 加）：剪輯單用了 "photo"（老闆 11/12：Reels 全部要影片）；開場同一場景超過 3 秒才換畫面；單句字幕掛超過 4.5 秒（字要跟著畫面換）。
 "copy": {"ig": "IG 文案", "tiktok": "抖音文案"}：選填。有寫的話會跟畫面上的字一起做「禁用說法」檢查（BANNED，老闆 11/09：只有開鍋由店員服務），
   命中就直接停止、不出片；推 LINE 前請把文案也放進剪輯單讓程式檢查。
 """
@@ -136,6 +137,31 @@ def warn_scenes(e):
     return over
 
 
+def warn_pacing(e):
+    """11/12 研究：照片、開場太久不換、字幕掛太久。只印警告、不擋出片。回傳警告清單（測試用）。"""
+    msgs = []
+    clips = e.get("clips", [])
+    if any(c.get("photo") for c in clips):
+        msgs.append("剪輯單有 photo：老闆 11/12「全部都要影片，不要硬塞圖片」，請換成影片片段")
+    first, t = None, 0.0
+    for c in clips:
+        key = c.get("id") or c.get("photo")
+        if first is None:
+            first = key
+        if key != first:
+            break
+        t += float(c.get("dur", 0.8)) if c.get("photo") else (float(c["end"]) - float(c["start"])) / float(c.get("speed", 1.0))
+    if t > 3.05:
+        msgs.append(f"開場同一場景連續 {t:.1f} 秒才換畫面（高流量片 1～2 秒就切到食物），開場那刀剪到 3 秒內")
+    for cap in e.get("captions", []):
+        d = float(cap["end"]) - float(cap["start"])
+        if d > 4.55:
+            msgs.append(f"字幕「{cap.get('text', '')}」掛了 {d:.1f} 秒，超過 4.5 秒：畫面換了字也要換，或縮短那段")
+    for m in msgs:
+        print("⚠️ " + m)
+    return msgs
+
+
 def warn_zoom(c, src):
     """zoom 後保留的寬度太少（< 640 像素）會放大太多、畫面偏糊，印警告（11/11 研究：1080p 原片 w 0.55 已偏軟）。"""
     z = c.get("zoom")
@@ -155,6 +181,7 @@ def main(edl_path):
     e = json.loads(Path(edl_path).read_text(encoding="utf-8"))
     check_words(e)
     warn_scenes(e)
+    warn_pacing(e)
     tmp = Path("/tmp/kzr")
     tmp.mkdir(exist_ok=True)
     parts = []
