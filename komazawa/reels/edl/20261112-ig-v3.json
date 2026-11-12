@@ -1,0 +1,132 @@
+{
+ "slug": "20261112-ig-v3",
+ "live_lufs": -30,
+ "live_vol": 1.0,
+ "keep_audio": true,
+ "logo": false,
+ "caption_y": 0.09,
+ "caption_size": 72,
+ "end_secs": 3.2,
+ "end_y": 0.1,
+ "hook": {
+  "title": "拆了幾箱肉？",
+  "sub": "看牆就知道"
+ },
+ "captions": [
+  {
+   "start": 19.800000000000004,
+   "end": 23.200000000000003,
+   "text": "18:00 一開門"
+  },
+  {
+   "start": 23.300000000000004,
+   "end": 26.700000000000003,
+   "text": "第一鍋 店員桌邊幫你開"
+  }
+ ],
+ "end_text": [
+  "駒澤屋壽喜燒",
+  "台中北區健行路837號",
+  "每天 18:00 開門｜最後入座 00:30"
+ ],
+ "clips": [
+  {
+   "id": "1jgsduS2wOnQ69CpHRnSEcdD0dTS7W74F",
+   "start": 0.3,
+   "end": 2.8,
+   "gain_db": -4,
+   "punch": true
+  },
+  {
+   "id": "1jgsduS2wOnQ69CpHRnSEcdD0dTS7W74F",
+   "start": 6.5,
+   "end": 8.8,
+   "gain_db": -4
+  },
+  {
+   "id": "1JGodN_uYMj10jgQJiK6wkWOo1W4zwGJ1",
+   "start": 0.0,
+   "end": 2.4,
+   "gain_db": -4
+  },
+  {
+   "id": "1EopOWEk-VY_BWa19_dxllE5GShwYQ6Ub",
+   "start": 0.0,
+   "end": 1.8,
+   "gain_db": -4
+  },
+  {
+   "id": "1EopOWEk-VY_BWa19_dxllE5GShwYQ6Ub",
+   "start": 9.0,
+   "end": 10.6,
+   "gain_db": -4
+  },
+  {
+   "id": "13I1i29P5K1DEBXq1-4kA5oZ4PgHXjsfB",
+   "start": 0.0,
+   "end": 2.6,
+   "gain_db": -4
+  },
+  {
+   "id": "1UzfoTOLCW69779r_A0rVtxezB2zsjxqd",
+   "start": 0.0,
+   "end": 3.0,
+   "gain_db": -4
+  },
+  {
+   "id": "12vfjL-rvI8nFa5HOpBBfEDvobnlGm9yB",
+   "start": 1.5,
+   "end": 3.5,
+   "gain_db": -4
+  },
+  {
+   "id": "1QV6-zdrBIN5A-dXSP5AyDGwUQdyWj4RH",
+   "start": 5.0,
+   "end": 6.5,
+   "gain_db": -4
+  },
+  {
+   "id": "1jUSdQ6g5R-0SSa8jDmkesQC6ubu17582",
+   "start": 0.0,
+   "end": 3.5,
+   "gain_db": -4
+  },
+  {
+   "id": "1RF0I3BJAe6kuA95iln936NWxPx43LGHf",
+   "start": 0.2,
+   "end": 2.7,
+   "gain_db": -4,
+   "zoom": {
+    "x": 0.45,
+    "y": 0.68,
+    "w": 0.62
+   }
+  },
+  {
+   "id": "1ag0B0ZAmkt-neO74hixiu0GL6eCwRjIl",
+   "start": 0.0,
+   "end": 4.3,
+   "gain_db": -4
+  }
+ ],
+ "sfx": [
+  {
+   "file": "komazawa/reels/sfx/thud.wav",
+   "at": 0,
+   "vol": 0.7
+  },
+  {
+   "file": "komazawa/reels/sfx/hit.wav",
+   "at": 19.7,
+   "vol": 0.45
+  },
+  {
+   "file": "komazawa/reels/sfx/pop.wav",
+   "at": 26.8,
+   "vol": 0.5
+  }
+ ],
+ "copy": {
+  "ig": "牆上貼滿的不是獎狀，是拆完的肉箱標籤。\n營業前後場就是這樣：菜排好、肉拆好、鍋備好。\n晚上 18:00 一開門，第一鍋店員在桌邊幫你開：糖先下、肉貼著糖煎、醬油最後淋。\n你吃壽喜燒，第一口會先沾蛋嗎？\n\n📍台中市北區健行路837號\n🕕每天 18:00 開門｜最後入座 00:30（週一也有開）\n📞訂位 04-2207-0068｜訂位連結在主頁\n#台中壽喜燒 #台中美食 #台中宵夜 #北區美食 #駒澤屋"
+ }
+}
