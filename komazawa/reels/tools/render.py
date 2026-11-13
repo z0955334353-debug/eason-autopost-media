@@ -47,6 +47,8 @@ W, H = 1080, 1920
 TITLE_Y = 400  # 封面標題的固定高度：IG 主頁 3:4 格子只顯示 y 240～1680，標題放 400 起才不會被切
 TONEMAP = ("zscale=t=linear:npl=100,format=gbrpf32le,zscale=p=bt709,tonemap=tonemap=hable:desat=0,"
            "zscale=t=bt709:m=bt709:r=tv,format=yuv420p")
+# 老闆 2026-11-13：食物看起來死白 → 一律加暖色、提飽和與對比（剪輯單可用 "grade": false 關掉）
+GRADE = "eq=contrast=1.08:saturation=1.3:gamma=0.96,colorbalance=rs=0.04:bs=-0.04:rm=0.03:bm=-0.03"
 COLOR = ["-colorspace", "bt709", "-color_primaries", "bt709", "-color_trc", "bt709"]
 
 
@@ -220,6 +222,8 @@ def main(edl_path):
         if c.get("punch"):  # 開場快速放大回彈：前 0.35 秒從 1.15 倍縮回 1 倍
             base = (f"{trim(c)}scale={W}:{H}:force_original_aspect_ratio=increase:flags=lanczos,crop={W}:{H},setsar=1,fps=30,setpts=PTS/{speed},"
                     f"scale=w='{W}*(1+0.15*max(0,1-t/0.35))':h='{H}*(1+0.15*max(0,1-t/0.35))':eval=frame,crop={W}:{H},setsar=1")
+        if e.get("grade", True):
+            base = f"{base},{GRADE}"
         ok = False
         if hdr:  # iPhone 的 HDR（HLG）影片要轉成一般色彩，不然上傳後會變灰變淡
             ok = run(cmd + ["-vf", f"{TONEMAP},{base}"] + tail, check=False).returncode == 0
