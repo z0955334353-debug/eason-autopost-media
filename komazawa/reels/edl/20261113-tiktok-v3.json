@@ -1,0 +1,227 @@
+{
+ "slug": "20261113-tiktok-v3",
+ "live_lufs": -30,
+ "live_vol": 1.0,
+ "keep_audio": true,
+ "logo": false,
+ "caption_y": 0.35,
+ "caption_size": 76,
+ "end_secs": 3.2,
+ "end_y": 0.35,
+ "captions": [
+  {
+   "start": 2.6,
+   "end": 4.9,
+   "text": "日本和牛 油花長這樣"
+  },
+  {
+   "start": 5.0,
+   "end": 9.3,
+   "text": "一片一片排"
+  },
+  {
+   "start": 9.4,
+   "end": 14.0,
+   "text": "蔬菜 每格備齊"
+  },
+  {
+   "start": 14.1,
+   "end": 16.0,
+   "text": "南瓜 現切"
+  },
+  {
+   "start": 16.1,
+   "end": 18.7,
+   "text": "第一鍋 店員桌邊幫你開"
+  },
+  {
+   "start": 18.8,
+   "end": 20.7,
+   "text": "糖先下 肉貼著糖煎"
+  },
+  {
+   "start": 20.8,
+   "end": 25.0,
+   "text": "醬油 最後才淋"
+  }
+ ],
+ "end_text": [
+  "駒澤屋壽喜燒",
+  "健行路837號",
+  "最後入座 00:30"
+ ],
+ "clips": [
+  {
+   "id": "1w0zNsmgk3sBN8HbJREt5KPBIdNM3enwp",
+   "start": 4.0,
+   "end": 6.5,
+   "gain_db": 4,
+   "zoom": {
+    "x": 0.5,
+    "y": 0.62,
+    "w": 0.62
+   },
+   "punch": true
+  },
+  {
+   "id": "1F1I315OWczxklVVjoixFlWjj6kNOL2bY",
+   "start": 0.0,
+   "end": 2.4,
+   "gain_db": -4,
+   "zoom": {
+    "x": 0.5,
+    "y": 0.72,
+    "w": 0.62
+   }
+  },
+  {
+   "id": "1s81BgZD8lMDSsbdAHsZ8e52MaSJ5tRjI",
+   "start": 1.0,
+   "end": 3.4,
+   "gain_db": -4
+  },
+  {
+   "id": "1s81BgZD8lMDSsbdAHsZ8e52MaSJ5tRjI",
+   "start": 5.0,
+   "end": 7.0,
+   "gain_db": -4
+  },
+  {
+   "id": "1JGodN_uYMj10jgQJiK6wkWOo1W4zwGJ1",
+   "start": 0.0,
+   "end": 2.5,
+   "gain_db": -4
+  },
+  {
+   "id": "1JGodN_uYMj10jgQJiK6wkWOo1W4zwGJ1",
+   "start": 3.4,
+   "end": 5.6,
+   "gain_db": -4
+  },
+  {
+   "id": "1QV6-zdrBIN5A-dXSP5AyDGwUQdyWj4RH",
+   "start": 4.0,
+   "end": 6.0,
+   "gain_db": -4
+  },
+  {
+   "id": "1RF0I3BJAe6kuA95iln936NWxPx43LGHf",
+   "start": 0.2,
+   "end": 2.9,
+   "gain_db": -4,
+   "zoom": {
+    "x": 0.45,
+    "y": 0.68,
+    "w": 0.62
+   }
+  },
+  {
+   "id": "1w0zNsmgk3sBN8HbJREt5KPBIdNM3enwp",
+   "start": 0.0,
+   "end": 2.0,
+   "gain_db": 6,
+   "zoom": {
+    "x": 0.5,
+    "y": 0.62,
+    "w": 0.62
+   }
+  },
+  {
+   "id": "1w0zNsmgk3sBN8HbJREt5KPBIdNM3enwp",
+   "start": 6.0,
+   "end": 8.5,
+   "gain_db": 6,
+   "zoom": {
+    "x": 0.5,
+    "y": 0.62,
+    "w": 0.62
+   }
+  },
+  {
+   "id": "1w0zNsmgk3sBN8HbJREt5KPBIdNM3enwp",
+   "start": 10.2,
+   "end": 12.0,
+   "gain_db": 6,
+   "zoom": {
+    "x": 0.5,
+    "y": 0.62,
+    "w": 0.62
+   }
+  },
+  {
+   "id": "1w0zNsmgk3sBN8HbJREt5KPBIdNM3enwp",
+   "start": 14.7,
+   "end": 17.9,
+   "gain_db": 6,
+   "zoom": {
+    "x": 0.5,
+    "y": 0.62,
+    "w": 0.62
+   }
+  }
+ ],
+ "sfx": [
+  {
+   "file": "komazawa/reels/sfx/hit.wav",
+   "at": 0,
+   "vol": 0.7
+  },
+  {
+   "file": "komazawa/reels/sfx/swish.wav",
+   "at": 2.25,
+   "vol": 0.35
+  },
+  {
+   "file": "komazawa/reels/sfx/swish.wav",
+   "at": 4.65,
+   "vol": 0.35
+  },
+  {
+   "file": "komazawa/reels/sfx/swish.wav",
+   "at": 9.05,
+   "vol": 0.35
+  },
+  {
+   "file": "komazawa/reels/sfx/swish.wav",
+   "at": 13.75,
+   "vol": 0.35
+  },
+  {
+   "file": "komazawa/reels/sfx/swish.wav",
+   "at": 15.75,
+   "vol": 0.35
+  },
+  {
+   "file": "komazawa/reels/sfx/swish.wav",
+   "at": 18.45,
+   "vol": 0.35
+  },
+  {
+   "file": "komazawa/reels/sfx/swish.wav",
+   "at": 20.45,
+   "vol": 0.35
+  },
+  {
+   "file": "komazawa/reels/sfx/shutter.wav",
+   "at": 25.0,
+   "vol": 0.5
+  }
+ ],
+ "copy": {
+  "tiktok": "別人等肉下鍋，我等醬油淋下去那一秒｜台中北區 #台中壽喜燒 #台中宵夜 #台中美食 #北區美食 #壽喜燒"
+ },
+ "pin": [
+  {
+   "text": "台中北區開到半夜",
+   "color": "white"
+  },
+  {
+   "text": "醬油最後才淋",
+   "color": "0xF5C518"
+  }
+ ],
+ "hook": {
+  "title": "醬油淋下去那一秒",
+  "sub": "關西風壽喜燒"
+ }
+}
