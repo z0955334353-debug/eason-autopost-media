@@ -29,6 +29,7 @@ hook／字幕可以直接壓在色帶上當「文字設計」。秒數是成片�
 舊格式的 "title" 會當成 hook 的大標（不再畫上方的色塊標題列）。
 長度建議 25～35 秒，每 2～3 秒換一個畫面。
 警告（只印、不擋出片，11/11 加）：同一支原片合計超過 5 秒；zoom 後保留寬度不到 640 像素（1080p 原片 w < 0.6 會偏糊）。
+警告（11/13 加）：hook／置頂／字幕／片尾的字（去空白後）重複；同時有 hook 和 pin 時 pin 自動延到 2.5 秒後才出現（不再疊字）。
 警告（11/12 加）：剪輯單用了 "photo"（老闆 11/12：Reels 全部要影片）；開場同一場景超過 3 秒才換畫面；單句字幕掛超過 4.5 秒（字要跟著畫面換）。
 "copy": {"ig": "IG 文案", "tiktok": "抖音文案"}：選填。有寫的話會跟畫面上的字一起做「禁用說法」檢查（BANNED，老闆 11/09：只有開鍋由店員服務），
   命中就直接停止、不出片；推 LINE 前請把文案也放進剪輯單讓程式檢查。
@@ -164,6 +165,30 @@ def warn_pacing(e):
     return msgs
 
 
+def warn_dupes(e):
+    """11/13 研究：抖音 v4 置頂字「醬油最後才淋」跟最後一句字幕重複、開場 2.5 秒 hook 跟 pin 疊在同一高度變亂碼。
+    字（去空白）在 hook／pin／字幕／片尾之間重複就警告（老闆規則：字不重複）。只印不擋，回傳警告清單（測試用）。"""
+    msgs, seen = [], {}
+    h = e.get("hook") or {}
+    srcs = [("hook", h.get("title", "")), ("hook", h.get("sub", ""))]
+    srcs += [("置頂", p.get("text", "")) for p in e.get("pin", [])]
+    srcs += [("字幕", c.get("text", "")) for c in e.get("captions", [])]
+    srcs += [("片尾", t) for t in e.get("end_text", [])]
+    for where, t in srcs:
+        k = "".join(str(t).split())
+        if not k:
+            continue
+        if k in seen:
+            msgs.append(f"「{t}」在{seen[k]}和{where}重複出現（字不重複）：刪掉其中一處")
+        else:
+            seen[k] = where
+    if h and e.get("pin"):
+        msgs.append("同時有 hook 和 pin：兩個都放在 TITLE_Y 會疊字，pin 已自動改成 2.5 秒後才出現（B 套抖音建議不用 pin）")
+    for m in msgs:
+        print("⚠️ " + m)
+    return msgs
+
+
 def warn_zoom(c, src):
     """zoom 後保留的寬度太少（< 640 像素）會放大太多、畫面偏糊，印警告（11/11 研究：1080p 原片 w 0.55 已偏軟）。"""
     z = c.get("zoom")
@@ -184,6 +209,7 @@ def main(edl_path):
     check_words(e)
     warn_scenes(e)
     warn_pacing(e)
+    warn_dupes(e)
     tmp = Path("/tmp/kzr")
     tmp.mkdir(exist_ok=True)
     parts = []
@@ -254,8 +280,9 @@ def main(edl_path):
         if hook.get("sub"):
             draws.append(text(hook["sub"], 60, "white", hy + 140, 0, 2.5))
     # 抖音式置頂大字（整支都在，無底色、粗黑邊）：避開最上方 220px 的系統列
+    pin_t0 = 2.5 if hook else 0  # 11/13：hook 跟 pin 同高度會疊成亂碼 → 有 hook 時 pin 等 hook 結束才出現
     for j, ln in enumerate(e.get("pin", [])):
-        draws.append(text(ln["text"], int(ln.get("size", 92)), ln.get("color", "white"), TITLE_Y + j * 118, 0, total + 1, 9))
+        draws.append(text(ln["text"], int(ln.get("size", 92)), ln.get("color", "white"), TITLE_Y + j * 118, pin_t0, total + 1, 9))
     cy, cs = float(e.get("caption_y", 0.70)), int(e.get("caption_size", 62))
     for cap in e.get("captions", []):
         draws.append(text(cap["text"], int(cap.get("size", cs)), cap.get("color", "white"), int(H * float(cap.get("y", cy))), float(cap["start"]), float(cap["end"]), 7))
