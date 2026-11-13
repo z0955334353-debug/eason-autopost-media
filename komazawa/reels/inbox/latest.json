@@ -1,27 +1,4 @@
 {
  "date": "20261113",
- "new": [
-  {
-   "id": "14a8XrIm_SJ5HzV9OXQBXMdPN0fe_T-LU",
-   "name": "IMG_1892.MOV",
-   "type": "video",
-   "duration": 19.57,
-   "width": 1920,
-   "height": 1080,
-   "has_audio": true,
-   "sheet": "inbox/20261113/IMG_1892_14a8Xr.jpg",
-   "raw": "raw/14a8XrIm_SJ5HzV9OXQBXMdPN0fe_T-LU.mp4"
-  },
-  {
-   "id": "1w0zNsmgk3sBN8HbJREt5KPBIdNM3enwp",
-   "name": "IMG_1910.mov",
-   "type": "video",
-   "duration": 17.97,
-   "width": 1920,
-   "height": 1080,
-   "has_audio": true,
-   "sheet": "inbox/20261113/IMG_1910_1w0zNs.jpg",
-   "raw": "raw/1w0zNsmgk3sBN8HbJREt5KPBIdNM3enwp.mp4"
-  }
- ]
+ "new": []
 }
