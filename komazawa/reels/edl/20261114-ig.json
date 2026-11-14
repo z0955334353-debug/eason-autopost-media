@@ -1,0 +1,190 @@
+{
+ "slug": "20261114-ig",
+ "live_lufs": -30,
+ "live_vol": 1.0,
+ "keep_audio": true,
+ "logo": false,
+ "caption_y": 0.09,
+ "caption_size": 72,
+ "end_secs": 3.2,
+ "end_y": 0.1,
+ "hook": {
+  "title": "沖下去的那一秒",
+  "sub": "台中北區健行路"
+ },
+ "captions": [
+  {
+   "start": 2.6,
+   "end": 4.8,
+   "text": "一整袋 往裡倒"
+  },
+  {
+   "start": 7.2,
+   "end": 9.0,
+   "text": "木桶 一滴一滴",
+   "y": 0.62
+  },
+  {
+   "start": 11.2,
+   "end": 13.2,
+   "text": "招牌比我還老",
+   "y": 0.86
+  },
+  {
+   "start": 13.4,
+   "end": 15.7,
+   "text": "蔥 現切"
+  },
+  {
+   "start": 20.4,
+   "end": 22.7,
+   "text": "用手 拌勻"
+  },
+  {
+   "start": 25.4,
+   "end": 27.7,
+   "text": "醬汁 滾到冒泡",
+   "y": 0.82
+  },
+  {
+   "start": 27.9,
+   "end": 29.5,
+   "text": "第一鍋 店員桌邊開"
+  }
+ ],
+ "end_text": [
+  "駒澤屋壽喜燒",
+  "台中北區健行路837號",
+  "每天 18:00 開門｜最後入座 00:30"
+ ],
+ "clips": [
+  {
+   "id": "1YlUf_LoN-VkFSbhMDT7ypxDW26sIz8ew",
+   "start": 9.2,
+   "end": 11.6,
+   "gain_db": 5,
+   "punch": true
+  },
+  {
+   "id": "1mZoxjimyExzqXk4ysWY1764n_nCchSLj",
+   "start": 4.5,
+   "end": 7.0
+  },
+  {
+   "id": "1mZoxjimyExzqXk4ysWY1764n_nCchSLj",
+   "start": 43.0,
+   "end": 45.2
+  },
+  {
+   "id": "1m_XWhSD_SWqShfQleN1aqtWuDhdxuEwx",
+   "start": 0.3,
+   "end": 2.3
+  },
+  {
+   "id": "11gCojPo7IOHJLWuB34zUX-NIQ8_TVG2w",
+   "start": 0.2,
+   "end": 2.2
+  },
+  {
+   "id": "1_dt2q224d64Z3egKQdhELmQ46kY4BdX2",
+   "start": 0.0,
+   "end": 2.2
+  },
+  {
+   "id": "1CvmfQ5FVShk55Z9WbSl1cSWbDP73dvq-",
+   "start": 5.0,
+   "end": 7.5,
+   "gain_db": -4
+  },
+  {
+   "id": "1CvmfQ5FVShk55Z9WbSl1cSWbDP73dvq-",
+   "start": 31.0,
+   "end": 33.0,
+   "gain_db": -4
+  },
+  {
+   "id": "1yyG6Ta31ut7Xss2WGvMuDi9pDuixa42Y",
+   "start": 2.5,
+   "end": 5.0,
+   "gain_db": -4
+  },
+  {
+   "id": "1gpXH8e_Hch7AY51bzilpD1J9dPAq9oX7",
+   "start": 1.0,
+   "end": 3.5,
+   "gain_db": -4
+  },
+  {
+   "id": "1QTaRK04xQ6rjLu3acO0CcaZ2NjvLcHVo",
+   "start": 0.5,
+   "end": 3.0
+  },
+  {
+   "id": "1YlUf_LoN-VkFSbhMDT7ypxDW26sIz8ew",
+   "start": 1.0,
+   "end": 3.5,
+   "gain_db": 5
+  },
+  {
+   "id": "1w0zNsmgk3sBN8HbJREt5KPBIdNM3enwp",
+   "start": 5.0,
+   "end": 10.0,
+   "gain_db": 5,
+   "zoom": {
+    "x": 0.5,
+    "y": 0.66,
+    "w": 0.62
+   }
+  }
+ ],
+ "sfx": [
+  {
+   "file": "komazawa/reels/sfx/thud.wav",
+   "at": 0,
+   "vol": 0.7
+  },
+  {
+   "file": "komazawa/reels/sfx/click.wav",
+   "at": 2.6,
+   "vol": 0.45
+  },
+  {
+   "file": "komazawa/reels/sfx/click.wav",
+   "at": 7.2,
+   "vol": 0.45
+  },
+  {
+   "file": "komazawa/reels/sfx/boing.wav",
+   "at": 11.2,
+   "vol": 0.3
+  },
+  {
+   "file": "komazawa/reels/sfx/swish.wav",
+   "at": 13.05,
+   "vol": 0.45
+  },
+  {
+   "file": "komazawa/reels/sfx/click.wav",
+   "at": 20.4,
+   "vol": 0.45
+  },
+  {
+   "file": "komazawa/reels/sfx/swish.wav",
+   "at": 25.05,
+   "vol": 0.45
+  },
+  {
+   "file": "komazawa/reels/sfx/click.wav",
+   "at": 27.9,
+   "vol": 0.45
+  },
+  {
+   "file": "komazawa/reels/sfx/shutter.wav",
+   "at": 29.6,
+   "vol": 0.5
+  }
+ ],
+ "copy": {
+  "ig": "店裡的招牌比我還老，蔥倒是每天比我新鮮。\n開門前，大鍋一整袋往裡倒、木桶一滴一滴，蔥現切、肉用手拌勻，一盤一盤裝好。\n18:00 一開門，第一鍋店員在桌邊幫你開：糖先下鍋、肉貼著糖煎、醬油最後才淋。\n你吃壽喜燒，最先夾哪一樣？\n\n📍台中市北區健行路837號\n🕕每天 18:00 開門｜最後入座 00:30（週一也有開）\n📞訂位 04-2207-0068｜訂位連結在主頁\n#台中壽喜燒 #台中美食 #台中宵夜 #北區美食 #駒澤屋"
+ }
+}
