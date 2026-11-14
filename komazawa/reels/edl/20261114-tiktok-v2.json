@@ -1,0 +1,205 @@
+{
+ "slug": "20261114-tiktok-v2",
+ "live_lufs": -30,
+ "live_vol": 1.0,
+ "keep_audio": true,
+ "logo": false,
+ "caption_y": 0.35,
+ "caption_size": 76,
+ "end_secs": 3.2,
+ "end_y": 0.12,
+ "hook": {
+  "title": "沖下去的那一秒",
+  "sub": "台中北區健行路"
+ },
+ "captions": [
+  {
+   "start": 2.6,
+   "end": 5.3,
+   "text": "一整袋 往裡倒"
+  },
+  {
+   "start": 5.7,
+   "end": 7.3,
+   "text": "木桶 一滴一滴",
+   "y": 0.62
+  },
+  {
+   "start": 9.3,
+   "end": 10.9,
+   "text": "招牌比我還老",
+   "y": 0.78
+  },
+  {
+   "start": 11.1,
+   "end": 12.7,
+   "text": "蔥 現切",
+   "y": 0.12
+  },
+  {
+   "start": 17.9,
+   "end": 19.5,
+   "text": "用手 拌勻",
+   "y": 0.12
+  },
+  {
+   "start": 23.1,
+   "end": 24.9,
+   "text": "醬汁 滾到冒泡",
+   "y": 0.78
+  },
+  {
+   "start": 25.1,
+   "end": 26.7,
+   "text": "第一鍋 店員桌邊開",
+   "y": 0.12
+  }
+ ],
+ "end_text": [
+  "駒澤屋壽喜燒",
+  "健行路837號",
+  "最後入座 00:30"
+ ],
+ "clips": [
+  {
+   "id": "1YlUf_LoN-VkFSbhMDT7ypxDW26sIz8ew",
+   "start": 9.4,
+   "end": 11.4,
+   "gain_db": 5,
+   "punch": true
+  },
+  {
+   "id": "1mZoxjimyExzqXk4ysWY1764n_nCchSLj",
+   "start": 4.8,
+   "end": 6.6
+  },
+  {
+   "id": "1mZoxjimyExzqXk4ysWY1764n_nCchSLj",
+   "start": 43.2,
+   "end": 45.0
+  },
+  {
+   "id": "1m_XWhSD_SWqShfQleN1aqtWuDhdxuEwx",
+   "start": 0.4,
+   "end": 2.2
+  },
+  {
+   "id": "11gCojPo7IOHJLWuB34zUX-NIQ8_TVG2w",
+   "start": 0.3,
+   "end": 2.1
+  },
+  {
+   "id": "1_dt2q224d64Z3egKQdhELmQ46kY4BdX2",
+   "start": 0.2,
+   "end": 2.0
+  },
+  {
+   "id": "1CvmfQ5FVShk55Z9WbSl1cSWbDP73dvq-",
+   "start": 5.2,
+   "end": 7.0,
+   "gain_db": -4
+  },
+  {
+   "id": "1CvmfQ5FVShk55Z9WbSl1cSWbDP73dvq-",
+   "start": 31.0,
+   "end": 32.6,
+   "gain_db": -4
+  },
+  {
+   "id": "1yyG6Ta31ut7Xss2WGvMuDi9pDuixa42Y",
+   "start": 2.6,
+   "end": 4.4,
+   "gain_db": -4
+  },
+  {
+   "id": "1yyG6Ta31ut7Xss2WGvMuDi9pDuixa42Y",
+   "start": 17.0,
+   "end": 18.6,
+   "gain_db": -4
+  },
+  {
+   "id": "1gpXH8e_Hch7AY51bzilpD1J9dPAq9oX7",
+   "start": 1.2,
+   "end": 3.0,
+   "gain_db": -4
+  },
+  {
+   "id": "1gpXH8e_Hch7AY51bzilpD1J9dPAq9oX7",
+   "start": 6.0,
+   "end": 7.6,
+   "gain_db": -4
+  },
+  {
+   "id": "1QTaRK04xQ6rjLu3acO0CcaZ2NjvLcHVo",
+   "start": 0.6,
+   "end": 2.4
+  },
+  {
+   "id": "1YlUf_LoN-VkFSbhMDT7ypxDW26sIz8ew",
+   "start": 1.2,
+   "end": 3.2,
+   "gain_db": 5
+  },
+  {
+   "id": "1w0zNsmgk3sBN8HbJREt5KPBIdNM3enwp",
+   "start": 5.0,
+   "end": 10.0,
+   "gain_db": 5,
+   "zoom": {
+    "x": 0.5,
+    "y": 0.66,
+    "w": 0.62
+   }
+  }
+ ],
+ "sfx": [
+  {
+   "file": "komazawa/reels/sfx/thud.wav",
+   "at": 0,
+   "vol": 0.7
+  },
+  {
+   "file": "komazawa/reels/sfx/click.wav",
+   "at": 2.6,
+   "vol": 0.45
+  },
+  {
+   "file": "komazawa/reels/sfx/click.wav",
+   "at": 5.7,
+   "vol": 0.45
+  },
+  {
+   "file": "komazawa/reels/sfx/boing.wav",
+   "at": 9.3,
+   "vol": 0.3
+  },
+  {
+   "file": "komazawa/reels/sfx/swish.wav",
+   "at": 10.75,
+   "vol": 0.45
+  },
+  {
+   "file": "komazawa/reels/sfx/click.wav",
+   "at": 17.9,
+   "vol": 0.45
+  },
+  {
+   "file": "komazawa/reels/sfx/swish.wav",
+   "at": 22.75,
+   "vol": 0.45
+  },
+  {
+   "file": "komazawa/reels/sfx/click.wav",
+   "at": 25.1,
+   "vol": 0.45
+  },
+  {
+   "file": "komazawa/reels/sfx/shutter.wav",
+   "at": 26.8,
+   "vol": 0.5
+  }
+ ],
+ "copy": {
+  "tiktok": "招牌比我老，蔥比我新鮮｜台中北區健行路，開到半夜的壽喜燒 #台中壽喜燒 #台中宵夜 #台中美食 #北區美食 #壽喜燒"
+ }
+}
