@@ -31,6 +31,8 @@ hook／字幕可以直接壓在色帶上當「文字設計」。秒數是成片�
 警告（只印、不擋出片，11/11 加）：同一支原片合計超過 5 秒；zoom 後保留寬度不到 640 像素（1080p 原片 w < 0.6 會偏糊）。
 警告（11/13 加）：hook／置頂／字幕／片尾的字（去空白後）重複；同時有 hook 和 pin 時 pin 自動延到 2.5 秒後才出現（不再疊字）。
 警告（11/12 加）：剪輯單用了 "photo"（老闆 11/12：Reels 全部要影片）；開場同一場景超過 3 秒才換畫面；單句字幕掛超過 4.5 秒（字要跟著畫面換）。
+警告（11/14 加）：clip 可選填 "nofood": true（沒有能吃的東西：空鍋、木桶、招牌、店門…）與 "tag": "倒醬油"（動作名稱）；
+  前 10 秒 nofood > 1.5 秒、全片 nofood > 3 秒、同一 tag 在不相鄰的位置再出現、-ig 片段合計不在 30～35 秒（-tiktok 27～32 秒）都會印⚠️。
 "copy": {"ig": "IG 文案", "tiktok": "抖音文案"}：選填。有寫的話會跟畫面上的字一起做「禁用說法」檢查（BANNED，老闆 11/09：只有開鍋由店員服務），
   命中就直接停止、不出片；推 LINE 前請把文案也放進剪輯單讓程式檢查。
 """
@@ -189,6 +191,39 @@ def warn_dupes(e):
     return msgs
 
 
+def clip_dur(c):
+    return float(c.get("dur", 0.8)) if c.get("photo") else (float(c["end"]) - float(c["start"])) / float(c.get("speed", 1.0))
+
+
+def warn_food(e):
+    """11/14 檢討：v3 第 2～12 秒是空湯鍋、木桶、招牌，10 秒沒有食物；倒醬油出現 3 次（老闆 11/14：同一動作只留一次）。
+    clip 可選填 "nofood": true（畫面沒有能吃的東西）與 "tag": "倒醬油"（動作名稱）。只印不擋，回傳警告清單（測試用）。"""
+    msgs, t, nf_all, nf_early, last_tag, used = [], 0.0, 0.0, 0.0, None, set()
+    for c in e.get("clips", []):
+        d = clip_dur(c)
+        if c.get("nofood"):
+            nf_all += d
+            nf_early += max(0.0, min(t + d, 10.0) - min(t, 10.0))
+        tag = c.get("tag")
+        if tag and tag != last_tag:
+            if tag in used:
+                msgs.append(f"動作「{tag}」在片中出現不只一次（老闆 11/14：同一動作只留最好的一段）")
+            used.add(tag)
+        last_tag = tag
+        t += d
+    if nf_early > 1.55:
+        msgs.append(f"前 10 秒有 {nf_early:.1f} 秒沒有食物（nofood），最多 1.5 秒：老闆「越看越想吃」")
+    if nf_all > 3.05:
+        msgs.append(f"沒有食物的畫面合計 {nf_all:.1f} 秒，最多 1 刀（3 秒內）")
+    slug = str(e.get("slug", ""))
+    rng = (30, 35) if "-ig" in slug else (27, 32) if "-tiktok" in slug else None
+    if rng and not (rng[0] - 0.05 <= t <= rng[1] + 0.05):
+        msgs.append(f"片段合計 {t:.1f} 秒，不在 {rng[0]}～{rng[1]} 秒（不含片尾延長）：補一刀食物或剪短")
+    for m in msgs:
+        print("⚠️ " + m)
+    return msgs
+
+
 def warn_zoom(c, src):
     """zoom 後保留的寬度太少（< 640 像素）會放大太多、畫面偏糊，印警告（11/11 研究：1080p 原片 w 0.55 已偏軟）。"""
     z = c.get("zoom")
@@ -210,6 +245,7 @@ def main(edl_path):
     warn_scenes(e)
     warn_pacing(e)
     warn_dupes(e)
+    warn_food(e)
     tmp = Path("/tmp/kzr")
     tmp.mkdir(exist_ok=True)
     parts = []
