@@ -33,6 +33,7 @@ hook／字幕可以直接壓在色帶上當「文字設計」。秒數是成片�
 警告（11/12 加）：剪輯單用了 "photo"（老闆 11/12：Reels 全部要影片）；開場同一場景超過 3 秒才換畫面；單句字幕掛超過 4.5 秒（字要跟著畫面換）。
 警告（11/14 加）：clip 可選填 "nofood": true（沒有能吃的東西：空鍋、木桶、招牌、店門…）與 "tag": "倒醬油"（動作名稱）；
   前 10 秒 nofood > 1.5 秒、全片 nofood > 3 秒、同一 tag 在不相鄰的位置再出現、-ig 片段合計不在 30～35 秒（-tiktok 27～32 秒）都會印⚠️。
+警告（11/15 加）：第一刀標了 nofood 會印⚠️（第一格一定要是食物）；slug 含 "-short"（單品快版，額外加做、不取代 IG／抖音主片）片段合計不在 7～15 秒會印⚠️。
 "copy": {"ig": "IG 文案", "tiktok": "抖音文案"}：選填。有寫的話會跟畫面上的字一起做「禁用說法」檢查（BANNED，老闆 11/09：只有開鍋由店員服務），
   命中就直接停止、不出片；推 LINE 前請把文案也放進剪輯單讓程式檢查。
 """
@@ -215,8 +216,11 @@ def warn_food(e):
         msgs.append(f"前 10 秒有 {nf_early:.1f} 秒沒有食物（nofood），最多 1.5 秒：老闆「越看越想吃」")
     if nf_all > 3.05:
         msgs.append(f"沒有食物的畫面合計 {nf_all:.1f} 秒，最多 1 刀（3 秒內）")
+    clips = e.get("clips", [])
+    if clips and clips[0].get("nofood"):
+        msgs.append("第一刀沒有食物（nofood）：11/15 研究 5 支高流量片有 4 支第 0.2 秒就是食物（和牛盤、夾起拉高、整隻雞吊起）")
     slug = str(e.get("slug", ""))
-    rng = (30, 35) if "-ig" in slug else (27, 32) if "-tiktok" in slug else None
+    rng = (30, 35) if "-ig" in slug else (27, 32) if "-tiktok" in slug else (7, 15) if "-short" in slug else None
     if rng and not (rng[0] - 0.05 <= t <= rng[1] + 0.05):
         msgs.append(f"片段合計 {t:.1f} 秒，不在 {rng[0]}～{rng[1]} 秒（不含片尾延長）：補一刀食物或剪短")
     for m in msgs:
