@@ -34,6 +34,7 @@ hook／字幕可以直接壓在色帶上當「文字設計」。秒數是成片�
 警告（11/14 加）：clip 可選填 "nofood": true（沒有能吃的東西：空鍋、木桶、招牌、店門…）與 "tag": "倒醬油"（動作名稱）；
   前 10 秒 nofood > 1.5 秒、全片 nofood > 3 秒、同一 tag 在不相鄰的位置再出現、-ig 片段合計不在 30～35 秒（-tiktok 27～32 秒）都會印⚠️。
 警告（11/15 加）：第一刀標了 nofood 會印⚠️（第一格一定要是食物）；slug 含 "-short"（單品快版，額外加做、不取代 IG／抖音主片）片段合計不在 7～15 秒會印⚠️。
+警告（11/16 加）：同一支原片、原片時間相隔不到 4 秒的兩刀（不論相不相鄰）印⚠️「可能同一動作切兩次」；兩刀標了不同 tag 就不算。
 "copy": {"ig": "IG 文案", "tiktok": "抖音文案"}：選填。有寫的話會跟畫面上的字一起做「禁用說法」檢查（BANNED，老闆 11/09：只有開鍋由店員服務），
   命中就直接停止、不出片；推 LINE 前請把文案也放進剪輯單讓程式檢查。
 """
@@ -228,6 +229,31 @@ def warn_food(e):
     return msgs
 
 
+def warn_near(e, gap=4.0):
+    """11/16 檢討：IG 倒醬油用了原片 86.8～89.6 與 92.8～95.6 兩刀（只有一刀標 tag，程式沒抓到），
+    生肉在鍋裡也在 7.6 秒與 15.4 秒各出現一次。同一支原片、原片時間相隔不到 gap 秒的兩刀，
+    多半是同一個動作被切兩次 → 印⚠️ 提醒（兩刀標了不同 tag 就不算）。只印不擋，回傳警告清單（測試用）。"""
+    msgs, seen = [], []
+    for i, c in enumerate(e.get("clips", [])):
+        if not c.get("id"):
+            continue
+        s, en = float(c["start"]), float(c["end"])
+        for j, (fid, s2, e2, tag2) in seen:
+            if fid != c["id"]:
+                continue
+            tag = c.get("tag")
+            if tag and tag2 and tag != tag2:
+                continue
+            dist = max(s - e2, s2 - en, 0.0)
+            if dist < gap:
+                msgs.append(f"第 {j + 1} 刀（原片 {s2:g}～{e2:g}）和第 {i + 1} 刀（原片 {s:g}～{en:g}）只差 {dist:.1f} 秒，"
+                            "可能是同一動作切兩次（老闆 11/14：一個動作只留最好的一段）；確定不同就各標不同 tag")
+        seen.append((i, (c["id"], s, en, c.get("tag"))))
+    for m in msgs:
+        print("⚠️ " + m)
+    return msgs
+
+
 def warn_zoom(c, src):
     """zoom 後保留的寬度太少（< 640 像素）會放大太多、畫面偏糊，印警告（11/11 研究：1080p 原片 w 0.55 已偏軟）。"""
     z = c.get("zoom")
@@ -250,6 +276,7 @@ def main(edl_path):
     warn_pacing(e)
     warn_dupes(e)
     warn_food(e)
+    warn_near(e)
     tmp = Path("/tmp/kzr")
     tmp.mkdir(exist_ok=True)
     parts = []
