@@ -1,4 +1,38 @@
 {
- "date": "20261115",
- "new": []
+ "date": "20261116",
+ "new": [
+  {
+   "id": "1jPCbr32XYUs7QOkHL2oQ6-u-ZEZJehUI",
+   "name": "IMG_2055.MOV",
+   "type": "video",
+   "duration": 4.59,
+   "width": 3840,
+   "height": 2160,
+   "has_audio": false,
+   "sheet": "inbox/20261116/IMG_2055_1jPCbr.jpg",
+   "raw": "raw/1jPCbr32XYUs7QOkHL2oQ6-u-ZEZJehUI.mp4"
+  },
+  {
+   "id": "19vIhDWIbmOq6bxTPXlvY6imvdVaY8b6M",
+   "name": "IMG_2056.MOV",
+   "type": "video",
+   "duration": 109.9,
+   "width": 1920,
+   "height": 1080,
+   "has_audio": true,
+   "sheet": "inbox/20261116/IMG_2056_19vIhD.jpg",
+   "raw": "raw/19vIhDWIbmOq6bxTPXlvY6imvdVaY8b6M.mp4"
+  },
+  {
+   "id": "1InTwZll3TgT-FzkPM4bLEgIMmnT6IQuv",
+   "name": "IMG_2058.MOV",
+   "type": "video",
+   "duration": 56.63,
+   "width": 3840,
+   "height": 2160,
+   "has_audio": true,
+   "sheet": "inbox/20261116/IMG_2058_1InTwZ.jpg",
+   "raw": "raw/1InTwZll3TgT-FzkPM4bLEgIMmnT6IQuv.mp4"
+  }
+ ]
 }
