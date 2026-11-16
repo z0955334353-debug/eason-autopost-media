@@ -273,7 +273,7 @@ def main(edl_path):
         hdr = probe(src, "stream=color_transfer") in ("arib-std-b67", "smpte2084")
         speed = float(c.get("speed", 1.0))
         dur = float(c["end"]) - float(c["start"])
-        base = f"{trim(c)}scale={W}:{H}:force_original_aspect_ratio=increase:flags=lanczos,crop={W}:{H},setsar=1,fps=30,setpts=PTS/{speed}"
+        base = f"{trim(c)}scale={W}:{H}:force_original_aspect_ratio=increase:flags=lanczos,crop={W}:{H},setsar=1,setpts=PTS/{speed},fps=30"
         cmd = ["ffmpeg", "-v", "error", "-y", "-ss", str(c["start"]), "-t", str(dur), "-i", str(src)]
         if not (has_audio and e.get("keep_audio", True)):
             cmd += ["-f", "lavfi", "-t", str(dur / speed), "-i", "anullsrc=r=48000:cl=stereo"]
@@ -286,7 +286,7 @@ def main(edl_path):
         tail = [*amap, "-c:v", "libx264", "-preset", "medium", "-crf", "16", "-pix_fmt", "yuv420p", *COLOR,
                 "-c:a", "aac", "-ar", "48000", "-ac", "2", "-shortest", str(out)]
         if c.get("punch"):  # 開場快速放大回彈：前 0.35 秒從 1.15 倍縮回 1 倍
-            base = (f"{trim(c)}scale={W}:{H}:force_original_aspect_ratio=increase:flags=lanczos,crop={W}:{H},setsar=1,fps=30,setpts=PTS/{speed},"
+            base = (f"{trim(c)}scale={W}:{H}:force_original_aspect_ratio=increase:flags=lanczos,crop={W}:{H},setsar=1,setpts=PTS/{speed},fps=30,"
                     f"scale=w='{W}*(1+0.15*max(0,1-t/0.35))':h='{H}*(1+0.15*max(0,1-t/0.35))':eval=frame,crop={W}:{H},setsar=1")
         if e.get("grade", True):
             base = f"{base},{GRADE}"

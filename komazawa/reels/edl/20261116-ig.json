@@ -1,0 +1,206 @@
+{
+ "slug": "20261116-ig",
+ "live_lufs": -30,
+ "live_vol": 1.0,
+ "keep_audio": true,
+ "logo": false,
+ "caption_y": 0.1,
+ "caption_size": 72,
+ "end_secs": 3.2,
+ "end_y": 0.1,
+ "hook": {
+  "title": "半夜還吃得到這鍋",
+  "sub": "關西風 三步開鍋"
+ },
+ "captions": [
+  {
+   "start": 2.8,
+   "end": 5.3,
+   "text": "第一步 糖先下"
+  },
+  {
+   "start": 5.5,
+   "end": 7.5,
+   "text": "第二步 肉貼著糖"
+  },
+  {
+   "start": 7.7,
+   "end": 10.3,
+   "text": "這片 我先預約"
+  },
+  {
+   "start": 10.5,
+   "end": 12.7,
+   "text": "也有 雞肉鍋"
+  },
+  {
+   "start": 18.5,
+   "end": 21.1,
+   "text": "第三步 醬油最後淋"
+  }
+ ],
+ "end_text": [
+  "駒澤屋壽喜燒",
+  "台中北區健行路837號",
+  "每天 18:00 開門｜最後入座 00:30"
+ ],
+ "clips": [
+  {
+   "id": "19vIhDWIbmOq6bxTPXlvY6imvdVaY8b6M",
+   "start": 100.9,
+   "end": 102.0,
+   "zoom": {
+    "x": 0.58,
+    "y": 0.55,
+    "w": 0.6
+   },
+   "punch": true,
+   "gain_db": 3
+  },
+  {
+   "id": "19vIhDWIbmOq6bxTPXlvY6imvdVaY8b6M",
+   "start": 96.0,
+   "end": 97.6,
+   "gain_db": 5
+  },
+  {
+   "id": "19vIhDWIbmOq6bxTPXlvY6imvdVaY8b6M",
+   "start": 3.2,
+   "end": 5.9,
+   "gain_db": -3
+  },
+  {
+   "id": "19vIhDWIbmOq6bxTPXlvY6imvdVaY8b6M",
+   "start": 37.2,
+   "end": 39.4
+  },
+  {
+   "id": "19vIhDWIbmOq6bxTPXlvY6imvdVaY8b6M",
+   "start": 45.4,
+   "end": 48.2
+  },
+  {
+   "id": "1InTwZll3TgT-FzkPM4bLEgIMmnT6IQuv",
+   "start": 47.0,
+   "end": 49.4,
+   "zoom": {
+    "x": 0.5,
+    "y": 0.62,
+    "w": 0.7
+   },
+   "gain_db": -3
+  },
+  {
+   "id": "1InTwZll3TgT-FzkPM4bLEgIMmnT6IQuv",
+   "start": 52.6,
+   "end": 55.2,
+   "zoom": {
+    "x": 0.5,
+    "y": 0.62,
+    "w": 0.7
+   },
+   "gain_db": -3
+  },
+  {
+   "id": "19vIhDWIbmOq6bxTPXlvY6imvdVaY8b6M",
+   "start": 64.0,
+   "end": 67.0,
+   "zoom": {
+    "x": 0.45,
+    "y": 0.6,
+    "w": 0.65
+   }
+  },
+  {
+   "id": "19vIhDWIbmOq6bxTPXlvY6imvdVaY8b6M",
+   "start": 86.8,
+   "end": 89.6,
+   "gain_db": 6,
+   "tag": "淋醬油"
+  },
+  {
+   "id": "19vIhDWIbmOq6bxTPXlvY6imvdVaY8b6M",
+   "start": 92.8,
+   "end": 95.6,
+   "gain_db": 6
+  },
+  {
+   "id": "19vIhDWIbmOq6bxTPXlvY6imvdVaY8b6M",
+   "start": 98.6,
+   "end": 100.8,
+   "zoom": {
+    "x": 0.5,
+    "y": 0.6,
+    "w": 0.62
+   },
+   "gain_db": 3
+  },
+  {
+   "id": "1jPCbr32XYUs7QOkHL2oQ6-u-ZEZJehUI",
+   "start": 0.9,
+   "end": 2.3,
+   "zoom": {
+    "x": 0.55,
+    "y": 0.58,
+    "w": 0.62
+   },
+   "speed": 0.35,
+   "tag": "沾蛋"
+  }
+ ],
+ "sfx": [
+  {
+   "file": "komazawa/reels/sfx/hit.wav",
+   "at": 0,
+   "vol": 0.7
+  },
+  {
+   "file": "komazawa/reels/sfx/whoosh.wav",
+   "at": 2.45,
+   "vol": 0.45
+  },
+  {
+   "file": "komazawa/reels/sfx/pop.wav",
+   "at": 2.8,
+   "vol": 0.45
+  },
+  {
+   "file": "komazawa/reels/sfx/pop.wav",
+   "at": 5.5,
+   "vol": 0.45
+  },
+  {
+   "file": "komazawa/reels/sfx/sizzle.wav",
+   "at": 6.2,
+   "vol": 0.3
+  },
+  {
+   "file": "komazawa/reels/sfx/pop.wav",
+   "at": 7.7,
+   "vol": 0.45
+  },
+  {
+   "file": "komazawa/reels/sfx/pop.wav",
+   "at": 10.5,
+   "vol": 0.45
+  },
+  {
+   "file": "komazawa/reels/sfx/whoosh.wav",
+   "at": 18.15,
+   "vol": 0.45
+  },
+  {
+   "file": "komazawa/reels/sfx/pop.wav",
+   "at": 18.5,
+   "vol": 0.45
+  },
+  {
+   "file": "komazawa/reels/sfx/pop.wav",
+   "at": 27.0,
+   "vol": 0.5
+  }
+ ],
+ "copy": {
+  "ig": "半夜十二點還在想吃什麼的人，舉手🙋\n第一鍋店員在桌邊開：糖先下鍋、肉貼著糖煎，醬油最後才淋，一淋整鍋冒煙。\n夾起來沾蛋那一口，我每次都捨不得吞太快。\n你吃壽喜燒，蛋是沾滿還是只沾一下？\n\n📍台中市北區健行路837號\n🕕每天 18:00 開門｜最後入座 00:30（週一也有開）\n📞訂位 04-2207-0068｜訂位連結在主頁\n#台中壽喜燒 #台中美食 #台中宵夜 #北區美食 #駒澤屋"
+ }
+}

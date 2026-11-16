@@ -1,0 +1,238 @@
+{
+ "slug": "20261116-tiktok",
+ "live_lufs": -30,
+ "live_vol": 1.0,
+ "keep_audio": true,
+ "logo": false,
+ "caption_y": 0.18,
+ "caption_size": 76,
+ "end_secs": 3.2,
+ "end_y": 0.12,
+ "hook": {
+  "title": "半夜還吃得到這鍋",
+  "sub": "關西風 三步開鍋"
+ },
+ "captions": [
+  {
+   "start": 2.8,
+   "end": 4.4,
+   "text": "第一步 糖先下"
+  },
+  {
+   "start": 4.6,
+   "end": 6.2,
+   "text": "第二步 肉貼著糖"
+  },
+  {
+   "start": 6.4,
+   "end": 8.2,
+   "text": "這片 我先預約"
+  },
+  {
+   "start": 8.4,
+   "end": 10.0,
+   "text": "也有 雞肉鍋"
+  },
+  {
+   "start": 17.0,
+   "end": 19.0,
+   "text": "第三步 醬油最後淋"
+  }
+ ],
+ "end_text": [
+  "駒澤屋壽喜燒",
+  "健行路837號",
+  "最後入座 00:30"
+ ],
+ "clips": [
+  {
+   "id": "19vIhDWIbmOq6bxTPXlvY6imvdVaY8b6M",
+   "start": 100.9,
+   "end": 102.0,
+   "zoom": {
+    "x": 0.58,
+    "y": 0.55,
+    "w": 0.6
+   },
+   "punch": true,
+   "gain_db": 3
+  },
+  {
+   "id": "19vIhDWIbmOq6bxTPXlvY6imvdVaY8b6M",
+   "start": 95.6,
+   "end": 97.2,
+   "gain_db": 5
+  },
+  {
+   "id": "19vIhDWIbmOq6bxTPXlvY6imvdVaY8b6M",
+   "start": 3.6,
+   "end": 5.4,
+   "gain_db": -3
+  },
+  {
+   "id": "19vIhDWIbmOq6bxTPXlvY6imvdVaY8b6M",
+   "start": 37.2,
+   "end": 39.0
+  },
+  {
+   "id": "19vIhDWIbmOq6bxTPXlvY6imvdVaY8b6M",
+   "start": 45.6,
+   "end": 47.6
+  },
+  {
+   "id": "1InTwZll3TgT-FzkPM4bLEgIMmnT6IQuv",
+   "start": 47.0,
+   "end": 48.8,
+   "zoom": {
+    "x": 0.5,
+    "y": 0.62,
+    "w": 0.7
+   },
+   "gain_db": -3
+  },
+  {
+   "id": "1InTwZll3TgT-FzkPM4bLEgIMmnT6IQuv",
+   "start": 50.0,
+   "end": 51.6,
+   "zoom": {
+    "x": 0.5,
+    "y": 0.62,
+    "w": 0.7
+   },
+   "gain_db": -3
+  },
+  {
+   "id": "1InTwZll3TgT-FzkPM4bLEgIMmnT6IQuv",
+   "start": 53.0,
+   "end": 54.6,
+   "zoom": {
+    "x": 0.5,
+    "y": 0.62,
+    "w": 0.7
+   },
+   "gain_db": -3
+  },
+  {
+   "id": "19vIhDWIbmOq6bxTPXlvY6imvdVaY8b6M",
+   "start": 52.4,
+   "end": 54.2,
+   "zoom": {
+    "x": 0.5,
+    "y": 0.6,
+    "w": 0.65
+   }
+  },
+  {
+   "id": "19vIhDWIbmOq6bxTPXlvY6imvdVaY8b6M",
+   "start": 64.2,
+   "end": 66.0,
+   "zoom": {
+    "x": 0.45,
+    "y": 0.6,
+    "w": 0.65
+   }
+  },
+  {
+   "id": "19vIhDWIbmOq6bxTPXlvY6imvdVaY8b6M",
+   "start": 86.8,
+   "end": 89.0,
+   "gain_db": 6,
+   "tag": "淋醬油"
+  },
+  {
+   "id": "19vIhDWIbmOq6bxTPXlvY6imvdVaY8b6M",
+   "start": 93.4,
+   "end": 95.2,
+   "gain_db": 6
+  },
+  {
+   "id": "19vIhDWIbmOq6bxTPXlvY6imvdVaY8b6M",
+   "start": 98.8,
+   "end": 100.6,
+   "zoom": {
+    "x": 0.5,
+    "y": 0.6,
+    "w": 0.62
+   },
+   "gain_db": 3
+  },
+  {
+   "id": "19vIhDWIbmOq6bxTPXlvY6imvdVaY8b6M",
+   "start": 104.9,
+   "end": 105.8,
+   "zoom": {
+    "x": 0.55,
+    "y": 0.62,
+    "w": 0.62
+   },
+   "gain_db": 3
+  },
+  {
+   "id": "1jPCbr32XYUs7QOkHL2oQ6-u-ZEZJehUI",
+   "start": 0.9,
+   "end": 2.3,
+   "zoom": {
+    "x": 0.55,
+    "y": 0.58,
+    "w": 0.62
+   },
+   "speed": 0.35,
+   "tag": "沾蛋"
+  }
+ ],
+ "sfx": [
+  {
+   "file": "komazawa/reels/sfx/hit.wav",
+   "at": 0,
+   "vol": 0.7
+  },
+  {
+   "file": "komazawa/reels/sfx/whoosh.wav",
+   "at": 2.45,
+   "vol": 0.45
+  },
+  {
+   "file": "komazawa/reels/sfx/pop.wav",
+   "at": 2.8,
+   "vol": 0.45
+  },
+  {
+   "file": "komazawa/reels/sfx/pop.wav",
+   "at": 4.6,
+   "vol": 0.45
+  },
+  {
+   "file": "komazawa/reels/sfx/sizzle.wav",
+   "at": 5.3,
+   "vol": 0.3
+  },
+  {
+   "file": "komazawa/reels/sfx/pop.wav",
+   "at": 6.4,
+   "vol": 0.45
+  },
+  {
+   "file": "komazawa/reels/sfx/pop.wav",
+   "at": 8.4,
+   "vol": 0.45
+  },
+  {
+   "file": "komazawa/reels/sfx/whoosh.wav",
+   "at": 16.65,
+   "vol": 0.45
+  },
+  {
+   "file": "komazawa/reels/sfx/pop.wav",
+   "at": 17.0,
+   "vol": 0.45
+  },
+  {
+   "file": "komazawa/reels/sfx/pop.wav",
+   "at": 24.4,
+   "vol": 0.5
+  }
+ ],
+ "copy": {
+  "tiktok": "醬油一淋整鍋冒煙，半夜也吃得到｜台中北區健行路，最後入座 00:30 #台中壽喜燒 #台中宵夜 #台中美食 #北區美食 #壽喜燒"
+ }
+}
