@@ -35,6 +35,7 @@ hook／字幕可以直接壓在色帶上當「文字設計」。秒數是成片�
   前 10 秒 nofood > 1.5 秒、全片 nofood > 3 秒、同一 tag 在不相鄰的位置再出現、-ig 片段合計不在 30～35 秒（-tiktok 27～32 秒）都會印⚠️。
 警告（11/15 加）：第一刀標了 nofood 會印⚠️（第一格一定要是食物）；slug 含 "-short"（單品快版，額外加做、不取代 IG／抖音主片）片段合計不在 7～15 秒會印⚠️。
 警告（11/16 加）：同一支原片、原片時間相隔不到 4 秒的兩刀（不論相不相鄰）印⚠️「可能同一動作切兩次」；兩刀標了不同 tag 就不算。
+警告（11/17 加）：相鄰同 tag（「翻生肉」「翻肉」視為同一動作）連續合計 > 3.5 秒、或相鄰同 tag 來自不同原片（換角度），印⚠️；最後一刀不算。
 "copy": {"ig": "IG 文案", "tiktok": "抖音文案"}：選填。有寫的話會跟畫面上的字一起做「禁用說法」檢查（BANNED，老闆 11/09：只有開鍋由店員服務），
   命中就直接停止、不出片；推 LINE 前請把文案也放進剪輯單讓程式檢查。
 """
@@ -254,6 +255,32 @@ def warn_near(e, gap=4.0):
     return msgs
 
 
+def warn_run(e, limit=3.5):
+    """11/17 檢討：IG 16～22 秒「翻生肉」「翻肉」「翻肉」連 3 刀共 6.6 秒，其中兩刀「翻肉」是不同原片（換角度）相鄰，
+    warn_food 只抓不相鄰的重複、warn_near 只抓同一原片，兩個都沒抓到。
+    → 相鄰同 tag（或 tag 去掉「生／熟」後相同）連續合計 > limit 秒、或相鄰同 tag 來自不同原片，印⚠️。
+    最後一刀（片尾停格）不算。只印不擋，回傳警告清單（測試用）。"""
+    msgs, clips = [], e.get("clips", [])
+    norm = lambda t: str(t).replace("生", "").replace("熟", "") if t else None
+    i = 0
+    while i < len(clips):
+        tag = norm(clips[i].get("tag"))
+        j = i
+        while tag and j + 1 < len(clips) and norm(clips[j + 1].get("tag")) == tag:
+            j += 1
+        if tag and j > i and j < len(clips) - 1:
+            run_d = sum(clip_dur(c) for c in clips[i:j + 1])
+            ids = {c.get("id") or c.get("photo") for c in clips[i:j + 1]}
+            if run_d > limit:
+                msgs.append(f"第 {i + 1}～{j + 1} 刀都是「{tag}」，連續 {run_d:.1f} 秒（同一動作最多 {limit:g} 秒，留最好的一刀，換下一個更想吃的畫面）")
+            elif len(ids) > 1:
+                msgs.append(f"第 {i + 1}～{j + 1} 刀「{tag}」是不同原片換角度接在一起（老闆 11/14：一個動作只留最好的一段）")
+        i = j + 1
+    for m in msgs:
+        print("⚠️ " + m)
+    return msgs
+
+
 def warn_zoom(c, src):
     """zoom 後保留的寬度太少（< 640 像素）會放大太多、畫面偏糊，印警告（11/11 研究：1080p 原片 w 0.55 已偏軟）。"""
     z = c.get("zoom")
@@ -277,6 +304,7 @@ def main(edl_path):
     warn_dupes(e)
     warn_food(e)
     warn_near(e)
+    warn_run(e)
     tmp = Path("/tmp/kzr")
     tmp.mkdir(exist_ok=True)
     parts = []
