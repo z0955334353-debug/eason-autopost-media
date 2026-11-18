@@ -35,6 +35,8 @@ hook／字幕可以直接壓在色帶上當「文字設計」。秒數是成片�
   前 10 秒 nofood > 1.5 秒、全片 nofood > 3 秒、同一 tag 在不相鄰的位置再出現、-ig 片段合計不在 30～35 秒（-tiktok 27～32 秒）都會印⚠️。
 警告（11/15 加）：第一刀標了 nofood 會印⚠️（第一格一定要是食物）；slug 含 "-short"（單品快版，額外加做、不取代 IG／抖音主片）片段合計不在 7～15 秒會印⚠️。
 警告（11/16 加）：同一支原片、原片時間相隔不到 4 秒的兩刀（不論相不相鄰）印⚠️「可能同一動作切兩次」；兩刀標了不同 tag 就不算。
+警告（11/18 加）：同義動作算同一個 tag（冒煙／起霧／倒醬油→淋醬油、化糖／撒糖→下糖，見 ACTION_ALIAS）；
+  tag 是 抹油／下糖／空鍋／加水／木桶／招牌／店門（NOFOOD_TAGS）就算沒標 nofood 也算「沒有食物」。
 警告（11/17 加）：相鄰同 tag（「翻生肉」「翻肉」視為同一動作）連續合計 > 3.5 秒、或相鄰同 tag 來自不同原片（換角度），印⚠️；最後一刀不算。
 "copy": {"ig": "IG 文案", "tiktok": "抖音文案"}：選填。有寫的話會跟畫面上的字一起做「禁用說法」檢查（BANNED，老闆 11/09：只有開鍋由店員服務），
   命中就直接停止、不出片；推 LINE 前請把文案也放進剪輯單讓程式檢查。
@@ -198,16 +200,32 @@ def clip_dur(c):
     return float(c.get("dur", 0.8)) if c.get("photo") else (float(c["end"]) - float(c["start"])) / float(c.get("speed", 1.0))
 
 
+# 11/18 檢討：開場「淋醬油」與第 16 秒「冒煙」是同一支原片相隔 0.6 秒的同一次淋醬油（tag 不同，舊警告都沒抓到）；
+# 4.8～10.8 秒抹油、下糖、化糖 6 秒只有空鍋與糖水，只有「抹油」標 nofood。
+# → 同義動作視為同一個 tag；這些動作即使沒標 nofood 也算「沒有食物」。
+ACTION_ALIAS = {"冒煙": "淋醬油", "起霧": "淋醬油", "倒醬油": "淋醬油", "淋醬汁": "淋醬油",
+                "化糖": "下糖", "撒糖": "下糖", "翻生肉": "翻肉", "翻熟肉": "翻肉"}
+NOFOOD_TAGS = {"抹油", "下糖", "空鍋", "加水", "木桶", "招牌", "店門"}
+
+
+def canon(tag):
+    return ACTION_ALIAS.get(tag, tag) if tag else None
+
+
+def is_nofood(c):
+    return bool(c.get("nofood")) or canon(c.get("tag")) in NOFOOD_TAGS
+
+
 def warn_food(e):
     """11/14 檢討：v3 第 2～12 秒是空湯鍋、木桶、招牌，10 秒沒有食物；倒醬油出現 3 次（老闆 11/14：同一動作只留一次）。
     clip 可選填 "nofood": true（畫面沒有能吃的東西）與 "tag": "倒醬油"（動作名稱）。只印不擋，回傳警告清單（測試用）。"""
     msgs, t, nf_all, nf_early, last_tag, used = [], 0.0, 0.0, 0.0, None, set()
     for c in e.get("clips", []):
         d = clip_dur(c)
-        if c.get("nofood"):
+        if is_nofood(c):
             nf_all += d
             nf_early += max(0.0, min(t + d, 10.0) - min(t, 10.0))
-        tag = c.get("tag")
+        tag = canon(c.get("tag"))
         if tag and tag != last_tag:
             if tag in used:
                 msgs.append(f"動作「{tag}」在片中出現不只一次（老闆 11/14：同一動作只留最好的一段）")
@@ -219,7 +237,7 @@ def warn_food(e):
     if nf_all > 3.05:
         msgs.append(f"沒有食物的畫面合計 {nf_all:.1f} 秒，最多 1 刀（3 秒內）")
     clips = e.get("clips", [])
-    if clips and clips[0].get("nofood"):
+    if clips and is_nofood(clips[0]):
         msgs.append("第一刀沒有食物（nofood）：11/15 研究 5 支高流量片有 4 支第 0.2 秒就是食物（和牛盤、夾起拉高、整隻雞吊起）")
     slug = str(e.get("slug", ""))
     rng = (30, 35) if "-ig" in slug else (27, 32) if "-tiktok" in slug else (7, 15) if "-short" in slug else None
@@ -242,8 +260,8 @@ def warn_near(e, gap=4.0):
         for j, (fid, s2, e2, tag2) in seen:
             if fid != c["id"]:
                 continue
-            tag = c.get("tag")
-            if tag and tag2 and tag != tag2:
+            tag = canon(c.get("tag"))
+            if tag and tag2 and tag != canon(tag2):
                 continue
             dist = max(s - e2, s2 - en, 0.0)
             if dist < gap:
@@ -261,7 +279,7 @@ def warn_run(e, limit=3.5):
     → 相鄰同 tag（或 tag 去掉「生／熟」後相同）連續合計 > limit 秒、或相鄰同 tag 來自不同原片，印⚠️。
     最後一刀（片尾停格）不算。只印不擋，回傳警告清單（測試用）。"""
     msgs, clips = [], e.get("clips", [])
-    norm = lambda t: str(t).replace("生", "").replace("熟", "") if t else None
+    norm = lambda t: canon(str(t).replace("生", "").replace("熟", "")) if t else None
     i = 0
     while i < len(clips):
         tag = norm(clips[i].get("tag"))
