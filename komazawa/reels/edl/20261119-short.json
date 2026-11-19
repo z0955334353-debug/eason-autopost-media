@@ -1,0 +1,127 @@
+{
+ "slug": "20261119-short",
+ "live_lufs": -30,
+ "live_vol": 1.0,
+ "keep_audio": true,
+ "logo": false,
+ "caption_y": 0.1,
+ "caption_size": 72,
+ "end_secs": 3.2,
+ "end_y": 0.1,
+ "hook": {
+  "title": "糖先下 肉貼著煎",
+  "sub": "台中北區 關西風壽喜燒"
+ },
+ "captions": [
+  {
+   "start": 3.7,
+   "end": 5.77,
+   "text": "醬油 最後才淋"
+  },
+  {
+   "start": 5.97,
+   "end": 8.37,
+   "text": "撈起來 直接沾蛋"
+  }
+ ],
+ "end_text": [
+  "駒澤屋壽喜燒",
+  "台中北區健行路837號",
+  "每天 18:00 開門｜最後入座 00:30"
+ ],
+ "clips": [
+  {
+   "id": "1kMucL9-NYFF9dX8stnXqbaykPPP9P9rD",
+   "start": 3.0,
+   "end": 4.6,
+   "zoom": {
+    "x": 0.33,
+    "y": 0.68,
+    "w": 0.6
+   },
+   "tag": "下肉",
+   "gain_db": -1,
+   "punch": true
+  },
+  {
+   "id": "1325CwQxWujkk-QaM4R07phVexmJnOeK1",
+   "start": 5.8,
+   "end": 7.4,
+   "zoom": {
+    "x": 0.45,
+    "y": 0.66,
+    "w": 0.6
+   },
+   "tag": "貼糖煎",
+   "gain_db": 2
+  },
+  {
+   "id": "1325CwQxWujkk-QaM4R07phVexmJnOeK1",
+   "start": 8.6,
+   "end": 10.6,
+   "zoom": {
+    "x": 0.45,
+    "y": 0.66,
+    "w": 0.6
+   },
+   "tag": "淋醬油",
+   "gain_db": 2,
+   "speed": 0.75
+  },
+  {
+   "id": "1_sszZqpzhFu6MOiB-OYZw70_tS9xsAaX",
+   "start": 4.6,
+   "end": 6.4,
+   "zoom": {
+    "x": 0.45,
+    "y": 0.5,
+    "w": 0.6
+   },
+   "tag": "夾起",
+   "gain_db": 0
+  },
+  {
+   "id": "1kMucL9-NYFF9dX8stnXqbaykPPP9P9rD",
+   "start": 30.6,
+   "end": 33.6,
+   "zoom": {
+    "x": 0.4,
+    "y": 0.68,
+    "w": 0.6
+   },
+   "tag": "沾蛋",
+   "gain_db": -2,
+   "speed": 0.75
+  }
+ ],
+ "sfx": [
+  {
+   "file": "komazawa/reels/sfx/thud.wav",
+   "at": 0,
+   "vol": 0.42
+  },
+  {
+   "file": "komazawa/reels/sfx/riser.wav",
+   "at": 2.7,
+   "vol": 0.21
+  },
+  {
+   "file": "komazawa/reels/sfx/hit.wav",
+   "at": 3.7,
+   "vol": 0.36
+  },
+  {
+   "file": "komazawa/reels/sfx/pop.wav",
+   "at": 5.97,
+   "vol": 0.27
+  },
+  {
+   "file": "komazawa/reels/sfx/pop.wav",
+   "at": 8.47,
+   "vol": 0.3
+  }
+ ],
+ "copy": {
+  "ig": "關西風三步：糖先下、肉貼著糖煎、醬油最後才淋。\n📍台中市北區健行路837號｜每天 18:00 開門，最後入座 00:30\n#台中壽喜燒 #台中美食 #台中宵夜 #北區美食 #駒澤屋"
+ }
+}
