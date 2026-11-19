@@ -37,6 +37,9 @@ hook／字幕可以直接壓在色帶上當「文字設計」。秒數是成片�
 警告（11/16 加）：同一支原片、原片時間相隔不到 4 秒的兩刀（不論相不相鄰）印⚠️「可能同一動作切兩次」；兩刀標了不同 tag 就不算。
 警告（11/18 加）：同義動作算同一個 tag（冒煙／起霧／倒醬油→淋醬油、化糖／撒糖→下糖，見 ACTION_ALIAS）；
   tag 是 抹油／下糖／空鍋／加水／木桶／招牌／店門（NOFOOD_TAGS）就算沒標 nofood 也算「沒有食物」。
+警告（11/19 加）：生肉貼糖的各種 tag（下肉／拎起和牛／煎香／貼糖煎）與沾蛋（蛋碗／滑進蛋）也算同一動作；
+  -ig／-tiktok 主片要寫 "format": "類型名"（倒帶型、單品快版、一鏡到底、品項連發、情境型、特寫型、開店前EP、二選一），
+  沒寫、或前 2 天同平台都是同一型（舊剪輯單沒寫 format 視為倒帶型）印⚠️。
 警告（11/17 加）：相鄰同 tag（「翻生肉」「翻肉」視為同一動作）連續合計 > 3.5 秒、或相鄰同 tag 來自不同原片（換角度），印⚠️；最後一刀不算。
 "copy": {"ig": "IG 文案", "tiktok": "抖音文案"}：選填。有寫的話會跟畫面上的字一起做「禁用說法」檢查（BANNED，老闆 11/09：只有開鍋由店員服務），
   命中就直接停止、不出片；推 LINE 前請把文案也放進剪輯單讓程式檢查。
@@ -204,7 +207,11 @@ def clip_dur(c):
 # 4.8～10.8 秒抹油、下糖、化糖 6 秒只有空鍋與糖水，只有「抹油」標 nofood。
 # → 同義動作視為同一個 tag；這些動作即使沒標 nofood 也算「沒有食物」。
 ACTION_ALIAS = {"冒煙": "淋醬油", "起霧": "淋醬油", "倒醬油": "淋醬油", "淋醬汁": "淋醬油",
-                "化糖": "下糖", "撒糖": "下糖", "翻生肉": "翻肉", "翻熟肉": "翻肉"}
+                "化糖": "下糖", "撒糖": "下糖", "翻生肉": "翻肉", "翻熟肉": "翻肉",
+                # 11/19 檢討：IG 5～14 秒「下肉→拎起和牛→煎香→貼糖煎」4 個 tag 都是生和牛躺在糖上，連續 8.4 秒沒變色；
+                # 開場「夾起」與第 21 秒「蛋碗」都是夾肉滑進蛋碗，同一動作出現兩次。
+                "下肉": "生肉貼糖", "拎起和牛": "生肉貼糖", "煎香": "生肉貼糖", "貼糖煎": "生肉貼糖", "貼糖": "生肉貼糖",
+                "蛋碗": "沾蛋", "滑進蛋": "沾蛋", "夾起進蛋": "沾蛋"}
 NOFOOD_TAGS = {"抹油", "下糖", "空鍋", "加水", "木桶", "招牌", "店門"}
 
 
@@ -299,6 +306,38 @@ def warn_run(e, limit=3.5):
     return msgs
 
 
+FORMATS = ("倒帶型", "單品快版", "一鏡到底", "品項連發", "情境型", "特寫型", "開店前EP", "二選一")
+
+
+def warn_format(e, edl_path=None, days=2):
+    """11/19 行銷長第 11 條（老闆：怕觀眾看了會疲乏）：主片類型每天輪替，連續 3 天不能同一型。
+    -ig／-tiktok 主片沒寫 "format" 印⚠️；同目錄前 days 天的同平台剪輯單都是同一型也印⚠️。只印不擋，回傳警告清單（測試用）。"""
+    msgs, slug = [], str(e.get("slug", ""))
+    plat = "-ig" if "-ig" in slug else "-tiktok" if "-tiktok" in slug else None
+    if not plat:
+        return msgs
+    fmt = e.get("format")
+    if not fmt:
+        msgs.append(f"主片沒寫 \"format\"（類型名，例：{'、'.join(FORMATS[:4])}…）：行銷長 11/19 主片類型每天輪替")
+    elif edl_path and slug[:8].isdigit():
+        import datetime as _dt
+        d0 = _dt.date(int(slug[:4]), int(slug[4:6]), int(slug[6:8]))
+        prev = []
+        for k in range(1, days + 1):
+            day = (d0 - _dt.timedelta(days=k)).strftime("%Y%m%d")
+            f = Path(edl_path).parent / f"{day}{plat}.json"
+            if f.exists():
+                try:
+                    prev.append(json.loads(f.read_text(encoding="utf-8")).get("format") or "倒帶型")
+                except Exception:
+                    pass
+        if len(prev) == days and all(x == fmt for x in prev):
+            msgs.append(f"「{fmt}」已連續 {days + 1} 天（含今天），老闆 11/19：連續 3 天不能用同一型，換一型")
+    for m in msgs:
+        print("⚠️ " + m)
+    return msgs
+
+
 def warn_zoom(c, src):
     """zoom 後保留的寬度太少（< 640 像素）會放大太多、畫面偏糊，印警告（11/11 研究：1080p 原片 w 0.55 已偏軟）。"""
     z = c.get("zoom")
@@ -323,6 +362,7 @@ def main(edl_path):
     warn_food(e)
     warn_near(e)
     warn_run(e)
+    warn_format(e, edl_path)
     tmp = Path("/tmp/kzr")
     tmp.mkdir(exist_ok=True)
     parts = []
