@@ -26,6 +26,8 @@
 }
 masks：**老闆 2026-11-07 禁止畫面中間有任何色塊，render.py 會略過 masks 並印警告**（舊說明保留供查）。每個是一條實心色帶（預設全寬、深色 0x111111，可加 "x0"/"x1" 變成方塊、"color" 改顏色），畫在字的下面，
 hook／字幕可以直接壓在色帶上當「文字設計」。秒數是成片時間；色帶要把整段裡每一格的客人臉（含側臉）都蓋住，做完一定要逐格檢查。
+hook 可改寫 "stack": ["台中北區", "半夜十二點", "還能開這一鍋"]（最多 3 行、每行 8 字內）：取代 title，0／0.45／0.9 秒一行一行疊出來，
+  前面幾行白字、最後一行黃字，全部掛到 2.5 秒；sub 會自動排在最後一行下面（11/20 加，參考 @want.2.eat 54 萬「台中新開→200多元→吃到飽」）。
 舊格式的 "title" 會當成 hook 的大標（不再畫上方的色塊標題列）。
 長度建議 25～35 秒，每 2～3 秒換一個畫面。
 警告（只印、不擋出片，11/11 加）：同一支原片合計超過 5 秒；zoom 後保留寬度不到 640 像素（1080p 原片 w < 0.6 會偏糊）。
@@ -122,7 +124,7 @@ def check_words(e):
     """畫面上的字＋選填文案（copy）裡有禁用說法就停止。回傳命中清單（測試用）。"""
     texts = []
     h = e.get("hook") or {}
-    texts += [h.get("title", ""), h.get("sub", ""), e.get("title", "")]
+    texts += [h.get("title", ""), h.get("sub", ""), e.get("title", "")] + list(h.get("stack", []))
     texts += [c.get("text", "") for c in e.get("captions", [])]
     texts += list(e.get("end_text", []))
     texts += [p.get("text", "") for p in e.get("pin", [])]
@@ -180,7 +182,7 @@ def warn_dupes(e):
     字（去空白）在 hook／pin／字幕／片尾之間重複就警告（老闆規則：字不重複）。只印不擋，回傳警告清單（測試用）。"""
     msgs, seen = [], {}
     h = e.get("hook") or {}
-    srcs = [("hook", h.get("title", "")), ("hook", h.get("sub", ""))]
+    srcs = [("hook", h.get("title", "")), ("hook", h.get("sub", ""))] + [("hook", t) for t in h.get("stack", [])]
     srcs += [("置頂", p.get("text", "")) for p in e.get("pin", [])]
     srcs += [("字幕", c.get("text", "")) for c in e.get("captions", [])]
     srcs += [("片尾", t) for t in e.get("end_text", [])]
@@ -429,9 +431,17 @@ def main(edl_path):
         # 封面標題固定位置（老闆 2026-11-09：IG 主頁格子會把 9:16 裁成 3:4，上下各切掉 240px，標題位置不一致又會被切掉）
         # 一律放在 TITLE_Y，不再接受剪輯單自訂高度，讓主頁每一格的標題都在同一個位置、完整看得到
         hy = TITLE_Y
-        draws.append(text(hook["title"], 104, "0xF5C518", hy, 0, 2.5, 8))
-        if hook.get("sub"):
-            draws.append(text(hook["sub"], 60, "white", hy + 140, 0, 2.5))
+        stack = [str(x) for x in hook.get("stack", []) if str(x).strip()][:3]
+        if stack:  # 11/20 研究：大標一行一行疊出來（@want.2.eat 54 萬：台中新開→200多元→吃到飽，每 0.5 秒多一行）
+            for j, ln in enumerate(stack):
+                last = j == len(stack) - 1
+                draws.append(text(ln, 104, "0xF5C518" if last else "white", hy + j * 124, round(j * 0.45, 2), 2.5, 8))
+            if hook.get("sub"):
+                draws.append(text(hook["sub"], 60, "white", hy + len(stack) * 124 + 16, 0, 2.5))
+        else:
+            draws.append(text(hook["title"], 104, "0xF5C518", hy, 0, 2.5, 8))
+            if hook.get("sub"):
+                draws.append(text(hook["sub"], 60, "white", hy + 140, 0, 2.5))
     # 抖音式置頂大字（整支都在，無底色、粗黑邊）：避開最上方 220px 的系統列
     pin_t0 = 2.5 if hook else 0  # 11/13：hook 跟 pin 同高度會疊成亂碼 → 有 hook 時 pin 等 hook 結束才出現
     for j, ln in enumerate(e.get("pin", [])):
