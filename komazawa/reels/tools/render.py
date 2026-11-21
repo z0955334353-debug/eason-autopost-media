@@ -43,6 +43,7 @@ hook 可改寫 "stack": ["台中北區", "半夜十二點", "還能開這一鍋"
   -ig／-tiktok 主片要寫 "format": "類型名"（倒帶型、單品快版、一鏡到底、品項連發、情境型、特寫型、開店前EP、二選一），
   沒寫、或前 2 天同平台都是同一型（舊剪輯單沒寫 format 視為倒帶型）印⚠️。
 警告（11/17 加）：相鄰同 tag（「翻生肉」「翻肉」視為同一動作）連續合計 > 3.5 秒、或相鄰同 tag 來自不同原片（換角度），印⚠️；最後一刀不算。
+警告（11/21 加）：某一刀在前 7 天剪輯單已有 2 天用過同一段（第 5 條最多 2 次）、第一刀前 3 天用過、或全片 ≥ 50% 秒數是前 7 天用過的；音效 > 6 個、或 ≥ 3 個音效貼著字幕出現（B 套字幕不配啵），印⚠️。
 "copy": {"ig": "IG 文案", "tiktok": "抖音文案"}：選填。有寫的話會跟畫面上的字一起做「禁用說法」檢查（BANNED，老闆 11/09：只有開鍋由店員服務），
   命中就直接停止、不出片；推 LINE 前請把文案也放進剪輯單讓程式檢查。
 """
@@ -340,6 +341,63 @@ def warn_format(e, edl_path=None, days=2):
     return msgs
 
 
+def _overlap(a, b):
+    return max(0.0, min(float(a["end"]), float(b["end"])) - max(float(a["start"]), float(b["start"])))
+
+
+def warn_reuse(e, edl_path=None, days=7, ratio=0.5):
+    """11/21 檢討：情境型換了 hook 字，但結尾「肉躺在蛋碗裡」（1kMucL 30.3～34.6 秒）11/19 主片、抖音、單品快版、11/21 兩支都用，
+    第 5 條「同一片段 7 天內不要用超過 2 次」程式沒抓（老闆 11/19：怕觀眾疲乏）。比對同目錄前 days 天所有剪輯單（同一支原片、重疊 ≥ 1 秒）：
+    某一刀在前 7 天已有 2 天用過（今天是第 3 天）、第一刀前 3 天用過、或全片 ≥ ratio 秒數是前 7 天用過的，印⚠️。只印不擋，回傳警告清單（測試用）。"""
+    msgs, slug = [], str(e.get("slug", ""))
+    if not (edl_path and slug[:8].isdigit()):
+        return msgs
+    import datetime as _dt
+    d0 = _dt.date(int(slug[:4]), int(slug[4:6]), int(slug[6:8]))
+    old = []
+    for k in range(1, days + 1):
+        day = (d0 - _dt.timedelta(days=k)).strftime("%Y%m%d")
+        for f in sorted(Path(edl_path).parent.glob(f"{day}-*.json")):
+            try:
+                old += [(k, day, c) for c in json.loads(f.read_text(encoding="utf-8")).get("clips", []) if c.get("id")]
+            except Exception:
+                pass
+    clips = [c for c in e.get("clips", []) if c.get("id")]
+    if not clips or not old:
+        return msgs
+    tot = sum(float(c["end"]) - float(c["start"]) for c in clips)
+    rep = 0.0
+    for i, c in enumerate(clips):
+        hits = [(k, d) for k, d, o in old if o["id"] == c["id"] and _overlap(c, o) >= 1.0]
+        used = sorted({d for _, d in hits})
+        if hits:
+            rep += max(_overlap(c, o) for _, _, o in old if o["id"] == c["id"])
+        if len(used) >= 2:
+            msgs.append(f"第 {i + 1} 刀（{c.get('tag') or c['id'][:6]} {c['start']}～{c['end']}）前 {days} 天已在 {'、'.join(used)} 用過：第 5 條同一片段 7 天內最多 2 次，換一段")
+        elif i == 0 and any(k <= 3 for k, _ in hits):
+            msgs.append(f"第一刀跟 {used[0]} 剪過的是同一段原片：開場畫面要換（類型換了，畫面也要換）")
+    if tot and rep / tot >= ratio:
+        msgs.append(f"全片 {rep:.1f}/{tot:.1f} 秒（{rep / tot:.0%}）是前 {days} 天剪過的同一段：換類型也要換畫面")
+    for m in msgs:
+        print("⚠️ " + m)
+    return msgs
+
+
+def warn_sfx(e, limit=6):
+    """11/21 檢討：IG 版 11 個音效，7 個 bubble 每句字幕各配一個（B 套：音效最多 4 個＋點綴 2 個，字幕不再配啵）。
+    音效 > limit 個、或 ≥ 3 個音效剛好落在字幕出現的那一刻（±0.1 秒），印⚠️。只印不擋，回傳警告清單（測試用）。"""
+    msgs, sfx = [], e.get("sfx", [])
+    starts = [float(c["start"]) for c in e.get("captions", [])]
+    on_cap = sum(1 for x in sfx if any(abs(float(x.get("at", -9)) - t) <= 0.1 for t in starts))
+    if len(sfx) > limit:
+        msgs.append(f"音效 {len(sfx)} 個，超過 {limit} 個（B 套：開場／換段落／片尾 4 個＋點綴最多 2 個）")
+    if on_cap >= 3:
+        msgs.append(f"{on_cap} 個音效落在字幕出現的那一刻：B 套字幕不再配啵，只留換段落與片尾")
+    for m in msgs:
+        print("⚠️ " + m)
+    return msgs
+
+
 def warn_zoom(c, src):
     """zoom 後保留的寬度太少（< 640 像素）會放大太多、畫面偏糊，印警告（11/11 研究：1080p 原片 w 0.55 已偏軟）。"""
     z = c.get("zoom")
@@ -365,6 +423,8 @@ def main(edl_path):
     warn_near(e)
     warn_run(e)
     warn_format(e, edl_path)
+    warn_reuse(e, edl_path)
+    warn_sfx(e)
     tmp = Path("/tmp/kzr")
     tmp.mkdir(exist_ok=True)
     parts = []
