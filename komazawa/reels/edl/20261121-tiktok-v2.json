@@ -1,0 +1,286 @@
+{
+ "slug": "20261121-tiktok-v2",
+ "format": "情境型",
+ "live_lufs": -30,
+ "live_vol": 1.0,
+ "keep_audio": true,
+ "logo": false,
+ "caption_y": 0.12,
+ "caption_size": 76,
+ "end_secs": 3.2,
+ "end_y": 0.1,
+ "hook": {
+  "stack": [
+   "健行路上",
+   "半夜十二點",
+   "這鍋還在滾"
+  ],
+  "sub": "台中北區 關西風"
+ },
+ "captions": [
+  {
+   "start": 4.25,
+   "end": 5.55,
+   "text": "糖 先下鍋"
+  },
+  {
+   "start": 5.65,
+   "end": 8.85,
+   "text": "肉貼著糖 煎出焦香"
+  },
+  {
+   "start": 9.45,
+   "end": 11.35,
+   "text": "焦糖醬汁 滾起來"
+  },
+  {
+   "start": 11.45,
+   "end": 13.35,
+   "text": "翻一面 吸飽醬汁"
+  },
+  {
+   "start": 17.25,
+   "end": 19.15,
+   "text": "醬色 吃進肉裡"
+  },
+  {
+   "start": 23.05,
+   "end": 24.75,
+   "text": "最後 滑進蛋裡"
+  }
+ ],
+ "end_text": [
+  "駒澤屋壽喜燒",
+  "健行路837號",
+  "最後入座 00:30"
+ ],
+ "clips": [
+  {
+   "id": "1gLCCba_ueUi219gfH69JZOA70IKtMn9O",
+   "start": 0.4,
+   "end": 2.8,
+   "zoom": {
+    "x": 0.45,
+    "y": 0.58,
+    "w": 0.6
+   },
+   "tag": "淋醬油",
+   "punch": true,
+   "gain_db": 4
+  },
+  {
+   "id": "1kMucL9-NYFF9dX8stnXqbaykPPP9P9rD",
+   "start": 12.0,
+   "end": 13.8,
+   "zoom": {
+    "x": 0.8,
+    "y": 0.6,
+    "w": 0.6
+   },
+   "tag": "油花",
+   "gain_db": -2
+  },
+  {
+   "id": "19vIhDWIbmOq6bxTPXlvY6imvdVaY8b6M",
+   "start": 3.3,
+   "end": 4.7,
+   "zoom": {
+    "x": 0.5,
+    "y": 0.58,
+    "w": 0.7
+   },
+   "tag": "下糖",
+   "nofood": true,
+   "gain_db": -2
+  },
+  {
+   "id": "19vIhDWIbmOq6bxTPXlvY6imvdVaY8b6M",
+   "start": 30.2,
+   "end": 32.0,
+   "zoom": {
+    "x": 0.5,
+    "y": 0.6,
+    "w": 0.7
+   },
+   "tag": "下肉",
+   "gain_db": 2
+  },
+  {
+   "id": "19vIhDWIbmOq6bxTPXlvY6imvdVaY8b6M",
+   "start": 64.0,
+   "end": 66.0,
+   "zoom": {
+    "x": 0.5,
+    "y": 0.6,
+    "w": 0.7
+   },
+   "tag": "煎香",
+   "gain_db": 5
+  },
+  {
+   "id": "1gLCCba_ueUi219gfH69JZOA70IKtMn9O",
+   "start": 8.2,
+   "end": 10.2,
+   "zoom": {
+    "x": 0.42,
+    "y": 0.6,
+    "w": 0.6
+   },
+   "tag": "醬汁滾",
+   "gain_db": 5
+  },
+  {
+   "id": "1ns09iU2ifNjG6uAMQDpxjtKd-Veh7pl4",
+   "start": 64.6,
+   "end": 66.6,
+   "zoom": {
+    "x": 0.42,
+    "y": 0.62,
+    "w": 0.7
+   },
+   "tag": "翻肉",
+   "gain_db": 4
+  },
+  {
+   "id": "1ns09iU2ifNjG6uAMQDpxjtKd-Veh7pl4",
+   "start": 76.0,
+   "end": 77.6,
+   "zoom": {
+    "x": 0.42,
+    "y": 0.62,
+    "w": 0.7
+   },
+   "tag": "夾肉",
+   "gain_db": 4
+  },
+  {
+   "id": "1ns09iU2ifNjG6uAMQDpxjtKd-Veh7pl4",
+   "start": 88.2,
+   "end": 90.4,
+   "zoom": {
+    "x": 0.42,
+    "y": 0.62,
+    "w": 0.7
+   },
+   "tag": "熟肉",
+   "gain_db": 4
+  },
+  {
+   "id": "1325CwQxWujkk-QaM4R07phVexmJnOeK1",
+   "start": 20.0,
+   "end": 22.0,
+   "zoom": {
+    "x": 0.45,
+    "y": 0.66,
+    "w": 0.6
+   },
+   "tag": "醬汁肉",
+   "gain_db": 3
+  },
+  {
+   "id": "1_sszZqpzhFu6MOiB-OYZw70_tS9xsAaX",
+   "start": 1.8,
+   "end": 3.8,
+   "zoom": {
+    "x": 0.45,
+    "y": 0.62,
+    "w": 0.6
+   },
+   "tag": "夾起",
+   "gain_db": 2
+  },
+  {
+   "id": "1kMucL9-NYFF9dX8stnXqbaykPPP9P9rD",
+   "start": 28.2,
+   "end": 30.0,
+   "zoom": {
+    "x": 0.5,
+    "y": 0.72,
+    "w": 0.6
+   },
+   "tag": "端蛋",
+   "gain_db": 0
+  },
+  {
+   "id": "1325CwQxWujkk-QaM4R07phVexmJnOeK1",
+   "start": 25.0,
+   "end": 27.0,
+   "zoom": {
+    "x": 0.42,
+    "y": 0.66,
+    "w": 0.6
+   },
+   "tag": "沾蛋",
+   "gain_db": 1
+  },
+  {
+   "id": "1kMucL9-NYFF9dX8stnXqbaykPPP9P9rD",
+   "start": 30.6,
+   "end": 33.5,
+   "zoom": {
+    "x": 0.4,
+    "y": 0.68,
+    "w": 0.6
+   },
+   "tag": "蛋碗",
+   "gain_db": 1,
+   "speed": 0.8
+  }
+ ],
+ "sfx": [
+  {
+   "file": "komazawa/reels/sfx/hit.wav",
+   "at": 0,
+   "vol": 0.7
+  },
+  {
+   "file": "komazawa/reels/sfx/bubble.wav",
+   "at": 4.25,
+   "vol": 0.45
+  },
+  {
+   "file": "komazawa/reels/sfx/bubble.wav",
+   "at": 5.65,
+   "vol": 0.45
+  },
+  {
+   "file": "komazawa/reels/sfx/sizzle.wav",
+   "at": 7.7,
+   "vol": 0.3
+  },
+  {
+   "file": "komazawa/reels/sfx/bubble.wav",
+   "at": 9.45,
+   "vol": 0.45
+  },
+  {
+   "file": "komazawa/reels/sfx/bubble.wav",
+   "at": 11.45,
+   "vol": 0.45
+  },
+  {
+   "file": "komazawa/reels/sfx/bubble.wav",
+   "at": 17.25,
+   "vol": 0.45
+  },
+  {
+   "file": "komazawa/reels/sfx/swish.wav",
+   "at": 20.95,
+   "vol": 0.45
+  },
+  {
+   "file": "komazawa/reels/sfx/bubble.wav",
+   "at": 23.05,
+   "vol": 0.45
+  },
+  {
+   "file": "komazawa/reels/sfx/ding.wav",
+   "at": 25.42,
+   "vol": 0.5
+  }
+ ],
+ "copy": {
+  "ig": "說好今晚早點睡，結果十二點還在等這鍋滾。\n糖先下，和牛貼著糖煎出焦香，焦糖醬汁一滾，翻面吸飽。\n最後夾起來滑進蛋裡，宵夜就這樣定案。\n你半夜嘴饞，第一個想到的是哪一味？\n\n📍台中市北區健行路837號\n🕕每天 18:00 開門｜最後入座 00:30（週一也有開）\n📞訂位 04-2207-0068｜訂位連結在主頁\n#台中壽喜燒 #台中宵夜 #台中美食 #北區美食 #駒澤屋",
+  "tiktok": "半夜十二點還在滾的，不是你的訊息，是這鍋壽喜燒｜台中北區健行路 #台中壽喜燒 #台中宵夜 #台中美食 #北區美食 #駒澤屋"
+ }
+}
