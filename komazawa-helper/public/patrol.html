@@ -24,15 +24,16 @@
     <img class="logo" src="/icon.png" alt="">
     <div><h1 id="title">駒澤屋海巡清單</h1><p class="sub" id="sub">載入中…</p></div>
   </header>
-  <div class="card tip">按綠色按鈕：<b>留言會自動複製</b>，接著打開那篇貼文，你在留言框<b>長按 → 貼上 → 發佈</b>就好。每則間隔 3～5 分鐘再留。</div>
+  <div class="card tip">按綠色按鈕：直接打開脆的<b>回覆框，留言已經填好</b>，看一眼按<b>發佈</b>就好（留言也同時複製一份備用）。每則間隔 3～5 分鐘再留。</div>
   <div id="list"></div>
   <footer>瓏駒股份有限公司・駒澤屋壽喜燒</footer>
 </div>
-<div class="toast" id="toast">已複製留言，正在打開貼文…</div>
+<div class="toast" id="toast">正在打開回覆框（留言已填好）…</div>
 <script>
 const $ = (id) => document.getElementById(id);
 function esc(s){return String(s||"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
 function store(k,v){try{if(v===undefined)return localStorage.getItem(k);localStorage.setItem(k,v)}catch(e){return null}}
+function intent(url,text){const m=String(url||"").match(/threads\.(?:com|net)\/(?:@[^\/]+\/)?(?:post|t)\/([A-Za-z0-9_-]+)/);if(!m||!text)return null;return "https://www.threads.com/intent/post?reply_post_shortcode="+m[1]+"&text="+encodeURIComponent(text)}
 async function copy(text){
   try{await navigator.clipboard.writeText(text);return true}catch(e){}
   const t=document.createElement("textarea");t.value=text;t.style.position="fixed";t.style.opacity="0";document.body.appendChild(t);t.focus();t.select();
@@ -53,11 +54,11 @@ async function load(){
     el.innerHTML=`<div><span class="num">${i+1}</span><span class="what">${esc(it.summary)}</span></div>
       <div class="meta">@${esc(it.username||"")}${it.traffic?"・🔥 "+esc(it.traffic):(it.comments!=null?"・"+esc(it.comments)+" 則留言":"")}</div>
       <div class="cmt">${esc(it.comment)}</div>
-      <button class="go">複製留言＋打開貼文</button>
+      <button class="go">一鍵留言（點了直接開回覆框）</button>
       <div class="small"><span class="st">${done.has(i)?"✓ 已留言":""}</span><span><button class="ghost cp">只複製</button> <button class="ghost mk">${done.has(i)?"取消標記":"標記已留"}</button></span></div>`;
     const mark=(v)=>{v?done.add(i):done.delete(i);store(key,JSON.stringify([...done]));el.classList.toggle("done",v);el.querySelector(".st").textContent=v?"✓ 已留言":"";el.querySelector(".mk").textContent=v?"取消標記":"標記已留"};
-    el.querySelector(".go").onclick=async()=>{await copy(it.comment);$("toast").style.display="block";mark(true);setTimeout(()=>{$("toast").style.display="none";location.href=it.url},700)};
-    el.querySelector(".cp").onclick=async()=>{const ok=await copy(it.comment);$("toast").textContent=ok?"已複製留言":"複製失敗，請長按文字複製";$("toast").style.display="block";setTimeout(()=>{$("toast").style.display="none";$("toast").textContent="已複製留言，正在打開貼文…"},1200)};
+    el.querySelector(".go").onclick=async()=>{await copy(it.comment);$("toast").style.display="block";mark(true);setTimeout(()=>{$("toast").style.display="none";location.href=intent(it.url,it.comment)||it.url},700)};
+    el.querySelector(".cp").onclick=async()=>{const ok=await copy(it.comment);$("toast").textContent=ok?"已複製留言":"複製失敗，請長按文字複製";$("toast").style.display="block";setTimeout(()=>{$("toast").style.display="none";$("toast").textContent="正在打開回覆框（留言已填好）…"},1200)};
     el.querySelector(".mk").onclick=()=>mark(!done.has(i));
     list.appendChild(el);
   });
