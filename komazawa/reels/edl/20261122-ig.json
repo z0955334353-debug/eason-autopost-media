@@ -1,0 +1,225 @@
+{
+ "slug": "20261122-ig",
+ "format": "二選一",
+ "live_lufs": -30,
+ "live_vol": 1.0,
+ "keep_audio": true,
+ "logo": false,
+ "caption_y": 0.1,
+ "caption_size": 72,
+ "end_secs": 2.8,
+ "end_y": 0.1,
+ "hook": {
+  "stack": [
+   "吃壽喜燒",
+   "你是沾蛋派",
+   "還是原味派？"
+  ],
+  "sub": "台中北區 關西風"
+ },
+ "captions": [
+  {
+   "start": 2.9,
+   "end": 5.8,
+   "text": "這一盤 等著下鍋"
+  },
+  {
+   "start": 6.05,
+   "end": 9.25,
+   "text": "糖先下 肉再貼上去"
+  },
+  {
+   "start": 10.65,
+   "end": 13.85,
+   "text": "醬油最後淋"
+  },
+  {
+   "start": 16.65,
+   "end": 19.85,
+   "text": "每一片 裹滿醬汁"
+  },
+  {
+   "start": 22.25,
+   "end": 24.2,
+   "text": "邊煮 邊入味"
+  },
+  {
+   "start": 24.45,
+   "end": 27.25,
+   "text": "留言告訴我 你選哪個"
+  }
+ ],
+ "end_text": [
+  "駒澤屋壽喜燒",
+  "台中北區健行路837號",
+  "每天 18:00 開門｜最後入座 00:30"
+ ],
+ "sfx": [
+  {
+   "file": "komazawa/reels/sfx/thud.wav",
+   "at": 0,
+   "vol": 0.7
+  },
+  {
+   "file": "komazawa/reels/sfx/sizzle.wav",
+   "at": 7.35,
+   "vol": 0.3
+  },
+  {
+   "file": "komazawa/reels/sfx/sparkle.wav",
+   "at": 8.55,
+   "vol": 0.3
+  },
+  {
+   "file": "komazawa/reels/sfx/swish.wav",
+   "at": 10.3,
+   "vol": 0.45
+  },
+  {
+   "file": "komazawa/reels/sfx/shutter.wav",
+   "at": 27.35,
+   "vol": 0.5
+  }
+ ],
+ "copy": {
+  "ig": "說要減肥的人，最先問的都是：這鍋要不要沾蛋。\n糖先下，肉直接貼上去，醬油最後一淋，整鍋冒起來。\n煮好的肉一夾，滑進蛋汁裡，或者就這樣原味吃。\n你是沾蛋派，還是原味派？\n\n📍台中市北區健行路837號\n🕕每天 18:00 開門｜最後入座 00:30（週一也有開）\n📞訂位 04-2207-0068｜訂位連結在主頁\n#台中壽喜燒 #台中宵夜 #台中美食 #北區美食 #駒澤屋",
+  "tiktok": "吃壽喜燒會吵架的只有一件事：沾不沾蛋｜台中北區健行路 #台中壽喜燒 #台中宵夜 #台中美食 #北區美食 #沾蛋派"
+ },
+ "clips": [
+  {
+   "id": "1ns09iU2ifNjG6uAMQDpxjtKd-Veh7pl4",
+   "start": 92.0,
+   "end": 94.8,
+   "tag": "夾起",
+   "gain_db": 4,
+   "punch": true
+  },
+  {
+   "id": "1KlIT3HJmeoC8oWdAcE7nynuxvFkkfcHL",
+   "start": 0.05,
+   "end": 3.2,
+   "tag": "肉盤",
+   "zoom": {
+    "x": 0.48,
+    "y": 0.66,
+    "w": 0.6
+   },
+   "gain_db": -2
+  },
+  {
+   "id": "1ThcfZUqhN2Q2ey0QC95010C_e2SjrIDk",
+   "start": 4.7,
+   "end": 5.8,
+   "tag": "下糖",
+   "zoom": {
+    "x": 0.55,
+    "y": 0.5,
+    "w": 0.75
+   },
+   "gain_db": -2,
+   "nofood": true
+  },
+  {
+   "id": "1I9pBkeoY3YwV7Vd51o-kFCVPzamMH_PQ",
+   "start": 10.3,
+   "end": 11.6,
+   "tag": "下肉",
+   "zoom": {
+    "x": 0.5,
+    "y": 0.58,
+    "w": 0.7
+   },
+   "gain_db": 3
+  },
+  {
+   "id": "1SZEFOJDDOm999Jqr0jf2DTJ-Zxc4GUCu",
+   "start": 26.0,
+   "end": 28.2,
+   "tag": "油花",
+   "zoom": {
+    "x": 0.5,
+    "y": 0.62,
+    "w": 0.7
+   },
+   "gain_db": 2
+  },
+  {
+   "id": "1I9pBkeoY3YwV7Vd51o-kFCVPzamMH_PQ",
+   "start": 31.4,
+   "end": 34.0,
+   "tag": "淋醬油",
+   "zoom": {
+    "x": 0.6,
+    "y": 0.52,
+    "w": 0.85
+   },
+   "gain_db": 5
+  },
+  {
+   "id": "1RJYm9SpThRsu36znYUvR4zn6H5GkWzlC",
+   "start": 3.6,
+   "end": 7.0,
+   "tag": "醬汁滾",
+   "zoom": {
+    "x": 0.4,
+    "y": 0.65,
+    "w": 0.6
+   },
+   "gain_db": 5
+  },
+  {
+   "id": "1325CwQxWujkk-QaM4R07phVexmJnOeK1",
+   "start": 19.8,
+   "end": 21.8,
+   "tag": "醬汁肉",
+   "zoom": {
+    "x": 0.45,
+    "y": 0.65,
+    "w": 0.6
+   },
+   "gain_db": 3
+  },
+  {
+   "id": "18i7EaJn_Wh2EUcLQWJpEZEP3H7wwJ7yC",
+   "start": 118.2,
+   "end": 121.8,
+   "tag": "煮肉",
+   "zoom": {
+    "x": 0.5,
+    "y": 0.62,
+    "w": 0.7
+   },
+   "gain_db": 4
+  },
+  {
+   "id": "1ns09iU2ifNjG6uAMQDpxjtKd-Veh7pl4",
+   "start": 83.2,
+   "end": 85.4,
+   "tag": "變色",
+   "gain_db": 3
+  },
+  {
+   "id": "1gLCCba_ueUi219gfH69JZOA70IKtMn9O",
+   "start": 10.0,
+   "end": 12.8,
+   "tag": "夾肉",
+   "zoom": {
+    "x": 0.4,
+    "y": 0.68,
+    "w": 0.6
+   },
+   "gain_db": 3
+  },
+  {
+   "id": "1325CwQxWujkk-QaM4R07phVexmJnOeK1",
+   "start": 24.4,
+   "end": 27.4,
+   "tag": "沾蛋",
+   "zoom": {
+    "x": 0.45,
+    "y": 0.66,
+    "w": 0.6
+   }
+  }
+ ]
+}
