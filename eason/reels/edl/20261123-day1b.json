@@ -1,0 +1,89 @@
+{
+ "slug": "20261123-day1b",
+ "auto": false,
+ "hook": {
+  "title": "交易老師的移動辦公室",
+  "sub": "Day 1"
+ },
+ "captions": [
+  {
+   "start": 2.7,
+   "end": 5.1000000000000005,
+   "text": "辦公室，換一個城市"
+  },
+  {
+   "start": 5.3,
+   "end": 7.700000000000001,
+   "text": "看盤，不一定要在家"
+  },
+  {
+   "start": 7.9,
+   "end": 10.3,
+   "text": "開盤前，先把計畫寫好"
+  },
+  {
+   "start": 10.5,
+   "end": 12.9,
+   "text": "收盤後，才是休息時間"
+  },
+  {
+   "start": 13.1,
+   "end": 15.500000000000002,
+   "text": "一碗河粉，結束今天"
+  },
+  {
+   "start": 15.700000000000001,
+   "end": 18.099999999999998,
+   "text": "紀律，比地點重要"
+  }
+ ],
+ "caption_y": 0.7,
+ "caption_size": 62,
+ "keep_audio": true,
+ "live_lufs": -26,
+ "clips": [
+  {
+   "id": "16Kj3aLerpBgY_USlj_BeQNH_tdKSGGh9",
+   "start": 0.8,
+   "end": 3.4,
+   "voice": false,
+   "punch": true
+  },
+  {
+   "id": "1GxPpHahydrk9L2Y_QLYd8ClWhuYKuvIB",
+   "start": 0.8,
+   "end": 3.4,
+   "voice": false
+  },
+  {
+   "id": "1Ht66B7ppoi4KCAKW_Q1HOS8SeA9zUq3P",
+   "start": 0.8,
+   "end": 3.4,
+   "voice": false
+  },
+  {
+   "id": "1RYUhxPR_2Uxw8HQJhKBJGR4Ry0nX1QOw",
+   "start": 0.8,
+   "end": 3.4,
+   "voice": false
+  },
+  {
+   "id": "1t_LZEfqaoZsp_1wosECXum-A2wF-NgmE",
+   "start": 0.8,
+   "end": 3.4,
+   "voice": false
+  },
+  {
+   "id": "1Uvyux5HgCW5uKWK1DhWiXf1wjPHvwL3y",
+   "start": 0.8,
+   "end": 3.4,
+   "voice": false
+  },
+  {
+   "id": "1X7gS2H_0vy7bzB38ZuD5rg_52qC1aJ7R",
+   "start": 0.8,
+   "end": 3.4,
+   "voice": false
+  }
+ ]
+}
