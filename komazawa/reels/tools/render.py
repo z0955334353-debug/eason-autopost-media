@@ -400,6 +400,24 @@ def warn_sfx(e, limit=6):
     return msgs
 
 
+def warn_layout(e):
+    """11/23 檢討：①IG／抖音「生啤酒」單句 y=0.8 掉到畫面下方，其他字幕都在上方（老闆 11/23：每段小字幕位置每支固定一致，不要忽上忽下）；
+    ②開場淋醬油（1faSx 10.2～12.5）跟第 13～18 秒「洋蔥 豆腐 蔥段」是同一支原片、同一個鍋同一個擺法，觀眾會覺得同一畫面看兩次。
+    字幕個別指定 y 且跟 caption_y 差 > 0.05、或第一刀的原片在片中又用一次，印⚠️。只印不擋，回傳警告清單（測試用）。"""
+    msgs, cy = [], float(e.get("caption_y", 0.1))
+    for cap in e.get("captions", []):
+        if "y" in cap and abs(float(cap["y"]) - cy) > 0.05:
+            msgs.append(f"字幕「{cap.get('text')}」y={cap['y']} 跟其他字幕（caption_y {cy}）不同高：老闆 11/23 小字幕位置要固定，換畫面或改字，不要移字")
+    clips = [c for c in e.get("clips", []) if c.get("id")]
+    if clips:
+        again = [i + 1 for i, c in enumerate(clips[1:], 1) if c["id"] == clips[0]["id"]]
+        if again:
+            msgs.append(f"第一刀的原片在第 {'、'.join(map(str, again))} 刀又出現（同一個鍋、同一個擺法）：開場畫面片中不要再看到，換另一支原片")
+    for m in msgs:
+        print("⚠️ " + m)
+    return msgs
+
+
 def warn_zoom(c, src):
     """zoom 後保留的寬度太少（< 640 像素）會放大太多、畫面偏糊，印警告（11/11 研究：1080p 原片 w 0.55 已偏軟）。"""
     z = c.get("zoom")
@@ -427,6 +445,7 @@ def main(edl_path):
     warn_format(e, edl_path)
     warn_reuse(e, edl_path)
     warn_sfx(e)
+    warn_layout(e)
     tmp = Path("/tmp/kzr")
     tmp.mkdir(exist_ok=True)
     parts = []
