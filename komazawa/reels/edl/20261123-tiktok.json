@@ -1,0 +1,219 @@
+{
+ "slug": "20261123-tiktok",
+ "format": "品項連發",
+ "live_lufs": -30,
+ "live_vol": 1.0,
+ "keep_audio": true,
+ "logo": false,
+ "caption_y": 0.12,
+ "caption_size": 76,
+ "end_secs": 3.0,
+ "end_y": 0.1,
+ "hook": {
+  "stack": [
+   "關西風這一鍋",
+   "裝了什麼？"
+  ]
+ },
+ "captions": [
+  {
+   "start": 2.81,
+   "end": 5.71,
+   "text": "生和牛"
+  },
+  {
+   "start": 5.91,
+   "end": 8.31,
+   "text": "蔬菜"
+  },
+  {
+   "start": 8.51,
+   "end": 10.51,
+   "text": "生啤酒",
+   "y": 0.8
+  },
+  {
+   "start": 10.71,
+   "end": 11.91,
+   "text": "糖先下鍋"
+  },
+  {
+   "start": 12.11,
+   "end": 14.31,
+   "text": "肉直接貼上去"
+  },
+  {
+   "start": 14.51,
+   "end": 19.01,
+   "text": "洋蔥 豆腐 蔥段"
+  },
+  {
+   "start": 21.61,
+   "end": 24.48,
+   "text": "還沒完喔"
+  }
+ ],
+ "end_text": [
+  "駒澤屋壽喜燒",
+  "健行路837號",
+  "最後入座 00:30"
+ ],
+ "sfx": [
+  {
+   "file": "komazawa/reels/sfx/hit.wav",
+   "at": 0,
+   "vol": 0.7
+  },
+  {
+   "file": "komazawa/reels/sfx/whoosh.wav",
+   "at": 10.36,
+   "vol": 0.45
+  },
+  {
+   "file": "komazawa/reels/sfx/sizzle.wav",
+   "at": 12.41,
+   "vol": 0.3
+  },
+  {
+   "file": "komazawa/reels/sfx/ding.wav",
+   "at": 21.61,
+   "vol": 0.35
+  },
+  {
+   "file": "komazawa/reels/sfx/pop.wav",
+   "at": 24.53,
+   "vol": 0.5
+  }
+ ],
+ "copy": {
+  "ig": "每次被問「你們那一鍋到底放了什麼」，小編都要從糖開始講。\n和牛、蔬菜、一杯生啤；糖先下，肉直接貼上去，洋蔥、豆腐、蔥段排好，醬油最後才淋。\n講完以為結束了？最後一口還要沾蛋。\n你吃壽喜燒，第一筷先夾哪一樣？\n\n📍台中市北區健行路837號\n🕕每天 18:00 開門｜最後入座 00:30（週一也有開）\n📞訂位 04-2207-0068｜訂位連結在主頁\n#台中壽喜燒 #台中宵夜 #台中美食 #北區美食 #駒澤屋",
+  "tiktok": "一鍋壽喜燒的清單，講到沾蛋才算講完｜台中北區健行路 #台中壽喜燒 #台中宵夜 #台中美食 #北區美食 #關西風壽喜燒"
+ },
+ "clips": [
+  {
+   "id": "1faSxQksAkF6VBHRrWIgeS-cosBcdGPXe",
+   "start": 10.2,
+   "end": 12.5,
+   "speed": 0.85,
+   "tag": "淋醬油",
+   "crop_top": 0.2,
+   "gain_db": 5,
+   "punch": true
+  },
+  {
+   "id": "14IPmi68Rvm5S1OphX2SwOkyIUTtdOwvy",
+   "start": 0.0,
+   "end": 1.6,
+   "tag": "肉盤",
+   "zoom": {
+    "x": 0.55,
+    "y": 0.6,
+    "w": 0.65
+   },
+   "gain_db": -2
+  },
+  {
+   "id": "14IPmi68Rvm5S1OphX2SwOkyIUTtdOwvy",
+   "start": 1.6,
+   "end": 3.1,
+   "tag": "肉盤特寫",
+   "zoom": {
+    "x": 0.6,
+    "y": 0.58,
+    "w": 0.6
+   },
+   "gain_db": -2
+  },
+  {
+   "id": "1tKI2Ejb7zCd-BFRBAGVzn8E-PwNAYln-",
+   "start": 0.2,
+   "end": 1.4,
+   "tag": "蔬菜",
+   "gain_db": -4
+  },
+  {
+   "id": "1tKI2Ejb7zCd-BFRBAGVzn8E-PwNAYln-",
+   "start": 2.0,
+   "end": 3.4,
+   "tag": "蔬菜特寫",
+   "gain_db": -4
+  },
+  {
+   "id": "1TLlkXnSGPCi-GRW_XKiyKpAJJw4jMiBN",
+   "start": 1.0,
+   "end": 3.2,
+   "tag": "啤酒",
+   "gain_db": -2
+  },
+  {
+   "id": "1j4T8Q-1Z-lq_PuGA9mbtZPAmBgIiVg3-",
+   "start": 5.0,
+   "end": 6.4,
+   "tag": "下糖",
+   "crop_top": 0.2,
+   "nofood": true,
+   "gain_db": -1
+  },
+  {
+   "id": "1RBT2iNnFX5QyvQ4zu-wQ4dLahfZS1OE0",
+   "start": 7.0,
+   "end": 9.4,
+   "tag": "下肉",
+   "crop_top": 0.2,
+   "gain_db": 4
+  },
+  {
+   "id": "1faSxQksAkF6VBHRrWIgeS-cosBcdGPXe",
+   "start": 0.0,
+   "end": 1.8,
+   "tag": "洋蔥",
+   "crop_top": 0.2,
+   "gain_db": 3
+  },
+  {
+   "id": "1faSxQksAkF6VBHRrWIgeS-cosBcdGPXe",
+   "start": 2.3,
+   "end": 3.6,
+   "tag": "豆腐",
+   "crop_top": 0.2,
+   "gain_db": 2
+  },
+  {
+   "id": "1faSxQksAkF6VBHRrWIgeS-cosBcdGPXe",
+   "start": 4.3,
+   "end": 5.9,
+   "tag": "蔥段",
+   "crop_top": 0.2,
+   "gain_db": 2
+  },
+  {
+   "id": "1j4T8Q-1Z-lq_PuGA9mbtZPAmBgIiVg3-",
+   "start": 24.0,
+   "end": 26.4,
+   "tag": "醬汁肉",
+   "crop_top": 0.1,
+   "gain_db": 5
+  },
+  {
+   "id": "1j4T8Q-1Z-lq_PuGA9mbtZPAmBgIiVg3-",
+   "start": 27.0,
+   "end": 29.4,
+   "tag": "翻肉",
+   "crop_top": 0.1,
+   "gain_db": 4
+  },
+  {
+   "id": "1gLCCba_ueUi219gfH69JZOA70IKtMn9O",
+   "start": 17.6,
+   "end": 20.5,
+   "speed": 0.8,
+   "tag": "沾蛋",
+   "zoom": {
+    "x": 0.55,
+    "y": 0.6,
+    "w": 0.6
+   },
+   "gain_db": 2
+  }
+ ]
+}
