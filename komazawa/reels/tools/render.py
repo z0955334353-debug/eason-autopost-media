@@ -62,7 +62,8 @@ TITLE_Y = 400  # 封面標題的固定高度：IG 主頁 3:4 格子只顯示 y 2
 TONEMAP = ("zscale=t=linear:npl=100,format=gbrpf32le,zscale=p=bt709,tonemap=tonemap=hable:desat=0,"
            "zscale=t=bt709:m=bt709:r=tv,format=yuv420p")
 # 老闆 2026-11-13：食物看起來死白 → 一律加暖色、提飽和與對比（剪輯單可用 "grade": false 關掉）
-GRADE = "eq=contrast=1.08:saturation=1.3:gamma=0.96,colorbalance=rs=0.04:bs=-0.04:rm=0.03:bm=-0.03"
+# 老闆 2026-11-23：舊版調色太弱，肉還是死白／偏冷 → 先把冷白燈校成暖色溫，再加飽和、對比、暖色（店內白光燈拍的素材都要）
+GRADE = "colortemperature=temperature=5200:mix=0.9,eq=contrast=1.1:saturation=1.25,vibrance=intensity=0.25,colorbalance=rs=0.05:bs=-0.06:rm=0.05:bm=-0.05:rh=0.02:bh=-0.03"
 COLOR = ["-colorspace", "bt709", "-color_primaries", "bt709", "-color_trc", "bt709"]
 
 
