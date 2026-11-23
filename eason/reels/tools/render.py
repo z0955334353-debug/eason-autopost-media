@@ -8,6 +8,7 @@
 {
   "slug": "20261104-kansai",                       # 檔名
   "hook": {"title": "黃色大標", "sub": "白色副標"},   # 開頭 2.5 秒的標題（無底色、白字黑邊），選填
+  "through": {"text": "Day 2", "at": 0, "dur": 0.9},  # 選填：文字穿越（黑底白字放大、影片從字裡透出來）。放開頭時 hook 會等穿越完才出現，封面也往後截
   "captions": [{"start": 9.5, "end": 12.0, "text": "糖先下鍋", "y": 0.24}],   # 畫面中的字；y 可個別指定高度（畫面比例），字不可蓋住肉、鍋、手的動作
   "end_text": ["最後入座 00:30", "今晚要不要來一鍋？"],             # 疊在最後 2.4 秒，選填
   "pin": [{"text": "台中北區", "color": "white"}, {"text": "開到半夜的壽喜燒", "color": "0xF5C518"}],  # 抖音版：整支置頂大字，選填
@@ -79,6 +80,72 @@ def text_hl(t, size, y, start, end, hl, border=7):
     return out
 
 
+def _through_mask(text):
+    """文字穿越用的字形遮罩：L＝字（白），E＝字的白色外框，(ax, ay)＝放大中心（筆畫最粗、離畫面中心最近的點）。"""
+    import numpy as np
+    from PIL import Image, ImageDraw, ImageFont, ImageFilter
+    size = 420
+    f = ImageFont.truetype(FONT, size)
+    while size > 140 and f.getlength(text) > W * 0.86:
+        size -= 20
+        f = ImageFont.truetype(FONT, size)
+    L = Image.new("L", (W, H), 0)
+    ImageDraw.Draw(L).text((W / 2, H / 2), text, font=f, fill=255, anchor="mm")
+    E = Image.new("L", (W, H), 0)
+    ImageDraw.Draw(E).text((W / 2, H / 2), text, font=f, fill=255, anchor="mm", stroke_width=7, stroke_fill=255)
+    E = Image.fromarray(np.clip(np.asarray(E, dtype=np.int16) - np.asarray(L, dtype=np.int16), 0, 255).astype(np.uint8))
+    core = L
+    for _ in range(30):
+        nxt = core.filter(ImageFilter.MinFilter(9))
+        if not np.asarray(nxt).any():
+            break
+        core = nxt
+    ys, xs = np.nonzero(np.asarray(core) > 128)
+    k = int(np.argmin((xs - W / 2) ** 2 + (ys - H / 2) ** 2))
+    return L, E, (float(xs[k]), float(ys[k]))
+
+
+def apply_through(src, tmp, thr):
+    """文字穿越（11/23 學自剪映教學，老闆說旅拍也要用）：黑底白字一路放大，影片從字裡透出來，最後鋪滿全畫面。
+    剪輯單加 "through": {"text": "Day 2", "at": 0, "dur": 0.9}。聲音不動，只改畫面。"""
+    from PIL import Image
+    text, at, dur = str(thr["text"]), float(thr.get("at", 0)), float(thr.get("dur", 0.9))
+    L, E, (ax, ay) = _through_mask(text)
+    out = tmp / "joined_through.mp4"
+    dec = subprocess.Popen(["ffmpeg", "-v", "error", "-i", str(src), "-f", "rawvideo", "-pix_fmt", "rgb24", "-"], stdout=subprocess.PIPE)
+    enc = subprocess.Popen(["ffmpeg", "-v", "error", "-y", "-f", "rawvideo", "-pix_fmt", "rgb24", "-s", f"{W}x{H}", "-r", "30", "-i", "-",
+                            "-i", str(src), "-map", "0:v", "-map", "1:a", "-c:v", "libx264", "-preset", "medium", "-crf", "16",
+                            "-pix_fmt", "yuv420p", *COLOR, "-c:a", "copy", "-shortest", str(out)], stdin=subprocess.PIPE)
+    black, white = Image.new("RGB", (W, H), (0, 0, 0)), Image.new("RGB", (W, H), (245, 242, 235))
+    size, n = W * H * 3, 0
+    while True:
+        buf = dec.stdout.read(size)
+        if len(buf) < size:
+            break
+        t = n / 30
+        if at <= t < at + dur:
+            p = (t - at) / dur
+            cur = Image.frombytes("RGB", (W, H), buf)
+            s = 60 ** (p ** 2.2)
+            k = 1 - 1 / s
+            cx, cy = W / 2 + (ax - W / 2) * k, H / 2 + (ay - H / 2) * k
+            box = (cx - W / s / 2, cy - H / s / 2, cx + W / s / 2, cy + H / s / 2)
+            fr = Image.composite(cur, black, L.resize((W, H), Image.BILINEAR, box=box))
+            edge = E.resize((W, H), Image.BILINEAR, box=box).point(lambda v: int(v * max(0.0, 1 - p * 1.4)))
+            fr = Image.composite(white, fr, edge)
+            if p > 0.8:
+                fr = Image.blend(fr, cur, min(1.0, (p - 0.8) / 0.2))
+            buf = fr.tobytes()
+        enc.stdin.write(buf)
+        n += 1
+    enc.stdin.close()
+    enc.wait()
+    dec.wait()
+    if enc.returncode != 0:
+        raise RuntimeError("文字穿越輸出失敗")
+    return out
+
+
 def main(edl_path):
     e = json.loads(Path(edl_path).read_text(encoding="utf-8"))
     tmp = Path(f"/tmp/esr/{e['slug']}")
@@ -134,6 +201,13 @@ def main(edl_path):
     total = float(subprocess.run(["ffprobe", "-v", "error", "-show_entries", "format=duration", "-of", "csv=p=0", str(joined)],
                                  capture_output=True, text=True).stdout.strip())
 
+    thr = e.get("through")
+    opening = 0.0   # 文字穿越放在開頭時，hook 等穿越完才出現
+    if thr:
+        joined = apply_through(joined, tmp, thr)
+        if float(thr.get("at", 0)) < 0.3:
+            opening = float(thr.get("at", 0)) + float(thr.get("dur", 0.9))
+
     draws = []
     for m in e.get("masks", []):
         x0, x1 = float(m.get("x0", 0)), float(m.get("x1", 1))
@@ -142,9 +216,10 @@ def main(edl_path):
                      f"enable='between(t,{float(m.get('start', 0)):.2f},{float(m['end']):.2f})'")
     hook = e.get("hook") or ({"title": e["title"]} if e.get("title") else None)
     if hook:
-        draws.append(text(hook["title"], 104, "0xF5C518", 560, 0, 2.5, 8))
+        h1 = max(2.5, opening + 1.5)
+        draws.append(text(hook["title"], 104, "0xF5C518", 560, opening, h1, 8))
         if hook.get("sub"):
-            draws.append(text(hook["sub"], 60, "white", 700, 0, 2.5))
+            draws.append(text(hook["sub"], 60, "white", 700, opening, h1))
     # 抖音式置頂大字（整支都在，無底色、粗黑邊）：避開最上方 220px 的系統列
     for j, ln in enumerate(e.get("pin", [])):
         draws.append(text(ln["text"], int(ln.get("size", 92)), ln.get("color", "white"), 250 + j * 118, 0, total + 1, 9))
@@ -196,7 +271,8 @@ def main(edl_path):
             "-pix_fmt", "yuv420p", *COLOR, "-bsf:v", "h264_metadata=colour_primaries=1:transfer_characteristics=1:matrix_coefficients=1",
             "-c:a", "aac", "-b:a", "192k", "-ar", "48000", "-movflags", "+faststart", str(final)]
     run(cmd)
-    run(["ffmpeg", "-v", "error", "-y", "-ss", "1", "-i", str(final), "-frames:v", "1", "-q:v", "3", str(out_dir / f"{e['slug']}.jpg")])
+    cover_at = max(1.0, opening + 0.4)   # 封面不要截到穿越中的黑畫面
+    run(["ffmpeg", "-v", "error", "-y", "-ss", f"{cover_at:.2f}", "-i", str(final), "-frames:v", "1", "-q:v", "3", str(out_dir / f"{e['slug']}.jpg")])
     print("完成", final, round(total, 1), "秒", final.stat().st_size // 1024, "KB")
 
 
