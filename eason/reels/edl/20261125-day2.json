@@ -1,0 +1,102 @@
+{
+ "slug": "20261125-day2",
+ "auto": false,
+ "hook": {
+  "title": "交易老師的移動辦公室",
+  "sub": "Day 2"
+ },
+ "captions": [
+  {
+   "start": 2.7,
+   "end": 5.1,
+   "text": "換個城市，習慣不換"
+  },
+  {
+   "start": 5.1,
+   "end": 7.5,
+   "text": "早上先看昨天的筆記"
+  },
+  {
+   "start": 7.5,
+   "end": 9.9,
+   "text": "開盤前，只做一件事：寫計畫"
+  },
+  {
+   "start": 9.9,
+   "end": 12.3,
+   "text": "進場前，先想好出場"
+  },
+  {
+   "start": 12.3,
+   "end": 14.7,
+   "text": "街上很吵，心要安靜"
+  },
+  {
+   "start": 14.7,
+   "end": 17.1,
+   "text": "明天，繼續移動"
+  }
+ ],
+ "caption_y": 0.7,
+ "caption_size": 62,
+ "keep_audio": true,
+ "live_lufs": -26,
+ "clips": [
+  {
+   "id": "1lAcNNN4cKWqq4_gbVPTNLAvYBtnvq4nZ",
+   "start": 0.8,
+   "end": 3.4,
+   "voice": false,
+   "punch": true
+  },
+  {
+   "id": "1sYOzX9Lxqz9mgFQJhyPqTXdxqpMx8AV1",
+   "start": 0.8,
+   "end": 3.4,
+   "voice": false
+  },
+  {
+   "id": "19FiZAHHsKR0rUQEBv0UOXU0MQBBiI6vH",
+   "start": 0.8,
+   "end": 3.4,
+   "voice": false
+  },
+  {
+   "id": "1t8TK4dn1JpDaR2tWHToGRJB5_J94gKXj",
+   "start": 0.8,
+   "end": 3.4,
+   "voice": false
+  },
+  {
+   "id": "1ArzYqydS0b7eorjGsbzvsFJHd8pEpUFJ",
+   "start": 0.8,
+   "end": 3.4,
+   "voice": false
+  },
+  {
+   "id": "1eIcyoY1bZHZc1c8d57iUiuUzlfX8vJTj",
+   "start": 0.8,
+   "end": 3.4,
+   "voice": false
+  },
+  {
+   "id": "1waPzpGbFaaJ74vZ43ej5CzMn-UqE7beD",
+   "start": 0.8,
+   "end": 3.4,
+   "voice": false
+  }
+ ],
+ "through": {
+  "text": "Day 2",
+  "at": 0,
+  "dur": 0.9
+ },
+ "sfx": [
+  {
+   "file": "eason/reels/music/01_lofi咖啡廳.mp3",
+   "at": 0,
+   "vol": 1.0,
+   "bgm": true
+  }
+ ]
+}
