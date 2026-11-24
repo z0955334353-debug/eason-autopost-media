@@ -1,48 +1,48 @@
 {
- "id": "2026-11-24-盤中第2輪",
- "date": "2026-11-24",
- "slot": "盤中第2輪",
- "account": "@eason55058",
- "items": [
-  {
-   "username": "xuan167239",
-   "url": "https://www.threads.com/@xuan167239/post/DgEWSnLAYT6",
-   "summary": "問融資到底有多危險，想聽簡單的說明",
-   "traffic": 1181,
-   "comments": 108,
-   "comment": "教學生時我最常這樣比喻：跟券商借錢買股，等於把方向盤分一半給別人。跌破維持率就得補錢，不補就被強制處分在最痛的位置，什麼時候出場變成別人決定。"
-  },
-  {
-   "username": "ivy_0315_ivy",
-   "url": "https://www.threads.com/@ivy_0315_ivy/post/DgFu-O5ku-G",
-   "summary": "新手問：股災這樣算是確定結束了嗎？",
-   "traffic": 573,
-   "comments": 143,
-   "comment": "沒有人能在當下確認「結束」，能觀察的是反彈後的拉回有沒有守住前低、量有沒有跟上。與其猜底，不如先想好判斷錯了要怎麼處理。"
-  },
-  {
-   "username": "yuchen0711",
-   "url": "https://www.threads.com/@yuchen0711/post/DgGrgwREQOd",
-   "summary": "本來想當沖，結果開盤全部漲停，第一次看到",
-   "traffic": 546,
-   "comments": 84,
-   "comment": "全面鎖漲停的日子，當沖最好的操作就是不操作。排隊買不到、賣單又很少，價差跟流動性都消失，這種盤硬做只是在付手續費。"
-  },
-  {
-   "username": "mydachitw",
-   "url": "https://www.threads.com/@mydachitw/post/DgFi5XvGnnI",
-   "summary": "美股突然大爆漲，問到底發生什麼事",
-   "traffic": 246,
-   "comments": 85,
-   "comment": "一則人事消息就讓那斯達克單日漲 6.5%，這就是情緒走到極端的樣子：跌時把壞消息全算進去，好消息一來就一次補回。漲跌都快的時候，部位大小比方向更重要。"
-  },
-  {
-   "username": "cindyxoxo784",
-   "url": "https://www.threads.com/@cindyxoxo784/post/DgFkfglo_BB",
-   "summary": "美股大漲後懊惱還沒買夠，問現在 all in 來得及嗎",
-   "traffic": 143,
-   "comments": 32,
-   "comment": "想 all in 的那一刻，通常就是最該冷靜的時候😂 一次進場就沒有第二次機會，分批進，看錯還有空間調整，看對也不會太遺憾。"
-  }
- ]
+  "id": "2026-11-24-盤後",
+  "date": "2026-11-24",
+  "slot": "盤後",
+  "account": "@eason55058",
+  "items": [
+    {
+      "username": "tzesan8310",
+      "url": "https://www.threads.com/@tzesan8310/post/DgGwCugkdR9",
+      "summary": "梗文：「他把輝達全賣在 124.50」，笑賣在黃仁勳回歸、輝達暴漲之前",
+      "traffic": 2771,
+      "comments": 124,
+      "comment": "賣在起漲前一天這種痛，每個交易者至少要繳一次學費。比較實際的做法是出場分批，留一小部分給「萬一」，心態會穩很多。"
+    },
+    {
+      "username": "bwsbb",
+      "url": "https://www.threads.com/@bwsbb/post/DgG04R4mFec",
+      "summary": "昨天才認賠砍了 50 張正2，今天就全面漲停，崩潰自嘲大韭菜",
+      "traffic": 518,
+      "comments": 84,
+      "comment": "就差一天這種痛真的懂，抱抱。槓桿商品最常砍在恐慌最高點，下次可以試試先減半、另一半看結構再決定，心態會比一次全砍穩很多。"
+    },
+    {
+      "username": "stockoldbull",
+      "url": "https://www.threads.com/@stockoldbull/post/DgFVLanijYx",
+      "summary": "整理台股歷次跌三成（疫情、烏俄、關稅戰、這次），問大家經歷過幾次",
+      "traffic": 295,
+      "comments": 69,
+      "comment": "這張表最可怕的不是-30%，是每次都覺得「這次不一樣」。教學生時最常講的是：先算好自己扛得住幾成回檔，部位照那個數字放，不要照心情放。"
+    },
+    {
+      "username": "shi_10_15",
+      "url": "https://www.threads.com/@shi_10_15/post/DgFlj5jjwkM",
+      "summary": "昨晚美股漲太猛被暫停交易，第一次看到",
+      "traffic": 327,
+      "comments": 17,
+      "comment": "美股沒有漲跌停，但有波動暫停機制，短時間漲跌太猛就先停幾分鐘讓大家冷靜。我們這邊是鎖死漲停反而買不到，兩邊各有各的折磨。"
+    },
+    {
+      "username": "alex_chen_0226",
+      "url": "https://www.threads.com/@alex_chen_0226/post/DgHP2U-k0d7",
+      "summary": "今天台股大漲 3,310 點、改寫史上最大單日漲點，心臟受不了",
+      "traffic": 336,
+      "comments": 30,
+      "comment": "兩週前還在吵要不要停損，今天就改寫史上最大漲點。這種盤最考驗的不是看對方向，是部位有沒有小到讓你睡得著。"
+    }
+  ]
 }
