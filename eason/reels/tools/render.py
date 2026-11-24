@@ -14,6 +14,7 @@
   "pin": [{"text": "台中北區", "color": "white"}, {"text": "開到半夜的壽喜燒", "color": "0xF5C518"}],  # 抖音版：整支置頂大字，選填
   "caption_y": 0.62, "caption_size": 72,             # 字幕高度（畫面比例）與字級，選填
   "sfx": [{"file": "komazawa/reels/sfx/hit.wav", "at": 0, "vol": 0.7}],  # 音效（hit 開場、whoosh 換段落、pop 字幕出現），選填
+  背景音樂也放 sfx：{"file": "eason/reels/music/10_陽光旅遊.mp3", "at": 0, "vol": 0.8, "bgm": true}（壹神原創曲，無版權問題；bgm 會自動剪到片長並淡入淡出）
   "live_vol": 0.9,                                  # 現場聲音音量，選填
   "live_lufs": -30,                                 # 選填：把現場聲音壓成固定的小音量背景（數字越小越小聲），音效維持清楚；有設就不再把整支拉到 -14
   （clips 裡的片段可加 "punch": true：開頭快速放大回彈，通常只用在第一個片段）
@@ -256,7 +257,11 @@ def main(edl_path):
         for k, x in enumerate(sfx):
             inputs += ["-i", str(repo / x["file"])]
             ms = int(float(x["at"]) * 1000)
-            mix.append(f"[{base_idx + k}:a]aresample=48000,aformat=channel_layouts=stereo,volume={float(x.get('vol', 0.6))},adelay={ms}|{ms}[s{k}]")
+            fx = ""
+            if x.get("bgm"):  # 背景音樂：剪到片長、開頭淡入 0.3 秒、最後 1.5 秒淡出
+                left = max(0.5, total - float(x["at"]))
+                fx = f"atrim=0:{left:.2f},afade=t=in:d=0.3,afade=t=out:st={max(0.0, left - 1.5):.2f}:d=1.5,"
+            mix.append(f"[{base_idx + k}:a]aresample=48000,aformat=channel_layouts=stereo,{fx}volume={float(x.get('vol', 0.6))},adelay={ms}|{ms}[s{k}]")
             names.append(f"[s{k}]")
         mix.append("".join(names) + f"amix=inputs={len(names)}:duration=first:normalize=0,"
                    + ("alimiter=limit=0.89[amx]" if live_lufs is not None else "loudnorm=I=-14:TP=-1.5:LRA=11[amx]"))
