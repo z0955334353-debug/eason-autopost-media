@@ -12,6 +12,8 @@
   "live_vol": 0.9,                                  # 現場聲音音量，選填
   "live_lufs": -30,                                 # 選填：把現場聲音壓成固定的小音量背景（數字越小越小聲），音效維持清楚；有設就不再把整支拉到 -14
   （clips 裡的片段可加 "punch": true：開頭快速放大回彈，通常只用在第一個片段）
+  （clips 裡的片段可加 "push": true（或 0.06～0.12 的數字）：整刀慢慢推近（預設 1.0→1.08 倍），給靜止的肉盤、菜盤用（11/24 加：
+    @stay_and_dine_map 拍駒澤屋生和牛盤緩慢移動 3 秒也有分享 4,601；我們 11/24 生和牛盤、配菜吧靜止 2～5 秒像照片）。不可跟 punch 同一刀）
   （clips 裡的片段可加 "crop_top": 0.3／"crop_bottom": 0.1：先把原片上方（下方）這個比例裁掉，再放大填滿 1080x1920（左右置中裁）。
     行銷長 11/08：桌邊鏡頭畫面上緣有客人身體／下巴就用 crop_top 裁掉，裁完仍看得到就整段不用；照片也適用）
   （clips 裡的片段可加 "zoom": {"x": 0.5, "y": 0.65, "w": 0.55}：老闆 11/11「放大鍋物、閃掉客人就好」。以 (x, y) 為中心（原片比例）
@@ -43,6 +45,7 @@ hook 可改寫 "stack": ["台中北區", "半夜十二點", "還能開這一鍋"
   -ig／-tiktok 主片要寫 "format": "類型名"（倒帶型、單品快版、一鏡到底、品項連發、情境型、特寫型、開店前EP、二選一），
   沒寫、或前 2 天同平台都是同一型（舊剪輯單沒寫 format 視為倒帶型）印⚠️。
 警告（11/17 加）：相鄰同 tag（「翻生肉」「翻肉」視為同一動作）連續合計 > 3.5 秒、或相鄰同 tag 來自不同原片（換角度），印⚠️；最後一刀不算。
+警告（11/24 加）：靜態展示的 tag（肉盤／肉盤特寫／蔬菜／菇類／配菜／菜盤，見 STATIC_TAGS）單刀 > 1.6 秒沒加 push、或相鄰合計 > 3 秒，印⚠️。
 警告（11/21 加）：某一刀在前 7 天剪輯單已有 2 天用過同一段（第 5 條最多 2 次）、第一刀前 3 天用過、或全片 ≥ 50% 秒數是前 7 天用過的；音效 > 6 個、或 ≥ 3 個音效貼著字幕出現（B 套字幕不配啵），印⚠️。
 "copy": {"ig": "IG 文案", "tiktok": "抖音文案"}：選填。有寫的話會跟畫面上的字一起做「禁用說法」檢查（BANNED，老闆 11/09：只有開鍋由店員服務），
   命中就直接停止、不出片；推 LINE 前請把文案也放進剪輯單讓程式檢查。
@@ -418,6 +421,30 @@ def warn_layout(e):
     return msgs
 
 
+STATIC_TAGS = {"肉盤", "肉盤特寫", "蔬菜", "菇類", "配菜", "菜盤", "生和牛盤", "小菜"}
+
+
+def warn_static(e, limit=1.6, run_limit=3.0):
+    """11/24 檢討：IG v1 生和牛盤 2 秒＋配菜吧 5 秒（3 秒同一格不動），像在看照片，不是「越看越想吃」。
+    靜態展示 tag 單刀 > limit 秒且沒加 push、或相鄰靜態刀合計 > run_limit 秒，印⚠️。只印不擋，回傳警告清單（測試用）。"""
+    msgs, run_t, run_start = [], 0.0, None
+    for i, c in enumerate(e.get("clips", []) + [{}]):
+        st = canon(c.get("tag")) in STATIC_TAGS or c.get("tag") in STATIC_TAGS
+        d = clip_dur(c) if c else 0.0
+        if st and d > limit + 0.01 and not c.get("push"):
+            msgs.append(f"第 {i + 1} 刀「{c.get('tag')}」靜止展示 {d:.1f} 秒：剪到 1.5 秒內，或加 \"push\": true 慢慢推近")
+        if st:
+            run_t += d
+            run_start = i + 1 if run_start is None else run_start
+        else:
+            if run_t > run_limit + 0.01:
+                msgs.append(f"第 {run_start}～{i} 刀連續靜態展示（盤、菜吧）合計 {run_t:.1f} 秒 > {run_limit:.0f} 秒：中間插一刀鍋裡的動作")
+            run_t, run_start = 0.0, None
+    for m in msgs:
+        print("⚠️ " + m)
+    return msgs
+
+
 def warn_zoom(c, src):
     """zoom 後保留的寬度太少（< 640 像素）會放大太多、畫面偏糊，印警告（11/11 研究：1080p 原片 w 0.55 已偏軟）。"""
     z = c.get("zoom")
@@ -446,6 +473,7 @@ def main(edl_path):
     warn_reuse(e, edl_path)
     warn_sfx(e)
     warn_layout(e)
+    warn_static(e)
     tmp = Path("/tmp/kzr")
     tmp.mkdir(exist_ok=True)
     parts = []
@@ -484,6 +512,11 @@ def main(edl_path):
         if c.get("punch"):  # 開場快速放大回彈：前 0.35 秒從 1.15 倍縮回 1 倍
             base = (f"{trim(c)}scale={W}:{H}:force_original_aspect_ratio=increase:flags=lanczos,crop={W}:{H},setsar=1,setpts=PTS/{speed},fps=30,"
                     f"scale=w='{W}*(1+0.15*max(0,1-t/0.35))':h='{H}*(1+0.15*max(0,1-t/0.35))':eval=frame,crop={W}:{H},setsar=1")
+        elif c.get("push"):  # 11/24：整刀慢慢推近（靜止肉盤、菜盤用），預設 1.0→1.08 倍
+            amt = 0.08 if c["push"] is True else float(c["push"])
+            pd = max(0.1, dur / speed)
+            base = (f"{base},scale=w='{W}*(1+{amt}*min(1,t/{pd:.3f}))':h='{H}*(1+{amt}*min(1,t/{pd:.3f}))':eval=frame:flags=lanczos,"
+                    f"crop={W}:{H},setsar=1")
         if e.get("grade", True):
             base = f"{base},{GRADE}"
         ok = False
