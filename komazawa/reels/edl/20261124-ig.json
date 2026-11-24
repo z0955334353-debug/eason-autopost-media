@@ -1,0 +1,213 @@
+{
+ "slug": "20261124-ig",
+ "format": "特寫型",
+ "live_lufs": -30,
+ "live_vol": 1.0,
+ "keep_audio": true,
+ "logo": false,
+ "caption_y": 0.1,
+ "caption_size": 72,
+ "end_secs": 3.0,
+ "end_y": 0.1,
+ "captions": [
+  {
+   "start": 0.05,
+   "end": 2.25,
+   "text": "天冷了，"
+  },
+  {
+   "start": 2.34,
+   "end": 3.64,
+   "text": "糖先下鍋，"
+  },
+  {
+   "start": 3.74,
+   "end": 5.64,
+   "text": "和牛貼著糖煎"
+  },
+  {
+   "start": 8.4,
+   "end": 11.3,
+   "text": "配菜 一字排開"
+  },
+  {
+   "start": 13.15,
+   "end": 14.95,
+   "text": "醬油 最後才淋"
+  },
+  {
+   "start": 18.21,
+   "end": 21.61,
+   "text": "每一面 都吸飽醬汁"
+  },
+  {
+   "start": 22.48,
+   "end": 25.28,
+   "text": "醬汁 咕嘟咕嘟滾"
+  }
+ ],
+ "end_text": [
+  "駒澤屋壽喜燒",
+  "台中北區健行路837號",
+  "每天 18:00 開門｜最後入座 00:30"
+ ],
+ "sfx": [
+  {
+   "file": "komazawa/reels/sfx/thud.wav",
+   "at": 0,
+   "vol": 0.7
+  },
+  {
+   "file": "komazawa/reels/sfx/sizzle.wav",
+   "at": 3.79,
+   "vol": 0.3
+  },
+  {
+   "file": "komazawa/reels/sfx/swish.wav",
+   "at": 5.44,
+   "vol": 0.45
+  },
+  {
+   "file": "komazawa/reels/sfx/sparkle.wav",
+   "at": 6.39,
+   "vol": 0.3
+  },
+  {
+   "file": "komazawa/reels/sfx/swish.wav",
+   "at": 12.85,
+   "vol": 0.45
+  },
+  {
+   "file": "komazawa/reels/sfx/shutter.wav",
+   "at": 27.23,
+   "vol": 0.5
+  }
+ ],
+ "copy": {
+  "ig": "天一冷，小編每天最期待的，就是開店後第一鍋冒出來的那陣煙。\n糖先下鍋，和牛貼著糖煎，醬油最後才淋；這次全程拍特寫，連油花紋路都看得清楚。\n第一鍋店員桌邊幫你開，之後換你自己慢慢煮。\n天冷的晚上，你第一個想到的是哪一鍋？\n\n📍台中市北區健行路837號\n🕕每天 18:00 開門｜最後入座 00:30（週一也有開）\n📞訂位 04-2207-0068｜訂位連結在主頁\n#台中壽喜燒 #台中宵夜 #台中美食 #北區美食 #關西風壽喜燒",
+  "tiktok": "天一冷，這鍋的煙比被窩還難離開｜台中北區健行路 #台中壽喜燒 #台中宵夜 #台中美食 #北區美食 #關西風壽喜燒"
+ },
+ "clips": [
+  {
+   "id": "1RJYm9SpThRsu36znYUvR4zn6H5GkWzlC",
+   "start": 1.0,
+   "end": 2.6,
+   "speed": 0.7,
+   "tag": "沾蛋",
+   "zoom": {
+    "x": 0.5,
+    "y": 0.52,
+    "w": 0.62
+   },
+   "punch": true,
+   "gain_db": 2
+  },
+  {
+   "id": "1DcNJ5J5w3myELrSgOmzB1WbnZVfDmFOg",
+   "start": 0.0,
+   "end": 1.05,
+   "speed": 0.75,
+   "tag": "下糖",
+   "zoom": {
+    "x": 0.45,
+    "y": 0.6,
+    "w": 0.62
+   },
+   "gain_db": 3
+  },
+  {
+   "id": "1bNy7HKw6VbTliXxM-UyC2881C8-HBzfe",
+   "start": 1.0,
+   "end": 2.4,
+   "speed": 0.7,
+   "tag": "拎起和牛",
+   "crop_top": 0.08,
+   "gain_db": 4
+  },
+  {
+   "id": "14IPmi68Rvm5S1OphX2SwOkyIUTtdOwvy",
+   "start": 1.0,
+   "end": 3.0,
+   "speed": 0.75,
+   "tag": "肉盤特寫",
+   "zoom": {
+    "x": 0.55,
+    "y": 0.62,
+    "w": 0.62
+   },
+   "gain_db": -3
+  },
+  {
+   "id": "1Iut8nAyHuuznxqq_ualHR_QIIW1XQniO",
+   "start": 0.0,
+   "end": 2.2,
+   "speed": 0.7,
+   "tag": "蔬菜",
+   "gain_db": -4
+  },
+  {
+   "id": "1Iut8nAyHuuznxqq_ualHR_QIIW1XQniO",
+   "start": 2.4,
+   "end": 3.6,
+   "speed": 0.75,
+   "tag": "菇類",
+   "gain_db": -4
+  },
+  {
+   "id": "15yHP0SU_0pSwdQ5usSBy-7y-OHpJnMco",
+   "start": 9.0,
+   "end": 10.4,
+   "speed": 0.75,
+   "tag": "淋醬油",
+   "zoom": {
+    "x": 0.5,
+    "y": 0.62,
+    "w": 0.66
+   },
+   "gain_db": 6
+  },
+  {
+   "id": "1bNy7HKw6VbTliXxM-UyC2881C8-HBzfe",
+   "start": 12.0,
+   "end": 14.4,
+   "speed": 0.75,
+   "tag": "醬汁滾",
+   "gain_db": 5
+  },
+  {
+   "id": "15yHP0SU_0pSwdQ5usSBy-7y-OHpJnMco",
+   "start": 13.6,
+   "end": 16.8,
+   "speed": 0.75,
+   "tag": "翻肉",
+   "zoom": {
+    "x": 0.5,
+    "y": 0.62,
+    "w": 0.66
+   },
+   "gain_db": 5
+  },
+  {
+   "id": "1j4T8Q-1Z-lq_PuGA9mbtZPAmBgIiVg3-",
+   "start": 29.8,
+   "end": 32.2,
+   "speed": 0.8,
+   "tag": "熟肉",
+   "crop_top": 0.1,
+   "gain_db": 4
+  },
+  {
+   "id": "1bNy7HKw6VbTliXxM-UyC2881C8-HBzfe",
+   "start": 14.8,
+   "end": 18.4,
+   "speed": 0.75,
+   "tag": "醬汁肉",
+   "zoom": {
+    "x": 0.5,
+    "y": 0.62,
+    "w": 0.7
+   },
+   "gain_db": 4
+  }
+ ]
+}
