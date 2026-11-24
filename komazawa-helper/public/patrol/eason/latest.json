@@ -1,56 +1,48 @@
 {
-  "id": "2026-11-09-live",
-  "date": "2026-11-09",
-  "slot": "盤中（幕僚長手動第一輪）",
-  "account": "@eason55058",
-  "items": [
-    {
-      "username": "evan0987081000",
-      "url": "https://www.threads.com/@evan0987081000/post/DfgQ-1rmUk8",
-      "summary": "「有人跟我一樣上週五認賠出場的嗎？」（萬讚帳號，剛發，越早留越前面）",
-      "traffic": "剛發 3 分鐘（他上一篇 9,033 讚）",
-      "comments": null,
-      "comment": "認賠完隔天就大漲，這種心情我懂😂\n但會停損的人，下一次大跌才還有子彈。今天先別急著追回來。"
-    },
-    {
-      "username": "evan0987081000",
-      "url": "https://www.threads.com/@evan0987081000/post/DfgHmu_GeyN",
-      "summary": "「今天是因為國安基金所以才漲嗎？」",
-      "traffic": "讚 433・留言 51・分享 109",
-      "comments": 51,
-      "comment": "有一部分是心理面：大家知道「有人會接」，賣壓先停了。\n但國安基金進場那天，從來不保證就是最低點。"
-    },
-    {
-      "username": "sol.beyou2750",
-      "url": "https://www.threads.com/@sol.beyou2750/post/DfZbCEGnYTZ",
-      "summary": "「國安基金救市了，這樣是不是代表今天就是最低點？」",
-      "traffic": "讚 142・留言 47・轉發 113",
-      "comments": 47,
-      "comment": "不一定喔，2008 那次國安基金進場後，指數又跌了一大段才落底。\n與其猜底，不如先寫好：再跌一段，你打算怎麼做？"
-    },
-    {
-      "username": "mcx7774",
-      "url": "https://www.threads.com/@mcx7774/post/DfgJWurmCEt",
-      "summary": "開盤就照計畫把 0050 出清：「數字一直跳太可怕，至少讓我心安」",
-      "traffic": "讚 63・留言 26",
-      "comments": 26,
-      "comment": "事先設好、照做、心安，這三件事比賣在哪個價位重要太多了。\n能讓自己睡得著的單，就是好單。"
-    },
-    {
-      "username": "wenelephant",
-      "url": "https://www.threads.com/@wenelephant/post/DfgHReNmeue",
-      "summary": "「台股開盤爆衝，國安基金這麼猛？還是大家看好？」",
-      "traffic": "讚 47・留言 5（1 小時，還在長）",
-      "comments": 5,
-      "comment": "兩個都有吧，週末的限空令加上國安基金，賣壓先鬆了。\n不過大漲那天反而最要冷靜，最容易追在情緒上。"
-    },
-    {
-      "username": "jan.hon.75",
-      "url": "https://www.threads.com/@jan.hon.75/post/DfecwvomIoV",
-      "summary": "「台股明天會漲幾點？夜盤漲 600 多」",
-      "traffic": "讚 76・留言 46",
-      "comments": 46,
-      "comment": "結果真的開高了😂\n開高那幾分鐘最容易手癢，我自己的習慣是先看 15 分鐘，不追第一根。"
-    }
-  ]
+ "id": "2026-11-24-盤中",
+ "date": "2026-11-24",
+ "slot": "盤中",
+ "account": "@eason55058",
+ "items": [
+  {
+   "username": "snow_white899_",
+   "url": "https://www.threads.com/@snow_white899_/post/DgFoHoBo9Yt",
+   "summary": "上週五停損賠 100 萬，看到黃仁勳回歸、全面漲停，崩潰求安慰",
+   "traffic": 4231,
+   "comments": 503,
+   "comment": "停損完隔天就噴，這種痛每個交易者都繳過學費。停損砍的是當下的風險，不是之後的價格，那天沒人知道會有這個消息，妳做的事沒有錯。"
+  },
+  {
+   "username": "stock_glee",
+   "url": "https://www.threads.com/@stock_glee/post/DgFnPlskuoQ",
+   "summary": "美股沒有漲跌幅，但這次漲太猛，那斯達克期貨和 DELL 都被暫停交易",
+   "traffic": 3529,
+   "comments": 67,
+   "comment": "沒有漲跌幅不代表沒有煞車，LULD 機制就是：價格短時間衝出波動帶，就暫停交易5分鐘，往上衝也一樣。很多人以為只有崩的時候才會停，這張真的值得收藏。"
+  },
+  {
+   "username": "zx.__553",
+   "url": "https://www.threads.com/@zx.__553/post/DgFj9RLCUrF",
+   "summary": "放空期貨，停損單沒觸發，被軋 3000 點，問現在怎麼辦",
+   "traffic": 773,
+   "comments": 212,
+   "comment": "漲停鎖死的時候，停損單就算觸價也排不到成交，這是期貨最殘酷的一課。我做指標時發現，極端行情真正保命的是口數，不是停損單。"
+  },
+  {
+   "username": "balabruce",
+   "url": "https://www.threads.com/@balabruce/post/DgEsbMyk2wM",
+   "summary": "週五出清美股、改買反向三倍費半，結果一個夜盤就 -17%",
+   "traffic": 461,
+   "comments": 54,
+   "comment": "反向三倍是最考驗心臟的工具：最痛的不是方向錯，是它每天重新平衡，連盤整都在磨損淨值。拿來短線避險可以，拿來押「還會再崩」代價很高。"
+  },
+  {
+   "username": "kaaaliii_w",
+   "url": "https://www.threads.com/@kaaaliii_w/post/DgFZ53bE0KW",
+   "summary": "老公突然信貸 300 萬要進股市，太太擔心，請大家給建議",
+   "traffic": 222,
+   "comments": 90,
+   "comment": "妳的直覺是對的。信貸進場最大的壓力不是跌，是每個月固定要還，會逼人在最差的時間點賣。先算一件事：部位腰斬時月付還繳得起嗎？繳不起就先縮小金額。"
+  }
+ ]
 }
