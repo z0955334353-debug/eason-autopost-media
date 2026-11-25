@@ -1,0 +1,270 @@
+{
+ "slug": "20261125-ig-v2",
+ "format": "情境型",
+ "live_lufs": -30,
+ "live_vol": 1.0,
+ "keep_audio": true,
+ "logo": false,
+ "caption_y": 0.21,
+ "caption_size": 72,
+ "end_secs": 3.0,
+ "end_y": 0.1,
+ "hook": {
+  "stack": [
+   "下班不回家",
+   "直接來開",
+   "這一鍋"
+  ],
+  "sub": "台中北區 關西風"
+ },
+ "captions": [
+  {
+   "start": 2.55,
+   "end": 4.52,
+   "text": "冰生啤 拉一杯"
+  },
+  {
+   "start": 4.65,
+   "end": 8.32,
+   "text": "配菜 也備好了"
+  },
+  {
+   "start": 8.45,
+   "end": 9.75,
+   "text": "糖 先下"
+  },
+  {
+   "start": 11.59,
+   "end": 14.06,
+   "text": "一大片 貼著糖"
+  },
+  {
+   "start": 15.03,
+   "end": 17.7,
+   "text": "醬油 最後淋"
+  },
+  {
+   "start": 17.83,
+   "end": 22.1,
+   "text": "醬汁 滾上來"
+  },
+  {
+   "start": 24.89,
+   "end": 27.19,
+   "text": "一沾 滑進蛋裡"
+  }
+ ],
+ "end_text": [
+  "駒澤屋壽喜燒",
+  "台中北區健行路837號",
+  "每天 18:00 開門｜最後入座 00:30"
+ ],
+ "sfx": [
+  {
+   "file": "komazawa/reels/sfx/hit.wav",
+   "at": 0,
+   "vol": 0.7
+  },
+  {
+   "file": "komazawa/reels/sfx/swish.wav",
+   "at": 11.29,
+   "vol": 0.45
+  },
+  {
+   "file": "komazawa/reels/sfx/sizzle.wav",
+   "at": 11.94,
+   "vol": 0.3
+  },
+  {
+   "file": "komazawa/reels/sfx/ding.wav",
+   "at": 27.64,
+   "vol": 0.5
+  }
+ ],
+ "copy": {
+  "ig": "說好下班早點回家，結果半夜還在健行路開鍋。\n糖先下，整片和牛貼著糖煎，醬油最後才淋，煮到醬汁滾上來再撈起。\n第一鍋店員桌邊幫你開，之後換你自己慢慢煮，旁邊再拉一杯冰生啤。\n下班第一口，你先夾肉還是先喝生啤？\n\n📍台中市北區健行路837號\n每天 18:00 開門｜最後入座 00:30（週一也有開）\n📞訂位 04-2207-0068｜訂位連結在主頁\n#台中壽喜燒 #台中宵夜 #北區美食 #關西風壽喜燒 #台中下班吃什麼",
+  "tiktok": "說好下班直接回家，結果又在台中北區開了一鍋。下班第一口，先夾肉還是先喝生啤？ #台中壽喜燒 #台中宵夜 #北區美食 #關西風壽喜燒 #台中美食"
+ },
+ "clips": [
+  {
+   "id": "1sNj9BcqbkFJuYTyWyL57pgI4fNeeuGWb",
+   "start": 0.2,
+   "end": 2.6,
+   "speed": 1.0,
+   "tag": "肉盤",
+   "zoom": {
+    "x": 0.5,
+    "y": 0.73,
+    "w": 0.62
+   },
+   "push": true,
+   "gain_db": -4
+  },
+  {
+   "id": "1TLlkXnSGPCi-GRW_XKiyKpAJJw4jMiBN",
+   "start": 0.4,
+   "end": 2.6,
+   "speed": 1.0,
+   "tag": "生啤",
+   "zoom": {
+    "x": 0.56,
+    "y": 0.38,
+    "w": 0.65
+   },
+   "gain_db": -2
+  },
+  {
+   "id": "1tKI2Ejb7zCd-BFRBAGVzn8E-PwNAYln-",
+   "start": 1.3,
+   "end": 3.1,
+   "speed": 1.0,
+   "tag": "蔬菜",
+   "push": true,
+   "gain_db": -4
+  },
+  {
+   "id": "1a9pBg-wGrm-Pr1gP2DTX983p_ycT4Tsf",
+   "start": 2.6,
+   "end": 4.6,
+   "speed": 1.0,
+   "tag": "排鍋",
+   "zoom": {
+    "x": 0.5,
+    "y": 0.62,
+    "w": 0.7
+   },
+   "gain_db": -4
+  },
+  {
+   "id": "1ownkIFkaj69Zn-kKrA9SzzOODMoKSeYH",
+   "start": 8.6,
+   "end": 9.6,
+   "speed": 0.7,
+   "tag": "下糖",
+   "zoom": {
+    "x": 0.5,
+    "y": 0.55,
+    "w": 0.62
+   },
+   "gain_db": 0
+  },
+  {
+   "id": "1_DGvMrk3DvgRsbpH8T6ppEElEp0TpKbj",
+   "start": 0.1,
+   "end": 1.3,
+   "speed": 0.7,
+   "tag": "肉盤特寫",
+   "zoom": {
+    "x": 0.45,
+    "y": 0.52,
+    "w": 0.6
+   },
+   "push": true,
+   "gain_db": -4
+  },
+  {
+   "id": "1ownkIFkaj69Zn-kKrA9SzzOODMoKSeYH",
+   "start": 30.0,
+   "end": 31.3,
+   "speed": 0.5,
+   "tag": "下肉",
+   "zoom": {
+    "x": 0.45,
+    "y": 0.5,
+    "w": 0.65
+   },
+   "gain_db": 6
+  },
+  {
+   "id": "1ownkIFkaj69Zn-kKrA9SzzOODMoKSeYH",
+   "start": 38.8,
+   "end": 39.3,
+   "speed": 0.6,
+   "tag": "煎香",
+   "zoom": {
+    "x": 0.45,
+    "y": 0.5,
+    "w": 0.62
+   },
+   "gain_db": 6
+  },
+  {
+   "id": "1ownkIFkaj69Zn-kKrA9SzzOODMoKSeYH",
+   "start": 42.6,
+   "end": 44.0,
+   "speed": 0.5,
+   "tag": "淋醬油",
+   "zoom": {
+    "x": 0.5,
+    "y": 0.52,
+    "w": 0.66
+   },
+   "gain_db": 6
+  },
+  {
+   "id": "1ownkIFkaj69Zn-kKrA9SzzOODMoKSeYH",
+   "start": 46.4,
+   "end": 47.4,
+   "speed": 0.5,
+   "tag": "醬汁肉",
+   "zoom": {
+    "x": 0.5,
+    "y": 0.56,
+    "w": 0.62
+   },
+   "gain_db": 5
+  },
+  {
+   "id": "1ownkIFkaj69Zn-kKrA9SzzOODMoKSeYH",
+   "start": 48.0,
+   "end": 49.2,
+   "speed": 0.5,
+   "tag": "翻肉",
+   "zoom": {
+    "x": 0.5,
+    "y": 0.56,
+    "w": 0.62
+   },
+   "gain_db": 5
+  },
+  {
+   "id": "1ownkIFkaj69Zn-kKrA9SzzOODMoKSeYH",
+   "start": 52.6,
+   "end": 54.2,
+   "speed": 0.6,
+   "tag": "夾起",
+   "zoom": {
+    "x": 0.58,
+    "y": 0.6,
+    "w": 0.6
+   },
+   "gain_db": 4
+  },
+  {
+   "id": "1ownkIFkaj69Zn-kKrA9SzzOODMoKSeYH",
+   "start": 55.2,
+   "end": 56.5,
+   "speed": 0.5,
+   "tag": "沾蛋",
+   "zoom": {
+    "x": 0.55,
+    "y": 0.66,
+    "w": 0.7
+   },
+   "gain_db": 3
+  },
+  {
+   "id": "1ownkIFkaj69Zn-kKrA9SzzOODMoKSeYH",
+   "start": 49.5,
+   "end": 51.1,
+   "speed": 0.5,
+   "tag": "熟肉",
+   "zoom": {
+    "x": 0.5,
+    "y": 0.6,
+    "w": 0.6
+   },
+   "gain_db": 5
+  }
+ ]
+}
