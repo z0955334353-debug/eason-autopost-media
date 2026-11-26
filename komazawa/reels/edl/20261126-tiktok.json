@@ -1,0 +1,263 @@
+{
+ "slug": "20261126-tiktok",
+ "format": "倒帶型",
+ "live_lufs": -30,
+ "live_vol": 1.0,
+ "keep_audio": true,
+ "logo": false,
+ "end_secs": 3.0,
+ "end_y": 0.1,
+ "caption_y": 0.22,
+ "caption_size": 76,
+ "hook": {
+  "stack": [
+   "台中北區",
+   "滾成這樣之前",
+   "先倒回去看"
+  ]
+ },
+ "end_text": [
+  "駒澤屋壽喜燒",
+  "健行路837號",
+  "最後入座 00:30"
+ ],
+ "captions": [
+  {
+   "start": 2.64,
+   "end": 4.89,
+   "text": "先從 這一盤"
+  },
+  {
+   "start": 5.04,
+   "end": 6.18,
+   "text": "這把糖 不會焦嗎？"
+  },
+  {
+   "start": 6.33,
+   "end": 7.59,
+   "text": "肉一貼上去 剛好"
+  },
+  {
+   "start": 7.74,
+   "end": 9.96,
+   "text": "醬油 最後才淋"
+  },
+  {
+   "start": 12.91,
+   "end": 15.7,
+   "text": "洋蔥 豆腐 下鍋"
+  },
+  {
+   "start": 20.02,
+   "end": 21.54,
+   "text": "吸飽醬色了"
+  },
+  {
+   "start": 21.69,
+   "end": 24.27,
+   "text": "蛋汁 裹住每一片"
+  }
+ ],
+ "sfx": [
+  {
+   "file": "komazawa/reels/sfx/thud.wav",
+   "at": 0,
+   "vol": 0.7
+  },
+  {
+   "file": "komazawa/reels/sfx/riser.wav",
+   "at": 1.59,
+   "vol": 0.35
+  },
+  {
+   "file": "komazawa/reels/sfx/hit.wav",
+   "at": 2.59,
+   "vol": 0.45
+  },
+  {
+   "file": "komazawa/reels/sfx/sizzle.wav",
+   "at": 6.43,
+   "vol": 0.3
+  },
+  {
+   "file": "komazawa/reels/sfx/pop.wav",
+   "at": 24.67,
+   "vol": 0.5
+  }
+ ],
+ "clips": [
+  {
+   "id": "1ns09iU2ifNjG6uAMQDpxjtKd-Veh7pl4",
+   "start": 85.3,
+   "end": 87.5,
+   "speed": 0.85,
+   "tag": "醬汁肉",
+   "zoom": {
+    "x": 0.5,
+    "y": 0.65,
+    "w": 0.62
+   },
+   "punch": true,
+   "gain_db": 4
+  },
+  {
+   "id": "1V6Yh_PaCJntznOmjiKqWLQ7y0NvJ0Va7",
+   "start": 0.2,
+   "end": 2.6,
+   "speed": 1.0,
+   "tag": "肉盤",
+   "zoom": {
+    "x": 0.5,
+    "y": 0.68,
+    "w": 0.62
+   },
+   "push": true,
+   "gain_db": -4
+  },
+  {
+   "id": "1ThcfZUqhN2Q2ey0QC95010C_e2SjrIDk",
+   "start": 8.0,
+   "end": 9.1,
+   "speed": 0.85,
+   "tag": "下糖",
+   "zoom": {
+    "x": 0.55,
+    "y": 0.45,
+    "w": 0.75
+   }
+  },
+  {
+   "id": "1j4T8Q-1Z-lq_PuGA9mbtZPAmBgIiVg3-",
+   "start": 16.3,
+   "end": 17.5,
+   "speed": 0.85,
+   "tag": "和牛下鍋",
+   "zoom": {
+    "x": 0.45,
+    "y": 0.6,
+    "w": 0.64
+   },
+   "gain_db": 6
+  },
+  {
+   "id": "1j4T8Q-1Z-lq_PuGA9mbtZPAmBgIiVg3-",
+   "start": 20.8,
+   "end": 22.1,
+   "speed": 0.55,
+   "tag": "淋醬油",
+   "zoom": {
+    "x": 0.6,
+    "y": 0.5,
+    "w": 0.75
+   },
+   "gain_db": 6
+  },
+  {
+   "id": "18i7EaJn_Wh2EUcLQWJpEZEP3H7wwJ7yC",
+   "start": 113.0,
+   "end": 115.8,
+   "speed": 1.0,
+   "tag": "翻肉",
+   "zoom": {
+    "x": 0.45,
+    "y": 0.6,
+    "w": 0.66
+   },
+   "gain_db": 5
+  },
+  {
+   "id": "1faSxQksAkF6VBHRrWIgeS-cosBcdGPXe",
+   "start": 1.0,
+   "end": 2.3,
+   "speed": 0.85,
+   "tag": "洋蔥",
+   "zoom": {
+    "x": 0.4,
+    "y": 0.6,
+    "w": 0.66
+   },
+   "gain_db": 2
+  },
+  {
+   "id": "1faSxQksAkF6VBHRrWIgeS-cosBcdGPXe",
+   "start": 2.4,
+   "end": 3.6,
+   "speed": 0.85,
+   "tag": "豆腐",
+   "zoom": {
+    "x": 0.4,
+    "y": 0.6,
+    "w": 0.66
+   },
+   "gain_db": 2
+  },
+  {
+   "id": "1325CwQxWujkk-QaM4R07phVexmJnOeK1",
+   "start": 15.8,
+   "end": 17.3,
+   "speed": 0.65,
+   "tag": "回到鍋裡",
+   "zoom": {
+    "x": 0.45,
+    "y": 0.68,
+    "w": 0.62
+   },
+   "gain_db": 4
+  },
+  {
+   "id": "1ownkIFkaj69Zn-kKrA9SzzOODMoKSeYH",
+   "start": 52.6,
+   "end": 54.0,
+   "speed": 0.75,
+   "tag": "夾起",
+   "zoom": {
+    "x": 0.58,
+    "y": 0.6,
+    "w": 0.6
+   },
+   "gain_db": 4
+  },
+  {
+   "id": "1faSxQksAkF6VBHRrWIgeS-cosBcdGPXe",
+   "start": 13.8,
+   "end": 14.8,
+   "speed": 0.6,
+   "tag": "醬汁配料",
+   "zoom": {
+    "x": 0.4,
+    "y": 0.6,
+    "w": 0.66
+   },
+   "gain_db": 3
+  },
+  {
+   "id": "1jPCbr32XYUs7QOkHL2oQ6-u-ZEZJehUI",
+   "start": 0.2,
+   "end": 2.3,
+   "speed": 0.65,
+   "tag": "沾蛋",
+   "zoom": {
+    "x": 0.5,
+    "y": 0.52,
+    "w": 0.6
+   }
+  },
+  {
+   "id": "1ownkIFkaj69Zn-kKrA9SzzOODMoKSeYH",
+   "start": 49.6,
+   "end": 51.1,
+   "speed": 0.5,
+   "tag": "熟肉",
+   "zoom": {
+    "x": 0.5,
+    "y": 0.6,
+    "w": 0.62
+   },
+   "gain_db": 4
+  }
+ ],
+ "copy": {
+  "ig": "我們家最療癒的畫面，是醬汁滾到把肉整片包住那一秒。\n但它是怎麼從一盤生肉走到這一秒的？倒回去看一次。\n糖先下，肉貼著糖煎，醬油最後才淋；洋蔥豆腐跟著吸醬，最後一片滑進蛋裡。\n第一鍋店員桌邊幫你開，之後換你自己慢慢煮。\n你吃壽喜燒，先夾肉還是先夾豆腐？\n\n📍台中市北區健行路837號\n每天 18:00 開門｜最後入座 00:30（週一也有開）\n📞訂位 04-2207-0068｜訂位連結在主頁\n#台中壽喜燒 #台中宵夜 #北區美食 #關西風壽喜燒 #台中美食",
+  "tiktok": "糖先下鍋到底會不會焦？台中北區這一鍋，倒回去給你看。你吃壽喜燒先夾肉還是先夾豆腐？ #台中壽喜燒 #台中宵夜 #北區美食 #關西風壽喜燒 #台中美食"
+ }
+}
