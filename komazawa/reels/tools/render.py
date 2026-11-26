@@ -37,6 +37,7 @@ hook 可改寫 "stack": ["台中北區", "半夜十二點", "還能開這一鍋"
 警告（11/12 加）：剪輯單用了 "photo"（老闆 11/12：Reels 全部要影片）；開場同一場景超過 3 秒才換畫面；單句字幕掛超過 4.5 秒（字要跟著畫面換）。
 警告（11/14 加）：clip 可選填 "nofood": true（沒有能吃的東西：空鍋、木桶、招牌、店門…）與 "tag": "倒醬油"（動作名稱）；
   前 10 秒 nofood > 1.5 秒、全片 nofood > 3 秒、同一 tag 在不相鄰的位置再出現、-ig 片段合計不在 30～35 秒（-tiktok 27～32 秒）都會印⚠️。
+警告（11/26 加）：同一支原片隔 2 刀以上再用、或相鄰刀時間倒退（warn_source）。
 警告（11/15 加）：第一刀標了 nofood 會印⚠️（第一格一定要是食物）；slug 含 "-short"（單品快版，額外加做、不取代 IG／抖音主片）片段合計不在 7～15 秒會印⚠️。
 警告（11/16 加）：同一支原片、原片時間相隔不到 4 秒的兩刀（不論相不相鄰）印⚠️「可能同一動作切兩次」；兩刀標了不同 tag 就不算。
 警告（11/18 加）：同義動作算同一個 tag（冒煙／起霧／倒醬油→淋醬油、化糖／撒糖→下糖，見 ACTION_ALIAS）；
@@ -448,6 +449,25 @@ def warn_static(e, limit=1.6, run_limit=3.0):
     return msgs
 
 
+def warn_source(e):
+    """11/26 檢討：IG 13～16 秒「洋蔥」「豆腐」與第 22 秒「醬汁配料」都是同一支原片（1faSx，同一個鍋），
+    合計 4.9 秒沒超過 5 秒警告，但觀眾在不同段落看到同一鍋兩次。同一支原片的刀要連在一起、時間往前走（一鏡拆刀、中間插 1 刀可以）；
+    中間隔 2 刀以上再用、或相鄰但時間倒退，印⚠️。只印不擋，回傳警告清單（測試用）。"""
+    msgs, pos = [], {}
+    clips = e.get("clips", [])
+    for i, c in enumerate(clips):
+        if c.get("id"):
+            pos.setdefault(c["id"], []).append(i)
+    for sid, idx in pos.items():
+        n = [k + 1 for k in idx]
+        if any(b - a > 2 for a, b in zip(idx, idx[1:])):  # 中間插 1 刀 cutaway 可以，隔 2 刀以上就是不同段落
+            msgs.append(f"原片 {sid[:6]} 在第 {'、'.join(map(str, n))} 刀分開出現（同一個鍋在不同段落看兩次）：同一支原片的刀接在一起，或換另一支原片")
+        elif any(0 < float(clips[a]["start"]) - float(clips[b]["start"]) < 30 for a, b in zip(idx, idx[1:])):  # 30 秒內＝同一鍋
+            msgs.append(f"原片 {sid[:6]} 第 {'、'.join(map(str, n))} 刀時間倒退（鍋裡狀態倒回去）：照拍攝順序排")
+    for m in msgs:
+        print("⚠️ " + m)
+    return msgs
+
 def warn_zoom(c, src):
     """zoom 後保留的寬度太少（< 640 像素）會放大太多、畫面偏糊，印警告（11/11 研究：1080p 原片 w 0.55 已偏軟）。"""
     z = c.get("zoom")
@@ -477,6 +497,7 @@ def main(edl_path):
     warn_sfx(e)
     warn_layout(e)
     warn_static(e)
+    warn_source(e)
     tmp = Path("/tmp/kzr")
     tmp.mkdir(exist_ok=True)
     parts = []
