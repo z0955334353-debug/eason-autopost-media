@@ -1,0 +1,5 @@
+engine.js — adapted from Lemo Opuscar styles/dataviz/demo/engine.js (code: MIT License, https://github.com/lemomo-ai/lemo-opuscar)
+Fonts (SIL Open Font License 1.1, fetched by tools/fonts.sh, not stored in git):
+  Caveat, Newsreader, IBM Plex Mono — Google Fonts
+  LXGW WenKai TC — https://github.com/lxgw/LxgwWenkaiTC (via google/fonts)
+Data — Taiwan Stock Exchange (www.twse.com.tw); population — 內政部戶政司月報
