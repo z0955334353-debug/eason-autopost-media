@@ -1,72 +1,48 @@
 {
- "id": "2026-11-26-美股盤",
- "date": "2026-11-26",
- "slot": "美股盤",
- "account": "@eason55058",
- "items": [
-  {
-   "username": "uncle__good",
-   "url": "https://www.threads.com/@uncle__good/post/DgMsfFtk6ia",
-   "summary": "馬斯克喊SpaceX價值可達全球經濟百萬倍、建議續抱",
-   "traffic": 801,
-   "comments": 116,
-   "comment": "估值喊到全球經濟的N倍，當夢想聽就好，願景越大，越要先想好它最壞能跌多少。我自己的習慣是：故事再動人，單一部位也不超過總資金的固定比例。"
-  },
-  {
-   "username": "corkiballl",
-   "url": "https://www.threads.com/@corkiballl/post/DgMPAZhCFdA",
-   "summary": "外資感恩節放假、今天大漲但量縮，怕收假又賣",
-   "traffic": 289,
-   "comments": 80,
-   "comment": "量縮上漲最怕的就是隔天量一放出來方向就變。我會看明天開盤半小時的成交量有沒有人接手，這比今天漲多少更重要。"
-  },
-  {
-   "username": "ruanmuhhwa",
-   "url": "https://www.threads.com/@ruanmuhhwa/post/DgLd3pIk43I",
-   "summary": "美國GDP上修＋PCE創兩年新高，Fed下週升息機率98.5%",
-   "traffic": 225,
-   "comments": 5,
-   "comment": "數據精神分裂的時候，市場通常只聽一句話：物價。成長再好，只要通膨黏著，資金成本就是往上，估值越高的股票越先被重新算。"
-  },
-  {
-   "username": "fuchengbbq2008",
-   "url": "https://www.threads.com/@fuchengbbq2008/post/DgL7vCRlCAi",
-   "summary": "昨晚夜盤跌到很恐怖，今天居然翻紅",
-   "traffic": 199,
-   "comments": 43,
-   "comment": "半夜看報價嚇醒、早上起來又翻紅，這種行情最傷的不是錢包是睡眠😂 部位大到睡不著，就是身體在提醒你該減碼了。"
-  },
-  {
-   "username": "jecochen",
-   "url": "https://www.threads.com/@jecochen/post/DgNCKLWmWIN",
-   "summary": "12/6起美股23小時交易，台股10點可能變第二次開盤",
-   "traffic": 198,
-   "comments": 12,
-   "comment": "交易時間變長，最先被放大的是滑價跟情緒。以後早上那根K棒可能只是第一回合，我會更重視收盤價，盤中漲跌先別急著當真。"
-  },
-  {
-   "username": "h71316scott",
-   "url": "https://www.threads.com/@h71316scott/post/DgMz6v1ESgo",
-   "summary": "今天敢砍股票的都是勇者😂",
-   "traffic": 177,
-   "comments": 46,
-   "comment": "其實照計畫砍的才是勇者，跟著情緒砍的是逃兵😂 教學生時最常講的是：停損點要在進場前寫好，盤中只負責執行。"
-  },
-  {
-   "username": "too_manydollars",
-   "url": "https://www.threads.com/@too_manydollars/post/DgLSWByE8TU",
-   "summary": "大帳號觀點：台指納指費半全V，但沒過前高都只是在跳舞",
-   "traffic": 176,
-   "comments": 57,
-   "comment": "同意，V轉最容易騙人進場。我做指標時發現，反彈有沒有用要看能不能站回前一波起跌的位置，站不回去就真的只是跳舞。"
-  },
-  {
-   "username": "jinhua.lab",
-   "url": "https://www.threads.com/@jinhua.lab/post/DgMpJrQmB2L",
-   "summary": "交易做越久，越發現自己還有很多要學",
-   "traffic": 47,
-   "comments": 34,
-   "comment": "越做越覺得自己不會，通常代表開始看得到風險了。新手怕的是行情，老手怕的是自己，交易學到最後其實都在練紀律。"
-  }
- ]
+  "id": "2026-11-27-盤後",
+  "date": "2026-11-27",
+  "slot": "盤後",
+  "account": "@eason55058",
+  "items": [
+    {
+      "username": "_gracebb_",
+      "url": "https://www.threads.com/@_gracebb_/post/DgOqteKmOAe",
+      "summary": "0050 均價 74 要不要賣？聽說下週一會跌，新手求解",
+      "traffic": 328,
+      "comments": 170,
+      "comment": "「聽說下週一會跌」這種話我聽了十幾年，準的那次大家都記得，不準的沒人提。先問自己這筆錢三年內要不要用，不用的話，該顧的是扣款有沒有繼續，不是週一開盤。"
+    },
+    {
+      "username": "tetsu_chang_",
+      "url": "https://www.threads.com/@tetsu_chang_/post/DgOp_dok6uZ",
+      "summary": "那斯達克電子盤大漲 2.3%，但提醒波動劇烈，+2% 也不代表什麼",
+      "traffic": 295,
+      "comments": 31,
+      "comment": "最後一句最重要。教學生時最常講的是：單日大漲反而常出現在空頭裡，因為波動放大本身就是警訊。看到+2%先看量，再看隔天守不守得住。"
+    },
+    {
+      "username": "liuemilyliu",
+      "url": "https://www.threads.com/@liuemilyliu/post/DgO58FnHWRA",
+      "summary": "美股盤前大漲，台股卻沒反應，到底發生什麼事？",
+      "traffic": 180,
+      "comments": 62,
+      "comment": "美股昨天休市、今天又只開半天，盤前漲幅是在很薄的量上算出來的，看起來猛但參考價值有限。真正的答案要等下週一完整的交易日再說。"
+    },
+    {
+      "username": "howrrr.07",
+      "url": "https://www.threads.com/@howrrr.07/post/DgO4JvwkoPJ",
+      "summary": "11/27 盤後：波動很小，均線走平糾結，下週可能出趨勢",
+      "traffic": 136,
+      "comments": 38,
+      "comment": "均線糾結真的是暴風雨前的安靜。我做指標時發現，糾結越久，突破後第一根長K的方向越值得認真看，但假突破也最多，等收盤確認比搶第一時間重要。"
+    },
+    {
+      "username": "jeremy_hsu__",
+      "url": "https://www.threads.com/@jeremy_hsu__/post/DgOlDCViWIP",
+      "summary": "開盤加碼多單，提醒波動大要隨時停利停損",
+      "traffic": 55,
+      "comments": 11,
+      "comment": "加碼那一刻最該寫下的不是目標，是「錯了在哪裡走」。波動大的時候我會把加碼部位的停損設得比原部位更緊，讓試錯成本自己有上限。"
+    }
+  ]
 }
