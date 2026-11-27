@@ -38,6 +38,7 @@ hook 可改寫 "stack": ["台中北區", "半夜十二點", "還能開這一鍋"
 警告（11/14 加）：clip 可選填 "nofood": true（沒有能吃的東西：空鍋、木桶、招牌、店門…）與 "tag": "倒醬油"（動作名稱）；
   前 10 秒 nofood > 1.5 秒、全片 nofood > 3 秒、同一 tag 在不相鄰的位置再出現、-ig 片段合計不在 30～35 秒（-tiktok 27～32 秒）都會印⚠️。
 警告（11/26 加）：同一支原片隔 2 刀以上再用、或相鄰刀時間倒退（warn_source）。
+警告（11/27 加）：二選一型在最後一句問句之後，沒有 tag 含「原味」與「沾蛋」各 ≥ 0.8 秒的刀（warn_choice）。
 警告（11/15 加）：第一刀標了 nofood 會印⚠️（第一格一定要是食物）；slug 含 "-short"（單品快版，額外加做、不取代 IG／抖音主片）片段合計不在 7～15 秒會印⚠️。
 警告（11/16 加）：同一支原片、原片時間相隔不到 4 秒的兩刀（不論相不相鄰）印⚠️「可能同一動作切兩次」；兩刀標了不同 tag 就不算。
 警告（11/18 加）：同義動作算同一個 tag（冒煙／起霧／倒醬油→淋醬油、化糖／撒糖→下糖，見 ACTION_ALIAS）；
@@ -468,6 +469,39 @@ def warn_source(e):
         print("⚠️ " + m)
     return msgs
 
+
+CHOICE_WORDS = ("派", "還是", "選")
+
+
+def warn_choice(e, min_each=0.8):
+    """11/27 檢討：二選一型 IG／抖音開場問「原味派？沾蛋派？」、第 20 秒又問「你站哪一派？」，
+    但後面只有夾起→沾蛋，「原味」那個答案從頭到尾沒有單獨一刀（11/22 也發生過），觀眾沒得選。
+    format 是二選一時：最後一句問句字幕（含 ？ 與 派／還是／選）出現之後（沒有就看全片），
+    要各有一刀 tag 含「原味」與「沾蛋」且各 ≥ min_each 秒，否則印⚠️。只印不擋，回傳警告清單（測試用）。"""
+    msgs = []
+    if "二選一" not in str(e.get("format", "")):
+        return msgs
+    qs = [float(c.get("start", 0)) for c in e.get("captions", [])
+          if "？" in c.get("text", "") and any(w in c.get("text", "") for w in CHOICE_WORDS)]
+    q_at = max(qs) if qs else 0.0
+    t, seen = 0.0, {"原味": 0.0, "沾蛋": 0.0}
+    for c in e.get("clips", []):
+        d = clip_dur(c)
+        if t + d > q_at - 0.5:
+            tag = str(c.get("tag", ""))
+            for k in seen:
+                if k in tag or (k == "沾蛋" and canon(tag) == "沾蛋"):
+                    seen[k] += d
+        t += d
+    miss = [k for k, v in seen.items() if v < min_each]
+    if miss:
+        msgs.append(f"二選一型：問句（{q_at:.1f} 秒）之後沒有「{'／'.join(miss)}」那一刀（tag 要寫「原味」「沾蛋」、各 ≥ {min_each} 秒）："
+                    "兩個答案都要看得到，例如夾起醬色肉直接吃（原味）→ 同一片滑進蛋碗（沾蛋）")
+    for m in msgs:
+        print("⚠️ " + m)
+    return msgs
+
+
 def warn_zoom(c, src):
     """zoom 後保留的寬度太少（< 640 像素）會放大太多、畫面偏糊，印警告（11/11 研究：1080p 原片 w 0.55 已偏軟）。"""
     z = c.get("zoom")
@@ -498,6 +532,7 @@ def main(edl_path):
     warn_layout(e)
     warn_static(e)
     warn_source(e)
+    warn_choice(e)
     tmp = Path("/tmp/kzr")
     tmp.mkdir(exist_ok=True)
     parts = []
