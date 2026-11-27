@@ -1,0 +1,248 @@
+{
+ "slug": "20261127-ig",
+ "format": "二選一",
+ "live_lufs": -30,
+ "live_vol": 1.0,
+ "keep_audio": true,
+ "logo": false,
+ "end_secs": 3.0,
+ "end_y": 0.1,
+ "caption_y": 0.22,
+ "caption_size": 72,
+ "hook": {
+  "stack": [
+   "台中北區",
+   "這一盤和牛",
+   "你會怎麼選？"
+  ]
+ },
+ "end_text": [
+  "駒澤屋壽喜燒",
+  "台中北區健行路837號",
+  "每天 18:00 開門｜最後入座 00:30"
+ ],
+ "captions": [
+  {
+   "start": 6.55,
+   "end": 8.35,
+   "text": "蔬菜 排滿一整排"
+  },
+  {
+   "start": 8.55,
+   "end": 9.75,
+   "text": "第一鍋 店員幫你開"
+  },
+  {
+   "start": 9.95,
+   "end": 11.46,
+   "text": "糖先下 整片貼上去"
+  },
+  {
+   "start": 11.66,
+   "end": 12.86,
+   "text": "最後 才淋醬油"
+  },
+  {
+   "start": 14.78,
+   "end": 19.18,
+   "text": "之後 換你自己煮"
+  },
+  {
+   "start": 20.96,
+   "end": 22.76,
+   "text": "原味 還是沾蛋？"
+  }
+ ],
+ "sfx": [
+  {
+   "file": "komazawa/reels/sfx/hit.wav",
+   "at": 0,
+   "vol": 0.7
+  },
+  {
+   "file": "komazawa/reels/sfx/swish.wav",
+   "at": 8.15,
+   "vol": 0.45
+  },
+  {
+   "file": "komazawa/reels/sfx/sizzle.wav",
+   "at": 10.1,
+   "vol": 0.3
+  },
+  {
+   "file": "komazawa/reels/sfx/shutter.wav",
+   "at": 27.17,
+   "vol": 0.5
+  }
+ ],
+ "clips": [
+  {
+   "id": "19RIFbEdMqYeOvT9uT4Q0o3rGfz8I3ap1",
+   "start": 0.2,
+   "end": 1.7,
+   "speed": 1.0,
+   "tag": "肉盤",
+   "punch": true,
+   "gain_db": -2
+  },
+  {
+   "id": "1Iut8nAyHuuznxqq_ualHR_QIIW1XQniO",
+   "start": 0.4,
+   "end": 1.9,
+   "speed": 1.0,
+   "tag": "蔬菜",
+   "gain_db": -4
+  },
+  {
+   "id": "1TLlkXnSGPCi-GRW_XKiyKpAJJw4jMiBN",
+   "start": 3.3,
+   "end": 6.7,
+   "speed": 1.0,
+   "tag": "生啤",
+   "gain_db": -2
+  },
+  {
+   "id": "1Iut8nAyHuuznxqq_ualHR_QIIW1XQniO",
+   "start": 2.0,
+   "end": 4.0,
+   "speed": 1.0,
+   "tag": "菇類",
+   "push": true,
+   "gain_db": -4
+  },
+  {
+   "id": "1GtGU3DePupPbJ8ZpVnZnAKMnJCT1L1JB",
+   "start": 11.0,
+   "end": 12.4,
+   "speed": 1.0,
+   "tag": "下糖",
+   "zoom": {
+    "x": 0.5,
+    "y": 0.62,
+    "w": 0.7
+   },
+   "gain_db": 0
+  },
+  {
+   "id": "1XBYYQPBakviI44dRwkOpCQgOXwnbCjoL",
+   "start": 25.0,
+   "end": 26.2,
+   "speed": 0.7,
+   "tag": "和牛下鍋",
+   "zoom": {
+    "x": 0.47,
+    "y": 0.55,
+    "w": 0.64
+   },
+   "gain_db": 5
+  },
+  {
+   "id": "1XBYYQPBakviI44dRwkOpCQgOXwnbCjoL",
+   "start": 28.6,
+   "end": 30.0,
+   "speed": 1.0,
+   "tag": "淋醬油",
+   "zoom": {
+    "x": 0.47,
+    "y": 0.7,
+    "w": 0.64
+   },
+   "gain_db": 6
+  },
+  {
+   "id": "1XBYYQPBakviI44dRwkOpCQgOXwnbCjoL",
+   "start": 32.4,
+   "end": 33.6,
+   "speed": 0.7,
+   "tag": "翻肉",
+   "zoom": {
+    "x": 0.47,
+    "y": 0.55,
+    "w": 0.64
+   },
+   "gain_db": 5
+  },
+  {
+   "id": "1gLCCba_ueUi219gfH69JZOA70IKtMn9O",
+   "start": 10.0,
+   "end": 11.2,
+   "speed": 0.8,
+   "tag": "醬汁滾",
+   "zoom": {
+    "x": 0.55,
+    "y": 0.5,
+    "w": 0.6
+   },
+   "gain_db": 4
+  },
+  {
+   "id": "18i7EaJn_Wh2EUcLQWJpEZEP3H7wwJ7yC",
+   "start": 119.4,
+   "end": 121.6,
+   "speed": 0.7,
+   "tag": "收汁",
+   "zoom": {
+    "x": 0.45,
+    "y": 0.6,
+    "w": 0.66
+   },
+   "gain_db": 4
+  },
+  {
+   "id": "1ns09iU2ifNjG6uAMQDpxjtKd-Veh7pl4",
+   "start": 92.0,
+   "end": 93.0,
+   "speed": 0.65,
+   "tag": "醬汁肉",
+   "zoom": {
+    "x": 0.5,
+    "y": 0.62,
+    "w": 0.62
+   },
+   "gain_db": 4
+  },
+  {
+   "id": "1ns09iU2ifNjG6uAMQDpxjtKd-Veh7pl4",
+   "start": 93.0,
+   "end": 95.0,
+   "speed": 0.6,
+   "tag": "夾起",
+   "zoom": {
+    "x": 0.5,
+    "y": 0.62,
+    "w": 0.62
+   },
+   "gain_db": 4
+  },
+  {
+   "id": "1_sszZqpzhFu6MOiB-OYZw70_tS9xsAaX",
+   "start": 4.2,
+   "end": 5.9,
+   "speed": 0.7,
+   "tag": "沾蛋",
+   "zoom": {
+    "x": 0.45,
+    "y": 0.5,
+    "w": 0.6
+   },
+   "gain_db": 0
+  },
+  {
+   "id": "1kMucL9-NYFF9dX8stnXqbaykPPP9P9rD",
+   "start": 30.8,
+   "end": 34.4,
+   "speed": 1.0,
+   "tag": "蛋汁肉",
+   "zoom": {
+    "x": 0.4,
+    "y": 0.68,
+    "w": 0.6
+   },
+   "gain_db": 0
+  }
+ ],
+ "copy": {
+  "ig": "小編今天的人生難題只有一個：這片和牛，原味還是沾蛋？\n糖先下鍋，整片和牛貼著糖煎，最後才淋醬油。\n第一鍋店員桌邊幫你開，之後換你自己慢慢煮。\n肉現切、蔬菜排一整排，再來一杯生啤，半夜也能開這一鍋。\n你是原味派，還是沾蛋派？\n\n📍台中市北區健行路837號\n每天 18:00 開門｜最後入座 00:30（週一也有開）\n📞訂位 04-2207-0068｜訂位連結在主頁\n#台中壽喜燒 #台中宵夜 #北區美食 #關西風壽喜燒 #台中美食",
+  "tiktok": "原味派還是沾蛋派？台中北區這一整片和牛，小編已經選擇困難 #台中壽喜燒 #台中宵夜 #北區美食 #關西風壽喜燒 #台中美食"
+ }
+}
